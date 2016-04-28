@@ -3,12 +3,12 @@
 ## Training topics
 
 - Introduction to Single-Page Web Applications (SPAs)
-- TypeScript Fundamentals
-  - Advantages
-  - Typing
-  - Interfaces
-  - ES6
-  - Liting and using in a project
+- Tooling and TypeScript
+  - TypeScript
+    - Advantages
+    - Typing
+    - Interfaces
+  - Npm, node and ES6
 - Angular 2 Fundamentals
   - Components
   - Annotations
