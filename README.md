@@ -22,6 +22,9 @@
   - Forms
   - Dependency Injection
   - Directives
+- Reactive programming with Angular 2
+  - Streams and observables
+  - RxJS
 - Testing
   - Unit Testing
   - E2E testing
