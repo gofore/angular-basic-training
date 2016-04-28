@@ -15,6 +15,7 @@
   - Annotations
   - Two-way data binding and displaying data
   - Services
+  - Async and server-side communication
 - Angular 2 Advanced Topics
   - Router
   - Pipes
