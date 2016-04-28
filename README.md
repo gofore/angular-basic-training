@@ -9,6 +9,7 @@
     - Typing
     - Interfaces
   - Npm, node and ES6
+  - Using IDEs and editors for Angular2 and TypeScript
 - Angular 2 Fundamentals
   - Components
   - Annotations
