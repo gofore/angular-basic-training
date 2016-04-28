@@ -10,7 +10,7 @@
     - Interfaces
   - Npm, node and ES6
   - Using IDEs and editors for Angular2 and TypeScript
-- Angular 2 Fundamentals
+- Angular 2 Basics
   - Components
   - Annotations
   - Two-way data binding and displaying data
