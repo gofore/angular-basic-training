@@ -2,7 +2,7 @@
 
 ## Training topics
 
-- Introduction to Single-Page Web Applications (SPAs)
+- [Introduction to Single-Page Web Applications (SPAs)](spa-intro/README.md)
 - Tooling and TypeScript
   - TypeScript
     - Advantages
@@ -10,10 +10,11 @@
     - Interfaces
   - Npm, node and ES6
   - Using IDEs and editors for Angular2 and TypeScript
-- Angular 2 Basics
+- [Angular 2 Fundamentals](angular2-fundamentals/README.md)
+  - Architecture
   - Components
-  - Annotations
-  - Two-way data binding and displaying data
+  - Templates
+  - Two-way data binding
   - Services
   - Async and server-side communication
 - Angular 2 Advanced Topics
@@ -28,4 +29,6 @@
 - Testing
   - Unit Testing
   - E2E testing
-  
+
+
+[Useful resources](useful-resources/README.md)
