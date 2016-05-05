@@ -8,8 +8,11 @@
     - Advantages
     - Typing
     - Interfaces
-  - Npm, node and ES6
-  - Using IDEs and editors for Angular 2 and TypeScript
+  - Tooling
+    - Node.js and node
+    - ES6
+    - Webpack
+    - Using IDEs and editors for Angular 2 and TypeScript
 - [Angular 2 Fundamentals](angular2-fundamentals/README.md)
   - Background
   - Architecture
