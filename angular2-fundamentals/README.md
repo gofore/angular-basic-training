@@ -86,7 +86,7 @@ _videos.component.html_
 
 # Services
 
-- Application wide singletons
+- Application wide singletons*
 - Can be injected to any component
 - Examples:
   - UserService

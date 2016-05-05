@@ -21,7 +21,7 @@
   - Two-way data binding
   - Services
   - Asynchronous and server-side communication
-- Angular 2 Advanced Topics
+- [Angular 2 Advanced Topics](angular2-advanced-topics/README.md)
   - Router
   - Pipes
   - Forms
