@@ -33,12 +33,11 @@
 - Testing
   - Unit Testing
   - E2E testing
-- Upgrading from Angular 1
+- [Upgrading from Angular 1](upgrading-from-angular1/README.md)
   - Idea
-  - Upgrading Angular 1 components
+  - Upgrading Angular 1 directives
   - Downgrading Angular 2 components
-  - On performance
 
 [Useful resources](useful-resources/README.md)
 
-[Remarkise for slides](https://gnab.github.io/remark/remarkise)
+[Remarkise to show slides](https://gnab.github.io/remark/remarkise)
