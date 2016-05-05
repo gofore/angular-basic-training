@@ -40,4 +40,5 @@
   - On performance
 
 [Useful resources](useful-resources/README.md)
+
 [Remarkise for slides](https://gnab.github.io/remark/remarkise)
