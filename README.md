@@ -13,14 +13,17 @@
     - ES6
     - Webpack
     - Using IDEs and editors for Angular 2 and TypeScript
+  - **Exercise**: Project setup & walkthrough
 - [Angular 2 Fundamentals](angular2-fundamentals/README.md)
   - Background
   - Architecture
   - Components
   - Templates
+  - **Exercise**: Todo application
   - Two-way data binding
   - Services
   - Asynchronous and server-side communication
+  - **Exercise**: Todo application with server
 - [Angular 2 Advanced Topics](angular2-advanced-topics/README.md)
   - Router
   - Pipes

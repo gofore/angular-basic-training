@@ -17,19 +17,13 @@
 - Data is visualized and/or manipulated and stored back on server asynchronously
 
 ---
+# Architecture
 
+Client vs. server-side
+---
 # Real-life examples
 
 - [Google search](http://www.google.com)
--
-
----
-
-# Technical overview
-
-- Initial page load fetches index HTML and JavaScript
-- JavaScript fetches the actual data via AJAX (Asynchronous JavaScript and XML). Data is usually JSON (or XML)
-- JavaScript renders the data on templates and binds event handlers for clicks, keyboard input etc.
 
 ---
 # Angular 1
