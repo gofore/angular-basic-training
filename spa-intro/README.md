@@ -1,4 +1,4 @@
-# Introduction to SPA
+# Introduction to SPA & Angular
 
 ---
 
@@ -30,3 +30,12 @@
 - Initial page load fetches index HTML and JavaScript
 - JavaScript fetches the actual data via AJAX (Asynchronous JavaScript and XML). Data is usually JSON (or XML)
 - JavaScript renders the data on templates and binds event handlers for clicks, keyboard input etc.
+
+---
+# Angular 1
+
+---
+# Angular 2
+- Universal apps
+- Web workers
+- Migration from 1
