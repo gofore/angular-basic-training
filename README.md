@@ -8,40 +8,40 @@
     - Node.js and npm
     - ES6
     - Webpack
-    - Using IDEs and editors for Angular 2 and TypeScript
-    - **Exercise**: Setting up IDE (if not done)
+    - Using IDEs and Editors for Angular 2 and TypeScript
+    - **Exercise**: Setting Up IDE (if not done)
   - TypeScript
     - Advantages
     - Typing
     - Interfaces
-  - **Exercise**: Project setup & walkthrough
+  - **Exercise**: Project Setup & Walkthrough
 - [Angular 2 Fundamentals](angular2-fundamentals/README.md)
   - Background
   - Architecture
   - Components
   - Templates
-  - **Exercise**: Todo application
-  - Two-way data binding
+  - **Exercise**: Todo Application
+  - Two-way Data Binding
   - Services
-  - Asynchronous and server-side communication
-  - **Exercise**: Todo application with server
+  - Asynchronous and Server-side Communication
+  - **Exercise**: Todo Application with Server
 - [Angular 2 Advanced Topics](angular2-advanced-topics/README.md)
   - Router
   - Pipes
   - Forms
   - Dependency Injection
   - Directives
-- [Reactive programming with Angular 2](reactive-programming-with-angular2/README.md)
-  - Streams and observables
+- [Reactive Programming with Angular 2](reactive-programming-with-angular2/README.md)
+  - Reactive Programming with Observables
   - RxJS
 - Testing
   - Unit Testing
-  - E2E testing
+  - E2E Testing
 - [Upgrading from Angular 1](upgrading-from-angular1/README.md)
   - Idea
-  - Upgrading Angular 1 directives
-  - Downgrading Angular 2 components
+  - Upgrading Angular 1 Directives
+  - Downgrading Angular 2 Components
 
-[Useful resources](useful-resources/README.md)
+[Useful Resources](useful-resources/README.md)
 
 [Remarkise to show slides](https://gnab.github.io/remark/remarkise)

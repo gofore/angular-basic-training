@@ -22,14 +22,14 @@
 - Published 2015
 - Provides a lot of improvements for writing JavaScript in scale
 ---
-# Key features
+# Key Features
 - Modules
 - Classes
 - `let` and `const` to replace `var`
 - Arrow functions
 - Enhancements on basic types such as `includes()` for string and `find()` for array
 ---
-# Few examples
+# Few Examples
 `const` keyword and arrow functions:
 
 ```javascript

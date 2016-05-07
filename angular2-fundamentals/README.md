@@ -52,7 +52,7 @@ class VideosComponent {
   }
 }
 ```
-
+---
 # Templates
 - Template is always bound to component
 - Can declare different type of interactions with the component
@@ -80,8 +80,7 @@ _video.component.html_
   </span>
 ```
 ---
-
-# Two-way data binding
+# Two-way Data Binding
 - Combining the `()` and `[]` as `([])` gives us two-way data binding
 - Giving `ngModel` allows us to bind input field into components property two-way:
 ```html
@@ -90,15 +89,12 @@ _video.component.html_
 
 - If the value of `name` is changed in our code, it updates to view. If the user types something on the input, the `name` attribute is updated accordingly
 ---
-
 # Services
-
 - Application wide singletons*
 - Can be injected to any component
 - Examples:
   - `UserService`
   - `BackendService`
-
 ---
 _user.service.ts_
 ```typescript
@@ -115,9 +111,7 @@ export class UserService {
 }
 ```
 ---
-
-# Asynchronous and server-side communication
-
+# Asynchronous and Server-side Communication
 - Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 

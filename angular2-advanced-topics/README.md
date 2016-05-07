@@ -1,8 +1,6 @@
 # Angular 2 Advanced Topics
-
 ---
 # Router
-
 ---
 # Pipes
 - Pipes are simple display-value transformations that can be applied inside a template
@@ -20,7 +18,7 @@
 <div>{{user.birthDay | date:'fullDate' | uppercase}}</div> <!-- FRIDAY, APRIL 15, 1988 -->
 ```
 ---
-# Custom pipes
+# Custom Pipes
 - Custom pipes are declared with `@Pipe` annotation
 - They implement the `PipeTransform` interface by implementing method `transform` which takes the value as first argument and the optional arguments as rest of parameters
 ```typescript
@@ -42,15 +40,13 @@ export class ExponentialPipe implements PipeTransform {
 **Pipe hands-on**
 ---
 # Forms
-
 ---
 # Dependency Injection
 - Dependency Injection (DI) is a common pattern in modern frameworks to provide component with its dependencies
 - Using DI the component can just rely on the dependencies to be provided for it
 - This leads to components to be easier to test, more solid and flexibility
-
 ---
-# Dependency injection in Angular 2
+# Dependency Injection in Angular 2
 - The root dependency injector is created for root component (`AppComponent` in this case) with `bootstrap` method
 
 ```TypeScript
@@ -73,7 +69,6 @@ This is discouraged as the providers should be registered only where needed with
 export class UsersComponent { }
 ```
 This way the `UserService` would now be injectable to any child component of this component and not in whole application scope
-
 ---
 # Directives
 - There are three kinds of directives in Angular 2:
@@ -81,7 +76,6 @@ This way the `UserService` would now be injectable to any child component of thi
   - Structural directives, `ngFor` and `ngIf` are examples of these
   - Attribute directives
 - Here we talk about attribute directives which can be used to decorate the elements
-
 ---
 # Example
 -  A directive for setting background color to yellow
@@ -101,9 +95,8 @@ export class HighlightDirective {
 ```html
 <span myHighlight></span>
 ```
-
 ---
-# Events for directives
+# Events for Directives
 - We can use `host` property to define events with their corresponding handlers
 
 ```typescript
@@ -126,7 +119,7 @@ export class HighlightDirective {
 }
 ```
 ---
-# Bind value from host component
+# Bind Value from Host Component
 - We can bind host components property to our directive by declaring an `@Input` annotation:
 
 ```typescript
