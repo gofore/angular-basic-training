@@ -31,7 +31,7 @@
   - Forms
   - Dependency Injection
   - Directives
-- Reactive programming with Angular 2
+- [Reactive programming with Angular 2](reactive-programming-with-angular2/README.md)
   - Streams and observables
   - RxJS
 - Testing
