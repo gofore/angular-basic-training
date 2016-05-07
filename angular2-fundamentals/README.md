@@ -40,8 +40,7 @@
 _videos.component.ts_
 ```typescript
 @Component({
-  selector: 'x',
-  directives: [FormattedRating, WatchButton, RateButton],
+  selector: 'videos',
   templateUrl: 'videos.component.html'
 })
 class VideosComponent {
@@ -66,12 +65,19 @@ _videos.component.html_
 ```html
 <h2>Video {{name}}</h2>
 <div *ngFor="let video of videos">
+  <video [video]="video"></video>
+</div>
+```
+
+**VideoComponent here**
+
+_video.component.html_
+```html
   <span
     (click)="videoClicked($event)"
     [class.disabled]="video.disabled">
     {{video.name}}
   </span>
-</div>
 ```
 ---
 
@@ -81,6 +87,7 @@ _videos.component.html_
 ```html
 <label>Your name: <input type="text" ([ngModel])="name" /></label>
 ```
+
 - If the value of `name` is changed in our code, it updates to view. If the user types something on the input, the `name` attribute is updated accordingly
 ---
 
@@ -113,6 +120,7 @@ export class UserService {
 
 - Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
+
 ---
 
 ```typescript

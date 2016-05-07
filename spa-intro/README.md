@@ -21,6 +21,12 @@
 
 Client vs. server-side
 ---
+
+# Technical overview
+- Initial page load fetches index HTML and JavaScript
+- JavaScript fetches the actual data via AJAX (Asynchronous JavaScript and XML). Data is usually JSON (or XML)
+- JavaScript renders the data on templates and binds event handlers for clicks, keyboard input etc.
+---
 # Real-life examples
 
 - [Google search](http://www.google.com)
@@ -33,3 +39,4 @@ Client vs. server-side
 - Universal apps
 - Web workers
 - Migration from 1
+- Any renderer target (browser, mobile, desktop)

@@ -39,6 +39,8 @@ export class ExponentialPipe implements PipeTransform {
 <div>{{10 | exponential:3}}</div> <!-- 1000 -->
 ```
 ---
+**Pipe hands-on**
+---
 # Forms
 
 ---

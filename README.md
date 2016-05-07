@@ -3,16 +3,17 @@
 ## Training topics
 
 - [Introduction to Single-Page Web Applications (SPAs)](spa-intro/README.md)
-- [TypeScript and Tooling](typescript-and-tooling/README.md)
+- [Tooling and TypeScript](typescript-and-tooling/README.md)
+  - Tooling
+    - Node.js and npm
+    - ES6
+    - Webpack
+    - Using IDEs and editors for Angular 2 and TypeScript
+    - **Exercise**: Setting up IDE (if not done)
   - TypeScript
     - Advantages
     - Typing
     - Interfaces
-  - Tooling
-    - Node.js and node
-    - ES6
-    - Webpack
-    - Using IDEs and editors for Angular 2 and TypeScript
   - **Exercise**: Project setup & walkthrough
 - [Angular 2 Fundamentals](angular2-fundamentals/README.md)
   - Background
