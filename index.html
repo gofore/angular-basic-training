@@ -26,10 +26,7 @@
       var baseUrl = $source.attr('data-index-url');
 
       $(function() {
-        router(window.location.hash);
-        $(window).on('hashchange', function() {
-          window.location.reload();
-        });
+        router(window.location.search);
       });
 
 
@@ -58,7 +55,7 @@
           var $index = $(
             links.map(function (link) {
               var href = link.attrs[0][1];
-              return '<h1><a href="#' + href + '">' + href + '</a></h1>';
+              return '<h1><a href="?' + href + '#1">' + href + '</a></h1>';
             }).reduce(function (before, current) {
               return before + current;
             }, '')
