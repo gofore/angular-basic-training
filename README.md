@@ -45,3 +45,9 @@
 [Useful Resources](useful-resources/README.md)
 
 [Remarkise to show slides](https://gnab.github.io/remark/remarkise)
+
+### Open training slides on your own computer
+
+  npm install -g live-server
+  live-server --cors
+

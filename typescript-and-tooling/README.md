@@ -1,6 +1,10 @@
 # Tooling and TypeScript
+
+
 ---
+
 # Tooling
+
 - Traditionally web pages have been just static HTML, CSS and maybe some simple JS for dropdowns etc.
 - Nowadays massive SPAs require something more advanced and thus the need for tooling
 - Some basic needs for tooling:
@@ -8,28 +12,46 @@
   - Combining multiple source files into single bundle file for faster loading
   - Running test suites
   - Performance optimizations
+
 ---
+
 # Node.js & npm
+
 - Node.js is JavaScript interpreter built on top of Chrome's V8 JavaScript engine
 - npm (node package manager) is the package manager for Node
   - More packages than on any other package manager for any other language: over 270k (May 2016) ([modulecounts.com](http://www.modulecounts.com/))
+
 ---
+
 # Webpack
+
 - Widely used module bundler for web projects
+- Configurable with loaders and plugins
+- Handles both source code and assets like images and stylesheets
+- Allows you to write modular 
+
 ---
+
 # ES6
+
 - Newest version of EcmaScript standard that is the basis for JavaScript
 - Published 2015
 - Provides a lot of improvements for writing JavaScript in scale
+
 ---
-# Key Features
+
+# ES6 - Key Features
+
 - Modules
 - Classes
 - `let` and `const` to replace `var`
 - Arrow functions
 - Enhancements on basic types such as `includes()` for string and `find()` for array
+
 ---
+
 # Few Examples
+
 `const` keyword and arrow functions:
 
 ```javascript
@@ -49,21 +71,33 @@ const people = [
 ];
 console.log(people.find(person => person.name === 'Mary').id); // Prints 2
 ```
+
 ---
+
 # TypeScript
+
 - Built by Microsoft to build JavaScript in scale
 - Initial release October 2012
 - Typed superset of JavaScript -> Any valid JS is valid TypeScript
+
 ---
+
 # Advantages
+
 - Adds type system on top of JavaScript to catch clear errors already on compile-time
 - Angular 2 is written in TypeScript
+
 ---
+
 # Typing
+
 - Provides the same types as in JavaScript: `number`, `string`, `boolean`, `null`, `undefined` and `object`.
 - Also some "extra" types such as `any`, `enum`, `void` and `tuple`
+
 ---
+
 # Interfaces
+
 - Interfaces are mostly used to declare the acceptable JavaScript object structures
 - Can have optional properties (declared with `?` before `:`)
 
@@ -81,8 +115,11 @@ var user = { firstName: "Jane", lastName: "User" };
 
 document.body.innerHTML = greeter(user);
 ```
+
 ---
+
 # Classes
+
 - Objects are like in any other programming language in that they
   - can have constructors
   - implement interfaces
