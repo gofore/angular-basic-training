@@ -48,6 +48,6 @@
 
 ### Open training slides on your own computer
 
-  npm install -g live-server
-  live-server --cors
+    npm install -g live-server
+    live-server --cors
 
