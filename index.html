@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Remark Viewer</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source" data-index-url="https://raw.githubusercontent.com/gofore/angular2-training/master/"></textarea>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.js"></script>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>
+      var $source = $('#source');
+      var baseUrl = $source.attr('data-index-url');
+
+      $(function() {
+        router(window.location.hash);
+        $(window).on('hashchange', function() {
+          window.location.reload();
+        });
+      });
+
+
+      function router(location) {
+        if(!location) {
+          index();
+        } else {
+          renderSlides(location.slice(1));
+        }
+      }
+
+      function index() {
+        $.get(baseUrl + 'README.md', function (data) {
+          var md = window.markdownit();
+          var tokens = md.parse(data);
+
+          var links = 
+            tokens.map(function (token) {
+              return (token.children || []).filter(function (child) {
+                return child.type === 'link_open';
+              });
+            }).reduce(function (collected, current) {
+              return collected.concat(current);
+            }, []);
+
+          var $index = $(
+            links.map(function (link) {
+              var href = link.attrs[0][1];
+              return '<h1><a href="#' + href + '">' + href + '</a></h1>';
+            }).reduce(function (before, current) {
+              return before + current;
+            }, '')
+          );
+
+          $index.insertBefore($source);
+        });
+      }
+
+      function renderSlides(location) {
+        $source.load(baseUrl + location, function () {
+          var slideshow = remark.create();
+        });
+      }
+    </script>
+  </body>
+</html>
