@@ -71,15 +71,23 @@ somethingReturningPromise().then(
 
 # RxJS
 - _Reactive Extensions'_ implementation for JavaScript
+- A set of libraries for representing asynchronous data streams with Observables and modifying them with various stream operations
 - Allow observables to also be created from maps and arrays
 - Works with Promises
-
----
-# RxJS in More Detail
-
-
 ---
 # Observables in Angular 2
 - RxJS used
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented as observables for convenience
+- Change detection with observables
+  - Background: Angular 2 change detection is based on a directed tree where all the components get updated starting from the root when a change occurs.
+  - If Angular 2 component depends only on its input properties, and they are observable, change detection can skip component's subtree until one of its input properties emits an event
+  - This can bring performance benefits e.g. if you use observables in some gigantic table
+---
+
+# Observables in action
+- Observable vs Promise
+- Filter, Map
+- Dispose
+- Fork join
+---
