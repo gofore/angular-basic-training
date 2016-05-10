@@ -34,7 +34,7 @@
 - [Reactive Programming with Angular 2](reactive-programming-with-angular2/README.md)
   - Reactive Programming with Observables
   - RxJS
-- Testing
+- [Testing](testing/README.md)
   - Unit Testing
   - E2E Testing
 - [Upgrading from Angular 1](upgrading-from-angular1/README.md)
@@ -50,4 +50,3 @@
 
     npm install -g live-server
     live-server --cors
-
