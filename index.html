@@ -43,7 +43,7 @@
           var md = window.markdownit();
           var tokens = md.parse(data);
 
-          var links = 
+          var links =
             tokens.map(function (token) {
               return (token.children || []).filter(function (child) {
                 return child.type === 'link_open';
@@ -67,7 +67,7 @@
 
       function renderSlides(location) {
         $source.load(baseUrl + location, function () {
-          var slideshow = remark.create();
+          var slideshow = remark.create({highlightLines: true, highlightSpans: true});
         });
       }
     </script>

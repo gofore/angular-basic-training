@@ -1,21 +1,15 @@
-# Angular 2 fundamentals
-
----
-
-# Agenda
-
-1. Background
-2. Architecture
-3. Components
-4. Templates
-5. Two-way data binding
-6. Services
-7. Asynchronous and server-side communication
+# Angular 2 Fundamentals
+- Background
+- Architecture
+- Components
+- Templates
+- Two-way data binding
+- Services
+- Asynchronous and server-side communication
 
 ---
 
 # Background
-
 - Based on successful Angular 1
 - First beta on December 2015
 - First release candidate on April 2016
@@ -30,10 +24,9 @@
 ---
 
 # Components
-
-- Defines a build block for application
+- Defines a build block for application UI
 - Binds data to template
-- Has an unique selector
+- Has an unique selector for usage as part of other components
 - Has well-defined inputs and outputs
 
 ---
@@ -69,15 +62,15 @@ class VideosComponent {
 _videos.component.html_
 
 ```html
-<h2>Video {{name}}</h2>
-<div *ngFor="let video of videos">
-  <video [video]="video" (click)="videoClicked($event)"></video>
+<h2>Video `{{name}}`</h2>
+<div `*ngFor`="let video of videos">
+  <video `[video]`="video" `(click)`="videoClicked($event)"></video>
 </div>
 ```
 
 ---
 
-
+_video.component.ts_
 ```typescript
 @Component({
   selector: 'video',
@@ -111,7 +104,7 @@ _video.component.html_
 - Giving `ngModel` allows us to bind input field into components property two-way:
 
 ```html
-<label>Your name: <input type="text" ([ngModel])="name" /></label>
+<label>Your name: <input type="text" `[(ngModel)]`="name" /></label>
 ```
 
 - If the value of `name` is changed in our code, it updates to view. If the user types something on the input, the `name` attribute is updated accordingly
@@ -126,11 +119,12 @@ _video.component.html_
   - `UserService`
   - `BackendService`
 
---- 
+---
 `*` Actually injector-wide singletons
 
 ---
 
+# Example - User service
 _user.service.ts_
 
 ```typescript
@@ -143,6 +137,18 @@ export class UserService {
 
   getRole() {
     return this.userRequest.map(user => user.role);
+  }
+}
+```
+which could now be used in component as follows
+```typescript
+*import {UserService} from 'user.service';
+
+@Component({...})
+export class MyComponent {
+  private role:
+  constructor(`private userService: UserService`) {
+    this.role = userService.getRole();
   }
 }
 ```
@@ -164,7 +170,7 @@ export class MyComponent {
   }
 
   getData() {
-    this.http.get('https://example.com/mydata').subscribe(data => {
+*    this.http.get('https://example.com/mydata').subscribe(data => {
       // Do stuff with data
       this.filteredData = data.filter(item => item.id > 100);
     })

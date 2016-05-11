@@ -1,19 +1,51 @@
 # Angular 2 Advanced Topics
+- Router
+- Pipes
+- Directives
+- Forms
+- Dependency Injection
+- Change detection
+
 ---
 # Router
+
+**TBD**
+
+```typescript
+@Component({ ... })
+@Routes([
+ {path: '/crisis-center', component: CrisisListComponent},
+ {path: '/heroes',        component: HeroListComponent},
+ {path: '/hero/:id',      component: HeroDetailComponent}
+])
+export class AppComponent implements OnInit {
+ constructor(private router: Router) {}
+
+ ngOnInit() {
+   this.router.navigate(['/crisis-center']);
+ }
+}
+```
+
+```html
+<router-outlet></router-outlet>
+```
 ---
 # Pipes
 - Pipes are simple display-value transformations that can be applied inside a template
 - There are quite multiple pipes already implemented within Angular 2 itself such as `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
 - Pipes can be applied with the pipe character (`|`):
+
 ```html
 <div>{{user.name | upperCase}}</div> <!-- JOHN DOE -->
 ```
 - Pipes can have also arguments which are provided to it with the following syntax
+
 ```html
 <div>{{user.birthDay | date:'fullDate'}}</div> <!-- Friday, April 15, 1988 -->
 ```
 - It is also possible to pipe the pipes (like UNIX commands)
+
 ```html
 <div>{{user.birthDay | date:'fullDate' | uppercase}}</div> <!-- FRIDAY, APRIL 15, 1988 -->
 ```
@@ -21,6 +53,7 @@
 # Custom Pipes
 - Custom pipes are declared with `@Pipe` annotation
 - They implement the `PipeTransform` interface by implementing method `transform` which takes the value as first argument and the optional arguments as rest of parameters
+
 ```typescript
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -33,11 +66,10 @@ export class ExponentialPipe implements PipeTransform {
 }
 ```
 - This pipe could now used as follows:
+
 ```html
 <div>{{10 | exponential:3}}</div> <!-- 1000 -->
 ```
----
-**Pipe hands-on**
 ---
 # Forms
 ---
@@ -130,3 +162,69 @@ export class HighlightDirective {
 ```html
 <span [myHighlight]="color"></span>
 ```
+
+---
+
+# Zone.js
+- Zone.js implements concept of zones (inspired by Dart) in JavaScript
+- "A Zone is an execution context that persists across async tasks"
+- In practice makes it possible to track the asyncronous calls made (HTTP, timers and event listeners) within the zone
+- Angular 2 uses zones internally to track changes in state
+
+---
+# Change detection in general
+- Task of change detection is to project the internal state into UI (which is the DOM in case of web)
+- The internal state can consist of any JavaScript primitives such as objects, arrays, strings etc.
+- Change can only happen when something asynchronous has happened (event, timeout or HTTP request triggered)
+
+---
+
+# Change detection in Angular 2
+- Zone.js makes it possible to track all the possible change sources
+- Every component gets a change detector responsible for checking the bindings (like `{{name}}` and `(click)`) defined in its template
+- Change detectors propagate bindings from the root to leaves in the depth first order
+- Change detection graph is directed tree and can't contain cycles which leads makes it more performant and predictable and easier to debug
+
+![Change detection](angular2-advanced-topics/change-detection.png "Change detection")
+
+---
+# Simplified implementation
+```typescript
+// very simplified version of actual source
+class ApplicationRef {
+    changeDetectorRefs: ChangeDetectorRef[] = [];
+
+    constructor(private zone: NgZone) {
+      this.zone.onTurnDone
+        .subscribe(() => this.zone.run(() => this.tick());
+    }
+
+    tick() {
+      this.changeDetectorRefs
+        .forEach((ref) => ref.detectChanges());
+    }
+}
+```
+---
+
+# Change detection strategies
+- Change detection strategy describes which strategy will be used the next time change detection is triggered
+- Angular 2 has six change detection strategies:
+  - **CheckOnce**: After calling _detectChanges_ the mode of the change detector will become _Checked_.
+  - **Checked**: Change detector should be skipped until its mode changes to _CheckOnce_.
+  - **CheckAlways**: After calling _detectChanges_ the mode of the change detector will remain _CheckAlways_.
+  - **Detached**: Change detector sub tree is not a part of the main tree and should be skipped.
+  - **OnPush**: Change detector's mode will be set to _CheckOnce_ during hydration.
+  - **Default**: Change detector's mode will be set to _CheckAlways_ during hydration.
+- Setting the strategy is done with `changeDetection` property of `@Component` annotation:
+```typescript
+@Component({`changeDetection: ChangeDetectionStrategy.OnPush`})
+```
+
+---
+
+# Angular 2 change detection performance
+- Change detection is one of the key functionalities of Angular 2 and thus it is highly optimized
+- Each change detector has monomorphic class generated at runtime to be VM optimized
+- Change detection is always single-pass (stable) because of uni-directional top-to-bottom flow
+- Even more optimizations are possible with immutables and observables
