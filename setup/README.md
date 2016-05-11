@@ -26,11 +26,11 @@ You may use any IDE you feel comfortable with but as we can't master all of them
 #### Atom
 - Free & lightweight
 - Easy to use
-- TypeScript plugin needs to be installed: https://atom.io/packages/atom-typescript
+- TypeScript package (called [_atom-typescript_](https://atom.io/packages/atom-typescript)) needs to be installed
 
 #### IntelliJ IDEA
 - Proprietary (though 30-day trial available)
-- AngularJs plugin needs to be installed: https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS
+- [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS) plugin needs to be installed
 
 ### Copy of _angular2-seed_ Project
 Go to your workspace directory (`Documents/GitHub` etc.) and run
