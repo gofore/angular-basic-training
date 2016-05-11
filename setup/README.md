@@ -30,7 +30,9 @@ You may use any IDE you feel comfortable with but as we can't master all of them
 
 #### IntelliJ IDEA
 - Proprietary (though 30-day trial available)
-- [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS) plugin needs to be installed
+- Install recommended plugins through IntelliJ IDEA plugin management:
+  - [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS)
+  - [_NodeJS_](https://plugins.jetbrains.com/plugin/6098?pr=idea)
 
 ### Copy of _angular2-seed_ Project
 Go to your workspace directory (`Documents/GitHub` etc.) and run
