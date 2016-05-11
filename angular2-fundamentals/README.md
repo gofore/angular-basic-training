@@ -113,14 +113,11 @@ _video.component.html_
 
 # Services
 
-- Application-wide singletons*
+- Application-wide singletons (we'll come back to this later)
 - Can be injected to any component
 - Examples:
   - `UserService`
   - `BackendService`
-
----
-`*` Actually injector-wide singletons
 
 ---
 
@@ -142,7 +139,7 @@ export class UserService {
 ```
 which could now be used in component as follows
 ```typescript
-*import {UserService} from 'user.service';
+*import {UserService} from './user.service';
 
 @Component({...})
 export class MyComponent {
