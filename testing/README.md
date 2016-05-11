@@ -1,6 +1,7 @@
 # Testing
 
 ---
+
 # Unit testing
 - Testing of components in isolation from other components
 - Usually done automatically on file save (concept of _guarding_)
@@ -16,103 +17,84 @@
   - Also a large number of different kind of assertions such as `toBeDefined()`, `toMatch(regex|string)`, `toContain(regex|string)` and `toBeGreaterThan(number)`
 
 # First Jasmine test
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <title>Ng App Unit Tests</title>
-  <link rel="stylesheet" href="../node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
-  <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
-  <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
-  <script src="../node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
-</head>
-<body>
-  <script>
-    it('true is true', function(){ expect(true).toEqual(true); });
-  </script>
-</body>
-</html>
+
+```javascript
+it('true is true', function(){ expect(true).toEqual(true); });
 ```
+
 ---
 # Setup and tear-down
 - To keep test DRY, you can use `beforeEach`, `afterEach`, `beforeAll` and `afterAll`
 ```javascript
 describe("A spec using beforeEach and afterEach", function() {
-  var foo = 0;
+      var foo = 0;
 
-  beforeEach(function() {
-    foo += 1;
-  });
+      beforeEach(function() {
+        foo += 1;
+      });
 
-  afterEach(function() {
-    foo = 0;
-  });
+      afterEach(function() {
+        foo = 0;
+      });
 
-  it("is just a function, so it can contain any code", function() {
-    expect(foo).toEqual(1);
-  });
+      it("is just a function, so it can contain any code", function() {
+        expect(foo).toEqual(1);
+      });
 
-  it("can have more than one expectation", function() {
-    expect(foo).toEqual(1);
-    expect(true).toEqual(true);
-  });
+      it("can have more than one expectation", function() {
+        expect(foo).toEqual(1);
+        expect(true).toEqual(true);
+      });
 });
 ```
 
 ---
 # Spies
-- Test double functions also known as spies let you stub any function and track calls to it
+- Test double functions AKA spies let you stub any function and track calls to it
 ```javascript
 describe("A spy", function() {
-  var foo, bar = null;
+      var foo, bar = null;
+      beforeEach(function() {
+        foo = {
+          setBar: function(value) {
+            bar = value;
+          }
+        };
+        spyOn(foo, 'setBar');
+        foo.setBar(123);
+        foo.setBar(456, 'another param');
+      });
 
-  beforeEach(function() {
-    foo = {
-      setBar: function(value) {
-        bar = value;
-      }
-    };
-
-    spyOn(foo, 'setBar');
-
-    foo.setBar(123);
-    foo.setBar(456, 'another param');
-  });
-
-  it("tracks that the spy was called", function() {
-    expect(foo.setBar).toHaveBeenCalled();
-  });
-  it("tracks that the spy was called x times", function() {
-    expect(foo.setBar).toHaveBeenCalledTimes(2);
-  });
-  it("tracks all the arguments of its calls", function() {
-    expect(foo.setBar).toHaveBeenCalledWith(123);
-    expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
-  });
-  it("stops all execution on a function", function() {
-    expect(bar).toBeNull();
-  });
+      it("tracks that the spy was called", function() {
+        expect(foo.setBar).toHaveBeenCalled();
+      });
+      it("tracks that the spy was called x times", function() {
+        expect(foo.setBar).toHaveBeenCalledTimes(2);
+      });
+      it("tracks all the arguments of its calls", function() {
+        expect(foo.setBar).toHaveBeenCalledWith(123);
+        expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+      });
 });
 ```
 ---
 # Asynchronous
-- Because of the nature of JavaScript, the execution of test cases or setup and tear-down blocks can be asynchronous -> there needs to be a way to let Jasmine know when the block is completely executed
-- Jasmine supports this by checking whether there is argument declared for function passed for methods
+- Execution of test cases and setup or tear-down blocks can be asynchronous -> mechanism neede to let Jasmine know when the block is completely executed
+- Jasmine supports this by checking whether there is argument declared for functions passed
 ```javascript
-beforeEach(function(done) {
-  setTimeout(function() {
-    done();
-  }, 1000);
-});
+    beforeEach(function(done) {
+      setTimeout(function() {
+        done();
+      }, 1000);
+    });
 ```
-- Default timeout to wait before failing the test case is 5 seconds. Can be changed with extra parameter for `it` call:
+- Default timeout before failing a test case is 5 seconds. Can be changed with extra parameter for `it` call:
 ```javascript
-it("takes a long time", function(done) {
-  setTimeout(function() {
-    done();
-  }, 9000);
-}, 10000);
+    it("takes a long time", function(done) {
+      setTimeout(function() {
+        done();
+      }, 9000);
+    }, 10000);
 ```
 
 
@@ -138,12 +120,12 @@ which lets you use just `karma run`
 # Angular 2 unit testing
 - Since Angular 2 code is mostly just ES6 classes it is very easy to instantiate classes for testing. Suppose we had the following component:
 ```typescript
-@Component({
-  selector: 'videos',
-  templateUrl: 'videos.component.html'
-})
-class VideosComponent {
-}
+    @Component({
+      selector: 'videos',
+      templateUrl: 'videos.component.html'
+    })
+    class VideosComponent {
+    }
 ```
 we could instantiate it like
 ```typescript
@@ -154,23 +136,23 @@ new VideosComponent();
 # Mocking
 - The way Angular 2 DI is built makes it simple to provide mocked dependencies:
 ```typescript
-@Component({
-  selector: 'videos',
-  templateUrl: 'videos.component.html'
-})
-class VideosComponent {
-  private videos: Video[];
-  constructor(videoService: VideoService) {
-    this.videos = videoService.getList();
-  }
-}
+    @Component({
+      selector: 'videos',
+      templateUrl: 'videos.component.html'
+    })
+    class VideosComponent {
+      private videos: Video[];
+      constructor(videoService: VideoService) {
+        this.videos = videoService.getList();
+      }
+    }
 ```
 ```typescript
 new VideosComponent({getList: () => [{id: 1, name: 'The video'}]});
 ```
 ---
 # E2E testing
-- End-to-End (E2E) tests the whole flow of application
+- End-to-End (E2E) tests test the whole flow of application
 - Implemented most usually with Protractor
 
 ---

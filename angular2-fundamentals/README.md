@@ -25,7 +25,7 @@
 # Architecture
 - Tree structure of components
 
-![Component tree](component-tree.png "Component tree")
+![Component tree](angular2-fundamentals/component-tree.png "Component tree")
 
 ---
 
@@ -50,7 +50,7 @@ class VideosComponent {
   @Output() rate: EventEmitter<number>;
 
   videoClicked(video: Video) {
-
+    // Handle click
   }
 }
 ```
@@ -120,12 +120,14 @@ _video.component.html_
 
 # Services
 
-- Application wide singletons*
+- Application-wide singletons*
 - Can be injected to any component
 - Examples:
   - `UserService`
   - `BackendService`
 
+--- 
+`*` Actually injector-wide singletons
 
 ---
 
