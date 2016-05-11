@@ -49,7 +49,7 @@ class VideosComponent {
   @Input() videos: Video[];
   @Output() rate: EventEmitter<number>;
 
-  videoClicked(video) {
+  videoClicked(video: Video) {
 
   }
 }
@@ -71,11 +71,28 @@ _videos.component.html_
 ```html
 <h2>Video {{name}}</h2>
 <div *ngFor="let video of videos">
-  <video [video]="video"></video>
+  <video [video]="video" (click)="videoClicked($event)"></video>
 </div>
 ```
 
-**VideoComponent here**
+---
+
+
+```typescript
+@Component({
+  selector: 'video',
+  templateUrl: 'video.component.html'
+})
+class VideoComponent {
+  @Input() video: Video;
+  @Output() rate: EventEmitter<number>;
+
+  rate(rating: number) {
+    this.rate.emit(rating);
+  }
+}
+```
+
 
 _video.component.html_
 ```html
