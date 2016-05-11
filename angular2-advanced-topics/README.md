@@ -14,9 +14,9 @@
 ```typescript
 @Component({ ... })
 @Routes([
- {path: '/crisis-center', component: CrisisListComponent},
- {path: '/heroes',        component: HeroListComponent},
- {path: '/hero/:id',      component: HeroDetailComponent}
+ {path: '/crisis-center', component: CrisisListComponent, name: 'CrisisCenter'},
+ {path: '/heroes',        component: HeroListComponent,   name: 'Heroes'},
+ {path: '/hero/:id',      component: HeroDetailComponent, name: 'Hero'}
 ])
 export class AppComponent implements OnInit {
  constructor(private router: Router) {}
@@ -30,6 +30,13 @@ export class AppComponent implements OnInit {
 ```html
 <router-outlet></router-outlet>
 ```
+
+```html
+<a [routerLink]="CrisisCenter">
+  Crisis Center
+</a>
+```
+
 ---
 # Pipes
 - Pipes are simple display-value transformations that can be applied inside a template

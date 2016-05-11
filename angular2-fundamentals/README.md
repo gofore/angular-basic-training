@@ -3,9 +3,10 @@
 - Architecture
 - Components
 - Templates
-- Two-way data binding
+- Component Lifecycle Hooks
+- Two-way Data Binding
 - Services
-- Asynchronous and server-side communication
+- Asynchronous and Server-side Communication
 
 ---
 
@@ -94,6 +95,19 @@ _video.component.html_
     [class.disabled]="video.disabled">
     {{video.name}}
   </span>
+```
+
+---
+
+# Component Lifecycle Hooks
+- Components have set of lifecycle hooks that they can register handlers for
+- Each hook is introduced by specific interface that can be implemented
+- Example hooks: `ngOnInit`, `ngOnChanges` and `ngOnDestroy`
+
+```typescript
+export class MyComponent `implements OnInit` {
+  `ngOnInit() { ... }`
+}
 ```
 
 ---
