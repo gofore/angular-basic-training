@@ -50,3 +50,33 @@ Use stream operators to detect double clicks (two clicks within 250 ms)
 Tips:
 - [debounceTime operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md)
 - [buffer operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/buffer.md)
+
+# Exercise 4.6 GitHub Search with Observables
+
+Implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories)
+
+Requirements:
+- Input field for search term
+- Search button
+- Show a list of result item.full_names and links to item.html_url
+```html
+<a href="{{item.html_url}}">{{item.full_name}}</a>
+```
+- EXAMPLE PICTURE HERE
+
+# Exercise 4.7 Async Pipe
+
+Store your search result into an Observable (instead of subscribing it) and use async pipe in the template to show the result.
+
+- [Angular 2 pipes](https://angular.io/docs/ts/latest/guide/pipes.html)
+
+# Exercise 4.8 Show Search Results Instantly
+
+- Show search results instantly when typing
+- No need for search button anymore
+
+# Exercise 4.9 Improve the Search
+
+- Don’t hit the search endpoint on every key stroke
+- Don’t hit the search endpoint with the same query params for subsequent requests
+- Deal with out-of-order responses
