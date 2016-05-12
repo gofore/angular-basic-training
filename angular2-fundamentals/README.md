@@ -19,6 +19,8 @@
 
 # Architecture
 - Tree structure of components
+  - Each component has a template in which more components can be used
+  - Components can also use services
 
 ![Component tree](angular2-fundamentals/component-tree.png "Component tree")
 
