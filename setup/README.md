@@ -6,7 +6,7 @@ Links for installers/installation instruction:
 - [Node.js (at least version 4 or 5) & npm](https://nodejs.org/)
 - [git](http://git-scm.com/)
 
-Please make sure that the following commands success on command line:
+Please, make sure that the applications are installed correctly. Example of a valid setup:
 
 ```shell
 > node --version
