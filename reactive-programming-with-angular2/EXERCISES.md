@@ -32,3 +32,21 @@ var source1 = Rx.Observable.interval(500).take(10);
 var source2 = Rx.Observable.interval(500).take(10);
 ```
 Compare the outputs of merge and concat operators
+
+# Exercise 4.4 Buffer
+Given the following source of integers:
+```javascript
+Rx.Observable.interval(100).take(100);
+```
+Calculate the sum of items emitted within one second
+
+# Exercise 4.5 Double Click
+From the mouse click stream:
+```javascript
+Rx.Observable.fromEvent(document, 'click');
+```
+Use stream operators to detect double clicks (two clicks within 250 ms)
+
+Tips:
+- [debounceTime operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md)
+- [buffer operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/buffer.md)
