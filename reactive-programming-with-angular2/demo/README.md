@@ -50,14 +50,6 @@ var o = Rx.Observable.interval(500).take(50)
   .bufferCount(5);
 ```
 
-Concatenate and merge Observables:
-```javascript
-var o = Rx.Observable.from([1,2,3,4,5]);
-var o2 = Rx.Observable.from([6,7,8,9]);
-o.concat(o2).subscribe(x => console.log(x));
-o.merge(o2).subscribe(x => console.log(x));
-```
-
 Flatmap example:
 ```javascript
 var o = Rx.Observable.range(1,10);
