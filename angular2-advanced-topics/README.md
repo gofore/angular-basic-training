@@ -40,6 +40,10 @@ export class AppComponent implements OnInit {
 
 ---
 
+# Exercise 2.1
+
+---
+
 # Pipes
 - Pipes are simple display-value transformations that can be applied inside a template
 - There are quite multiple pipes already implemented within Angular 2 itself such as `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
@@ -84,7 +88,15 @@ export class ExponentialPipe implements PipeTransform {
 
 ---
 
+# Exercise 2.2
+
+---
+
 # Forms
+
+---
+
+# Exercise 2.3
 
 ---
 
@@ -186,6 +198,10 @@ export class HighlightDirective {
 ```html
 <span [myHighlight]="color"></span>
 ```
+
+---
+
+# Exercise 2.4
 
 ---
 

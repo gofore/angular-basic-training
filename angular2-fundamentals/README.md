@@ -101,6 +101,10 @@ _video.component.html_
 
 ---
 
+# Exercise 1.1
+
+---
+
 # Component Lifecycle Hooks
 - Components have set of lifecycle hooks that they can register handlers for
 - Each hook is introduced by specific interface that can be implemented
@@ -124,6 +128,10 @@ export class MyComponent `implements OnInit` {
 ```
 
 - If the value of `name` is changed in our code, it updates to view. If the user types something on the input, the `name` attribute is updated accordingly
+
+---
+
+# Exercise 1.2
 
 ---
 
@@ -168,6 +176,10 @@ export class MyComponent {
 
 ---
 
+# Exercise 1.3
+
+---
+
 # Asynchronous and Server-side Communication
 
 - Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
@@ -188,3 +200,7 @@ export class MyComponent {
   }
 }
 ```
+
+---
+
+# Exercise 1.4
