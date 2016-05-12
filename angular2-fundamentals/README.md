@@ -173,8 +173,6 @@ export class MyComponent {
 - Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 
----
-
 ```typescript
 @Component({...})
 export class MyComponent {
