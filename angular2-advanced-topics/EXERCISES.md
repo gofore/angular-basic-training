@@ -2,15 +2,20 @@
 
 ## 2.1 Routing
 
-
+- Create edit view for todo item
+- Use todo item name as a link to edit it
 
 ## 2.2 Pipes
 
-- Add a date field to your todo item
-- Use a pipe to show the time when an item was added e.g. 14:31
+- Implement a custom pipe to capitalize the first character of the todo item name
+- Use the pipe to capitalize todo list item names
 
 ## 2.3 Forms
 
-
+- Add _assignee email address_ field to
+  - List of todo items
+  - Edit of todo item and validate that it is a valid email. Show error if not
 
 ## 2.4 Directives
+
+-
