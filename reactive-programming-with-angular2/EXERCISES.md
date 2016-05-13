@@ -56,13 +56,11 @@ Tips:
 Implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories)
 
 Requirements:
-- Input field for search term
+- Input field for search
 - Search button
-- Show a list of result item.full_names and links to item.html_url
-```html
-<a href="{{item.html_url}}">{{item.full_name}}</a>
-```
-- EXAMPLE PICTURE HERE
+- Show a list of results with links to repositories. Use:
+  - item.full_name
+  - item.html_url
 
 # Exercise 4.7 Async Pipe
 
@@ -76,7 +74,9 @@ Store your search result into an Observable (instead of subscribing it) and use 
 - No need for search button anymore
 
 # Exercise 4.9 Improve the Search
-
-- Don’t hit the search endpoint on every key stroke
-- Don’t hit the search endpoint with the same query params for subsequent requests
-- Deal with out-of-order responses
+- Add the following improvements:
+  - Don’t hit the search endpoint on every key stroke
+  - Don’t hit the search endpoint with the same query params for subsequent requests
+  - Deal with out-of-order responses
+  - Don't crash on errors
+  - Don't hit the search endpoint on empty query (implement this after the error handling)
