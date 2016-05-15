@@ -45,19 +45,37 @@ export class AppComponent implements OnInit {
 ---
 
 # Pipes
-- Pipes are simple display-value transformations that can be applied inside a template
-- There are quite multiple pipes already implemented within Angular 2 itself such as `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
-- Pipes can be applied with the pipe character (`|`):
+- Simple display-value transformations
+- Similar concept as _filters_ in Angular 1
+- Angular 2 provides few common ones, e.g.: `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
 
+_my.component.html_
 ```html
 <div>{{user.name` | upperCase`}}</div> <!-- JOHN DOE -->
 ```
-- Pipes can have also arguments which are provided to it with the following syntax
+
+_my.component.ts_
+```typescript
+import {UpperCasePipe} from '@angular/common';
+
+@Component({
+  pipes: [UpperCasePipe]
+})
+class MyComponent {}
+```
+
+---
+
+# Pipe arguments
 
 ```html
 <div>{{user.birthDay | date`:'fullDate'`}}</div> <!-- Friday, April 15, 1988 -->
 ```
-- It is also possible to pipe the pipes (like UNIX commands)
+
+---
+
+# Multiple pipes
+- Pipes can be piped (like in UNIX)
 
 ```html
 <div>{{user.birthDay` | date:'fullDate' | uppercase`}}</div> <!-- FRIDAY, APRIL 15, 1988 -->
@@ -66,21 +84,21 @@ export class AppComponent implements OnInit {
 ---
 
 # Custom Pipes
-- Custom pipes are declared with `@Pipe` annotation
-- They implement the `PipeTransform` interface by implementing method `transform` which takes the value as first argument and the optional arguments as rest of parameters
+- Declared with `@Pipe` annotation
+- `PipeTransform` interface with `transform` method
+- `transform` takes the value as first argument and the optional arguments as rest of parameters
 
 ```typescript
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'exponential'})
-export class ExponentialPipe implements PipeTransform {
-  transform(value: number, exponent: string): number {
+*@Pipe({name: 'exponential'})
+*export class ExponentialPipe implements PipeTransform {
+*  transform(value: number, exponent: string): number {
     let exp = parseFloat(exponent);
     return Math.pow(value, isNaN(exp) ? 1 : exp);
   }
 }
 ```
-- This pipe could now used as follows:
 
 ```html
 <div>{{10 | exponential:3}}</div> <!-- 1000 -->
@@ -196,7 +214,7 @@ export class HighlightDirective {
 - Now we can pass the property like
 
 ```html
-<span [myHighlight]="color"></span>
+<span `[myHighlight]="color"`></span>
 ```
 
 ---
@@ -206,7 +224,7 @@ export class HighlightDirective {
 ---
 
 # Zone.js
-- Zone.js implements concept of zones (inspired by Dart) in JavaScript
+- implements concept of zones (inspired by Dart) in JavaScript
 - "A Zone is an execution context that persists across async tasks"
 - In practice makes it possible to track the asyncronous calls made (HTTP, timers and event listeners) within the zone
 - Angular 2 uses zones internally to track changes in state
@@ -214,17 +232,17 @@ export class HighlightDirective {
 ---
 
 # Change detection in general
-- Task of change detection is to project the internal state into UI (which is the DOM in case of web)
-- The internal state can consist of any JavaScript primitives such as objects, arrays, strings etc.
-- Change can only happen when something asynchronous has happened (event, timeout or HTTP request triggered)
+- Idea: project the internal state into UI (DOM in web)
+- The internal state consists of JavaScript primitives such as objects, arrays, strings etc.
+- Change only possible on asynchronous events such as timeouts or HTTP request
 
 ---
 
 # Change detection in Angular 2
-- Zone.js makes it possible to track all the possible change sources
-- Every component gets a change detector responsible for checking the bindings (like `{{name}}` and `(click)`) defined in its template
-- Change detectors propagate bindings from the root to leaves in the depth first order
-- Change detection graph is directed tree and can't contain cycles which leads makes it more performant and predictable and easier to debug
+- Zone.js makes it possible to track all possible change sources
+- Components change detector checks the bindings (like `{{name}}` and `(click)`) defined in its template on change
+- Bindings are propagated from the root to leaves in the depth first order
+- Change detection graph is directed tree and can't contain cycles -> improved performance, predictability and debugging
 
 ---
 
@@ -259,7 +277,7 @@ class ApplicationRef {
   - **Detached**: Change detector sub tree is not a part of the main tree and should be skipped.
   - **OnPush**: Change detector's mode will be set to _CheckOnce_ during hydration.
   - **Default**: Change detector's mode will be set to _CheckAlways_ during hydration.
-- Setting the strategy is done with `changeDetection` property of `@Component` annotation:
+- Setting the strategy:
 ```typescript
 @Component({`changeDetection: ChangeDetectionStrategy.OnPush`})
 ```
@@ -268,6 +286,6 @@ class ApplicationRef {
 
 # Angular 2 change detection performance
 - Change detection is one of the key functionalities of Angular 2 and thus it is highly optimized
-- Each change detector has monomorphic class generated at runtime to be VM optimized
+- CDs get VM optimized monomorphic classes generated for them at runtime
 - Change detection is always single-pass (stable) because of uni-directional top-to-bottom flow
-- Even more optimizations are possible with immutables and observables
+- More optimizations possible with _immutables_ and _observables_
