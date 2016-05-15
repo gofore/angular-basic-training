@@ -17,10 +17,17 @@
 
 ---
 
+# Angular 2 & TypeScript
+- Available for JavaScript, Dart and TypeScript
+- TypeScript as de facto standard
+- Framework code under `@angular` packages such as `@angular/core` and `@angular/common`
+
+---
+
 # Architecture
 - Tree structure of components
   - Each component has a template in which more components can be used
-  - Components can also use services
+  - Components can also use services (singletons) to e.g. share data
 
 ![Component tree](angular2-fundamentals/component-tree.png "Component tree")
 
@@ -28,50 +35,170 @@
 
 # Components
 - Defines a build block for application UI
-- Binds data to template
-- Has an unique selector for usage as part of other components
-- Has well-defined inputs and outputs
+- Has a template that it binds data to
+- Can contain other components
 
 ---
 
-_videos.component.ts_
+# Usage
+Class with `@Component` annotation
 
+_videos.component.ts_
+```typescript
+@Component({})
+class VideosComponent {
+}
+```
+
+---
+
+# Usage
+Template with `templateUrl`
+
+_videos.component.ts_
+```typescript
+@Component({
+  `templateUrl: 'videos.component.html'`
+})
+class VideosComponent {
+}
+```
+
+_videos.component.html_
+```html
+<div>
+  <h1>My videos</h1>
+</div>
+```
+
+---
+
+# Usage
+Selector for usage in templates
+
+_videos.component.ts_
+```typescript
+@Component({
+  templateUrl: 'videos.component.html',
+  `selector: 'videos'`
+})
+class VideosComponent {
+}
+```
+
+_app.component.ts_
+```typescript
+*import {VideoComponent} from './video.component';
+@Component({
+* providers: [VideoComponent]
+})
+class AppComponent {
+}
+```
+
+_app.component.html_
+```html
+<videos></videos>
+```
+
+---
+
+# Usage
+Data binding
+
+_videos.component.ts_
 ```typescript
 @Component({
   selector: 'videos',
   templateUrl: 'videos.component.html'
 })
 class VideosComponent {
-  @Input() videos: Video[];
-  @Output() rate: EventEmitter<number>;
-
-  videoClicked(video: Video) {
-    // Handle click
-  }
+  `private videoName: string = 'Superman';`
 }
 ```
 
----
-
-# Templates
-
-- Template is always bound to component
-- Can declare different type of interactions with the component
-  - Bind data to be shown with `{{property name}}`
-  - Attributes with `[attribute name]`
-  - Event handlers with `(event name)`
-  - Templates with `*template name`
-
 _videos.component.html_
-
 ```html
-<h2>Video `{{name}}`</h2>
-<div `*ngFor`="let video of videos">
-  <video `[video]`="video" `(click)`="videoClicked($event)"></video>
+<div>
+  <h1>`{{videoName}}`</h1>
 </div>
 ```
 
 ---
+# Usage
+Iterating over array
+
+_videos.component.ts_
+```typescript
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html'
+})
+class VideosComponent {
+  `private videos: any[] = [{name: 'Batman'}, {name: 'Superman'}];`
+}
+```
+
+_videos.component.html_
+```html
+<div `*ngFor="let video of videos"`>
+  {{video.name}}
+</div>
+```
+
+---
+
+# Usage
+Event handlers
+
+_videos.component.html_
+```html
+<div *ngFor="let video of videos">
+  <div `(click)="openVideo(video)"`>{{video.name}}</div>
+</div>
+```
+
+_videos.component.ts_
+```typescript
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html'
+})
+class VideosComponent {
+  videos: Video[] = [{name: 'Batman'}, {name: 'Superman'}];  
+
+* openVideo(video: Video) {
+*   // Open video
+* }
+}
+```
+
+---
+# Usage
+Inputs
+
+_videos.component.html_
+```html
+<div *ngFor="let video of videos">
+  <video `[data]="video"`></video>
+</div>
+```
+
+_video.component.ts_
+```typescript
+@Component({
+  selector: 'video'
+})
+class VideoComponent {
+* @Input() data: Video;
+}
+```
+
+
+---
+
+# Usage
+Outputs
 
 _video.component.ts_
 ```typescript
@@ -80,25 +207,87 @@ _video.component.ts_
   templateUrl: 'video.component.html'
 })
 class VideoComponent {
-  @Input() video: Video;
-  @Output() rate: EventEmitter<number>;
+* @Output() rate: EventEmitter<number>;
 
-  rate(rating: number) {
-    this.rate.emit(rating);
-  }
+* rate(rating: number) {
+*   this.rate.emit(rating);
+* }
 }
 ```
 
-
-_video.component.html_
+_videos.component.html_
 ```html
-  <span
-    (click)="videoClicked($event)"
-    [class.disabled]="video.disabled">
-    {{video.name}}
-  </span>
+<div *ngFor="let video of videos">
+  <video `(rate)="currentRating = $event"`></video>
+  {{currentRating}}
+</div>
 ```
 
+---
+
+# Usage
+Dependency injection with constructor parameters
+
+_videos.component.ts_
+```typescript
+*import {BackendService} from './backend.service';
+
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html'
+})
+class VideosComponent {
+* private backendService: BackendService;
+* constructor(backendService: BackendService) {
+*   this.backendService = backendService;
+* }
+}
+```
+---
+
+# Usage
+Visibility
+
+_videos.component.ts_
+```typescript
+import {BackendService} from './backend.service';
+
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html'
+})
+class VideosComponent {
+  constructor(`private` backendService: BackendService) {}
+}
+```
+
+---
+
+# Component-template bindings
+- There are different types of interaction between the component and template
+  - Bind data to be shown with `{{property name}}`
+  - Attributes with `[attribute name]`
+  - Event handlers with `(event name)`
+  - Templates with `*template name`
+
+
+_videos.component.html_
+
+```html
+<h2>Video `{{name}}`</h2>
+<div `*ngFor`="let video of videos">
+  <video `[data]`="video" `(click)`="openVideo(video)"></video>
+</div>
+```
+
+---
+# Bootstrapping the application
+
+_index.ts_
+```typescript
+import {AppComponent} from './app.component';
+bootstrap(AppComponent, [UserService, BackendService]);
+```
 ---
 
 # Exercise 1.1
@@ -106,8 +295,8 @@ _video.component.html_
 ---
 
 # Component Lifecycle Hooks
-- Components have set of lifecycle hooks that they can register handlers for
-- Each hook is introduced by specific interface that can be implemented
+- For hooking into certain lifecycle events
+- Interface for each hook
 - Example hooks: `ngOnInit`, `ngOnChanges` and `ngOnDestroy`
 
 ```typescript
@@ -120,14 +309,12 @@ export class MyComponent `implements OnInit` {
 
 # Two-way Data Binding
 
-- Combining the `()` and `[]` as `([])` gives us two-way data binding
-- Giving `ngModel` allows us to bind input field into components property two-way:
+- Combining the `()` (output) and `[]` (input) as `([])` gives us two-way data binding
+- `ngModel` allows us to bind input field into components property two-way:
 
 ```html
-<label>Your name: <input type="text" `[(ngModel)]`="name" /></label>
+<label>Your name: <input type="text" `[(ngModel)]="name"` /></label>
 ```
-
-- If the value of `name` is changed in our code, it updates to view. If the user types something on the input, the `name` attribute is updated accordingly
 
 ---
 
@@ -137,31 +324,37 @@ export class MyComponent `implements OnInit` {
 
 # Services
 
-- Application-wide singletons (we'll come back to this later)
-- Can be injected to any component
+- Application-wide singletons
+- Used to store state, communicate with backends etc.
 - Examples:
   - `UserService`
   - `BackendService`
 
 ---
+# Usage
+`@Injectable` annotation
 
-# Example - User service
 _user.service.ts_
+```typescript
+*@Injectable()
+export class UserService {
+}
+```
 
+---
+# Usage
+Include other services
+
+_user.service.ts_
 ```typescript
 @Injectable()
 export class UserService {
-  private userRequest: Observable<User>;
-  constructor(backendService: BackendService) {
-    this.userRequest = backendService.fetchUser();
-  }
-
-  getRole() {
-    return this.userRequest.map(user => user.role);
+  constructor(`backendService: BackendService`) {
   }
 }
 ```
-which could now be used in component as follows
+---
+
 ```typescript
 *import {UserService} from './user.service';
 
