@@ -155,4 +155,4 @@ Rx.Observable.from([1,2,3,4]);
 
 # Observables in action
 
-Demo content available [here](https://github.com/gofore/angular2-training/tree/master/demo/rxjs)
+Demo content available [here](https://github.com/gofore/angular2-training/tree/master/reactive-programming-with-angular2/demo)
