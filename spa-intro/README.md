@@ -50,4 +50,4 @@ Client vs. server-side
 - Universal apps
 - Web workers
 - Migration from 1
-- Any renderer target (browser, mobile, desktop)
+- Any rendering target (browser, mobile, desktop)
