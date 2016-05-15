@@ -12,12 +12,13 @@ items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: fal
 ```
 
 - Mark items done by clicking them (show the item done-status after the item name)
+- Bonus task: Add strikethrough to item names with done status
 
 ## 2.2 Two-way Data Binding
 
 - Add new items
 - Add a check box for marking items done
-- Bonus task: Add strikethrough to item names with done status
+- Bonus task: Disable add item button if item name is empty
 
 ## 2.3 Service for Todo Items
 
