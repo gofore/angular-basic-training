@@ -29,3 +29,4 @@ items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: fal
 
 - Modify your todo service to use the given REST API
 - Bonus task: Add removal of items
+- Bonus task: Sort todo list by item id
