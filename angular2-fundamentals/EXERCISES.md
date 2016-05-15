@@ -11,17 +11,20 @@ Implement a todo list application with the following features for the user:
 items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: false}];
 ```
 
-- Mark items done by clicking them
+- Mark items done by clicking them (show the item done-status after the item name)
 
 ## 2.2 Two-way Data Binding
 
 - Add new items
+- Add a check box for marking items done
+- Bonus task: Add strikethrough to item names with done status
 
 ## 2.3 Service for Todo Items
 
 - Implement a todo service and inject it to your todo list component
 - Service should be used for getting the list of todo items
 
-## 4.4 REST API
+## 2.4 REST API
 
 - Modify your todo service to use the given REST API
+- Bonus task: Add removal of items
