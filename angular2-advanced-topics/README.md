@@ -9,34 +9,154 @@
 ---
 
 # Router
+Maps URLs to components
 
--
-
-# Angular 2 Router
+_app.component.ts_
 ```typescript
-@Component({ ... })
+@Component({
+*  directives: [ROUTER_DIRECTIVES]
+})
 *@Routes([
-*  {path: '/todo-lists', component: TodoListsComponent, name: 'TodoLists'},
-*  {path: '/todo-lists/:id', component: TodoListComponent, name: 'TodoList'},
-*  {path: '/todos/:id', component: TodoComponent, name: 'Todo'}
+*  {path: '/todo-lists', component: TodoListsComponent},
+*  {path: '/todo-lists/:id', component: TodoListComponent},
+*  {path: '/todos/:id', component: TodoComponent}
 *])
 export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-*   this.router.navigate(['Todo', {id: 3}]);
-  }
 }
 ```
 
+_app.component.html_
 ```html
 <router-outlet></router-outlet>
 ```
 
+---
+
+# Router
+Navigating to another route
+
+_app.component.ts_
+```typescript
+@Component({ ... })
+@Routes([
+  {path: '/todo-lists', component: TodoListsComponent},
+  {path: '/todo-lists/:id', component: TodoListComponent},
+  {path: '/todos/:id', component: TodoComponent}
+])
+export class AppComponent implements OnInit {
+  constructor(`private router: Router`) {}
+
+  ngOnInit() {
+*   this.router.navigate(['/todos/:id', {id: 3}]);
+  }
+}
+```
+
+_app.component.html_
 ```html
-<a [routerLink]="['Todo', {id: 3}]">
+<a [routerLink]="['/todos', {id: 3}]">
   Todo
 </a>
+```
+
+---
+
+# Router Strategies
+- Two strategies for URL formation:
+  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`)
+  - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
+- Setting the strategy:
+
+```typescript
+import {provide} from '@angular/core';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
+bootstrap(AppComponent, [
+  ROUTER_PROVIDERS,
+  `provide(LocationStrategy, {useClass: HashLocationStrategy})`
+]);
+```
+
+---
+
+# Nested routers
+- Child components can define their own routes:
+
+_app.component.ts_
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/todo-lists', component: TodosComponent}
+*])
+class AppComponent { }
+```
+
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/', component: TodoListsComponent},
+*  {path: '/:id', component: TodoListComponent},
+*  {path: '/:id/todo/:todoId', component: TodoComponent}
+*])
+class TodosComponent { }
+```
+
+---
+# Router Lifecycle Hooks
+- Supplement component lifecycle hooks
+- E.g.: `CanActivate`, `OnActivate` and `CanDeactivate`
+
+```typescript
+
+```
+---
+
+# Router Lifecycle Hooks - CanDeactivate
+- Not yet implemented!
+- E.g. "Unsaved data will be lost" confirmations:
+
+```typescript
+import { CanDeactivate } from '@angular/router';
+import { DialogService } from '../dialog.service';
+export class TodoComponent `implements CanDeactivate` {
+*  routerCanDeactivate(): any {
+*    if (...) return true;
+*    return this.dialog.confirm('Discard changes?');
+*  }
+}
+```
+
+---
+
+# Query parameters
+- Used for optional and complex parameters
+- Usage in navigation:
+
+_todos.component.ts_
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/todo-lists', component: TodoListsComponent}
+*])
+class TodosComponent { }
+```
+
+_todo-lists.component.ts_
+```typescript
+@Component({...})
+class TodoListsComponent {
+  `query: string;`
+  constructor(`private routeSegment: RouteSegment`) { }
+
+  onActivate() {
+    `this.query = routeSegment.getParam('id');`
+  }
+}
+```
+
+
+```typescript
+this.router.navigate(['/todo-lists', {search: 'foo'}])
 ```
 
 ---
