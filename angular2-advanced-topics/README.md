@@ -10,20 +10,21 @@
 
 # Router
 
-**TBD**
+-
 
+# Angular 2 Router
 ```typescript
 @Component({ ... })
 *@Routes([
-*  {path: '/crisis-center', component: CrisisListComponent, name: 'CrisisCenter'},
-*  {path: '/heroes',        component: HeroListComponent,   name: 'Heroes'},
-*  {path: '/hero/:id',      component: HeroDetailComponent, name: 'Hero'}
+*  {path: '/todo-lists', component: TodoListsComponent, name: 'TodoLists'},
+*  {path: '/todo-lists/:id', component: TodoListComponent, name: 'TodoList'},
+*  {path: '/todos/:id', component: TodoComponent, name: 'Todo'}
 *])
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-*   this.router.navigate(['/crisis-center']);
+*   this.router.navigate(['Todo', {id: 3}]);
   }
 }
 ```
@@ -33,8 +34,8 @@ export class AppComponent implements OnInit {
 ```
 
 ```html
-<a [routerLink]="CrisisCenter">
-  Crisis Center
+<a [routerLink]="['Todo', {id: 3}]">
+  Todo
 </a>
 ```
 
