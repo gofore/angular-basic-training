@@ -1,6 +1,9 @@
 # Exercise 2 - Todo List
 
-Your first exercise is to implement a todo list application with Angular 2
+Your first exercise is to implement a todo list application with Angular 2. Start by cloning the exercise seed:
+```bash
+git clone https://github.com/gofore/angular2-seed angular2-exercise
+```
 
 ## 2.1 Components and Templates
 
@@ -27,6 +30,9 @@ items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: fal
 
 ## 2.4 REST API
 
-- Modify your todo service to use the given REST API
+- Modify your todo service to use the given [Todo REST API](https://github.com/gofore/todo-backend) for the following functions:
+  - List items
+  - Add items
+  - Change item done status
 - Bonus task: Add removal of items
 - Bonus task: Sort todo list by item id

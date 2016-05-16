@@ -53,7 +53,10 @@ Tips:
 
 # Exercise 4.6 GitHub Search with Observables
 
-Implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories)
+Implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
+```bash
+git clone https://github.com/gofore/angular2-seed angular2-search
+```
 
 Requirements:
 - Input field for search
