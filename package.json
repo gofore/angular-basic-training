@@ -1,0 +1,22 @@
+{
+  "name": "angular2-training",
+  "version": "1.0.0",
+  "description": "Angular 2 training material\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C \u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~& TypeScript training material",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server --cors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gofore/angular2-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gofore/angular2-training/issues"
+  },
+  "homepage": "https://github.com/gofore/angular2-training#readme",
+  "dependencies": {
+    "live-server": "^1.0.0"
+  }
+}
