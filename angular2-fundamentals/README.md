@@ -34,6 +34,28 @@
 
 ---
 
+# File Structure
+
+```
+project
+│  package.json
+└──src
+    │  app.component.ts
+    │  index.html
+    ├──videos
+    │   │──components
+    │       │   videos.component.html
+    │       │   videos.component.ts
+    │       │   video.component.html
+    │       │   video.component.ts
+    │   |──services
+    │       │   video.service.ts
+    │   |──pipes
+    └──images
+```
+
+---
+
 # Components
 - Defines a build block for application UI
 - Has a template that it binds data to
