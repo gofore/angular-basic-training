@@ -111,8 +111,11 @@ somethingReturningPromise().then(
   // => 42
   subscription.unsubscribe();
   // => cleanup
-  ```
+  ```  
 - To be included in _EcmaScript standard_ in future (as of May 2016 they're still in phase 1 out of 4 before reaching standardization)
+
+- Use case: Chat client with WebSocket
+  - Observable used for representing incoming chat messages stream
 
 ---
 

@@ -27,19 +27,11 @@ var observable = Rx.Observable.interval(2000).take(20)
 observable.subscribe(x => console.log(x));
 ```
 
-Use map to add 10 to every value:
+Use map to multiply every value by 10:
 ```javascript
 var observable = Rx.Observable.interval(2000).take(20)
   .filter(x => x % 2 === 0)
-  .map(x => x + 10);
-```
-
-Accumulate the result:
-```javascript
-var o = Rx.Observable.interval(100).take(5)
-  .filter(x => x % 2 === 0)
-  .map(x => x + 10)
-  .reduce((acc, x) => acc + x)
+  .map(x => x * 10);
 ```
 
 Buffer values:
@@ -48,6 +40,14 @@ var o = Rx.Observable.interval(500).take(50)
   .filter(x => x % 2 === 0)
   .map(x => x + 10)
   .bufferCount(5);
+```
+Accumulate the buffered array
+```javascript
+var observable = Rx.Observable.interval(500)
+  .filter(x => x % 2 == 0)
+  .map(x => x * 10)
+  .bufferCount(5)
+  .map(buf => buf.reduce((acc, cur) => acc + cur));
 ```
 
 Flatmap example:
@@ -59,9 +59,12 @@ o2.subscribe(x => console.log(x));
 
 Observable from event: Create Observable from mousemove event and take value emitted every 2000 ms:
 ```javascript
-var pos = Rx.Observable.fromEvent(document, 'mousemove')
-  .map(e => {return {x:e.clientX, y:e.clientY}}).throttleTime(2000);
-var s = pos.subscribe(pos => {console.log('x: ' + pos.x + ' y: ' + pos.y)});    
+var move = Rx.Observable.fromEvent(document, 'mousemove')
+  .throttleTime(500);
+var pos = move.map(e => {
+  return {x: e.clientX, y: e.clientY};
+});
+var s = pos.subscribe(e => console.log('x: ' + e.x + ' y: ' + e.y));
 ```
 
 Wait for several asynchronous operations to finish: Fork join
