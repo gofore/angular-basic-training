@@ -28,7 +28,7 @@
 - Widely used module bundler for web projects
 - Configurable with loaders and plugins
 - Handles both source code and assets like images and stylesheets
-- Allows you to write modular 
+- Allows you to write modular
 
 ---
 
@@ -120,11 +120,11 @@ document.body.innerHTML = greeter(user);
 
 # Classes
 
-- Objects are like in any other programming language in that they
+- Like in other programming languages
   - can have constructors
   - implement interfaces
-  - extend other objects
-- Can be passed around instead of other types if they are castable to other classes by properties (same applies to interfaces)
+  - extend other classes
+- Can be casted to other classes if properties match (same for interfaces)
 
 ```typescript
 class Student {

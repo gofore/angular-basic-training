@@ -14,12 +14,13 @@
 - Based on successful Angular 1
 - First beta on December 2015
 - First release candidate on April 2016
+- Not even considered ready by features, not to mention bugs
 
 ---
 
 # Angular 2 & TypeScript
 - Available for JavaScript, Dart and TypeScript
-- TypeScript as de facto standard
+- TypeScript as de facto standard and recommended by many A2 core teams
 - Framework code under `@angular` packages such as `@angular/core` and `@angular/common`
 
 ---

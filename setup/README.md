@@ -38,7 +38,7 @@ You may use any IDE you feel comfortable with but as we can't master all of them
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-git clone https://github.com/angular/angular2-seed.git
+git clone https://github.com/gofore/angular2-seed.git
 ```
 
 to download the code and

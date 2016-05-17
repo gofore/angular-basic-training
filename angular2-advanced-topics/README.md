@@ -107,7 +107,14 @@ class TodosComponent { }
 - E.g.: `CanActivate`, `OnActivate` and `CanDeactivate`
 
 ```typescript
+import { OnActivate } from '@angular/router';
 
+export class TodoComponent `implements OnActivate` {
+*   onActivate() {
+*     // Route activated
+*   }
+*  }
+}
 ```
 ---
 
@@ -232,6 +239,21 @@ import {Pipe, PipeTransform} from '@angular/core';
 ---
 
 # Forms
+- Angular 2 provides form functionalities:
+  - Two-way data binding
+  - Change tracking
+  - Validation
+  - Error handling
+
+---
+
+# Template-driven Forms
+- All form elements in templates included
+-
+
+---
+
+
 
 ---
 
