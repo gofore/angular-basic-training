@@ -5,8 +5,9 @@
 - Create an edit view for the todo items. In the view the user can:
   - Edit the item name
   - Save changes
-  - Go back to list view
+  - Cancel changes
 - Use the todo item name as a link to edit it
+- Bonus task: Take hash location strategy into use
 
 ## 2.2 Pipes
 

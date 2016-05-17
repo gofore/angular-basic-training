@@ -6,16 +6,18 @@ git clone https://github.com/gofore/angular2-seed angular2-exercise
 ```
 
 ## 1.1 Components and Templates
+Implement a todo list application:
+- Technical requirements:
+  - Todo list and todo list item should be separate components
+- Specification:
+  - List todo items came from a static array:
 
-Implement a todo list application with the following features for the user:
-- List todo items in the template from a static array:
+    ```typescript
+    items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: false}];
+    ```
 
-```typescript
-items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: false}];
-```
-
-- Mark items done by clicking them (show the item done-status after the item name)
-- Bonus task: Add strikethrough to item names with done status
+  - Mark items done by clicking them (show the item done-status after the item name)
+  - Bonus task: Add strikethrough to item names with done status
 
 ## 1.2 Two-way Data Binding
 
