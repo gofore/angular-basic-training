@@ -3,6 +3,8 @@
 Your first exercise is to implement a todo list application with Angular 2. Start by cloning the exercise seed:
 ```bash
 git clone https://github.com/gofore/angular2-seed angular2-exercise
+npm install
+npm start
 ```
 
 ## 1.1 Components and Templates
