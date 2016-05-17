@@ -1,11 +1,11 @@
-# Exercise 2 - Todo List
+# Exercise 1 - Todo List
 
 Your first exercise is to implement a todo list application with Angular 2. Start by cloning the exercise seed:
 ```bash
 git clone https://github.com/gofore/angular2-seed angular2-exercise
 ```
 
-## 2.1 Components and Templates
+## 1.1 Components and Templates
 
 Implement a todo list application with the following features for the user:
 - List todo items in the template from a static array:
@@ -17,18 +17,18 @@ items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: fal
 - Mark items done by clicking them (show the item done-status after the item name)
 - Bonus task: Add strikethrough to item names with done status
 
-## 2.2 Two-way Data Binding
+## 1.2 Two-way Data Binding
 
 - Add new items
 - Add a check box for marking items done
 - Bonus task: Disable add item button if item name is empty
 
-## 2.3 Service for Todo Items
+## 1.3 Service for Todo Items
 
 - Implement a todo service and inject it to your todo list component
 - Service should be used for getting the list of todo items
 
-## 2.4 REST API
+## 1.4 REST API
 
 - Modify your todo service to use the given [Todo REST API](https://github.com/gofore/todo-backend) for the following functions:
   - List items

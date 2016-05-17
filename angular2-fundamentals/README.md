@@ -43,14 +43,14 @@ project
     │  app.component.ts
     │  index.html
     ├──videos
-    │   │──components
+    │   └──components
     │       │   videos.component.html
     │       │   videos.component.ts
     │       │   video.component.html
     │       │   video.component.ts
-    │   |──services
+    │   └──services
     │       │   video.service.ts
-    │   |──pipes
+    │   └──pipes
     └──images
 ```
 
@@ -260,7 +260,7 @@ _videos.component.ts_
   templateUrl: 'videos.component.html'
 })
 class VideosComponent {
--* private backendService: BackendService;
+* private backendService: BackendService;
 * constructor(backendService: BackendService) {
 *   this.backendService = backendService;
 * }
@@ -341,7 +341,7 @@ _videos.component.html_
 ```
 
 ---
-# Bootstrapping the application
+# Bootstrapping the Application
 
 _index.ts_
 ```typescript
@@ -436,6 +436,7 @@ export class MyComponent {
 # Asynchronous and Server-side Communication
 
 - Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
+  - For now, we only need to know that there is `subscribe` method
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 
 ```typescript
