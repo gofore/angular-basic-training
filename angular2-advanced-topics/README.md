@@ -410,7 +410,7 @@ export class HighlightDirective {
 ---
 
 # Zone.js
-- implements concept of zones (inspired by Dart) in JavaScript
+- Implements concept of zones (inspired by Dart) in JavaScript
 - "A Zone is an execution context that persists across async tasks"
 - In practice makes it possible to track the asyncronous calls made (HTTP, timers and event listeners) within the zone
 - Angular 2 uses zones internally to track changes in state

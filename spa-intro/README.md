@@ -1,3 +1,29 @@
+# Angular 2 & TypeScript Training
+
+## Trainers
+- Roope Hakulinen
+- Henri Ihalainen
+
+## Background
+- From Gofore Oy
+- Working on EU funding applying & managing system for Ministry of Employment and the Economy (Työ- ja Elinkeinoministeriö)
+- Used Angular 2 from its first beta (beginning of the year)
+
+---
+
+# Agenda
+
+## Day 1
+- Introduction to SPAs
+- TypeScript & Tooling
+- Angular 2 Fundamentals
+
+## Day 2
+- Angular 2 Advanced Topics
+- Testing
+
+---
+
 # Introduction to SPA & Angular
 
 ---
