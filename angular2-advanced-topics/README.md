@@ -248,12 +248,55 @@ import {Pipe, PipeTransform} from '@angular/core';
 ---
 
 # Template-driven Forms
-- All form elements in templates included
--
+Forms declared in templates rather than in component
+
+```html
+<form>
+  <input type="text" [(ngModel)]="name" />
+  <input type="email" [(ngModel)]="email" />
+<form>
+```
 
 ---
 
+# NgControl
+`ngControl` directive adds control that tracks validity, dirtiness and visiting
 
+```html
+<form>
+  <input type="text" [(ngModel)]="name" `ngControl="name"` `#name="ngForm"` />
+  <input type="email" [(ngModel)]="email" `ngControl="email"` `#email="ngForm"` />
+  <span [hidden]="`name.valid && email.valid`">
+    We have an invalid input.
+  </span>
+<form>
+```
+(`#name` and `#email` are called template-local variables)
+
+---
+
+# NgControl CSS Classes
+![Control CSS Classes](angular2-advanced-topics/control-css-classes.png "Control CSS Classes")
+
+```css
+.ng-invalid[required] {
+  border: 1px solid red;
+}
+```
+
+---
+
+# NgForm
+Form automatically wraps the controls inside it
+
+```html
+<form #myForm="ngForm">
+  <input type="text" [(ngModel)]="name" ngControl="name" #name="ngForm" />
+  <input type="email" [(ngModel)]="email" ngControl="email" #email="ngForm" />
+
+  <button (click)="submitForm(myForm)" `[disabled]="myForm.invalid"`>Submit</button>
+<form>
+```
 
 ---
 

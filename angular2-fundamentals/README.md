@@ -238,12 +238,13 @@ _videos.component.ts_
   templateUrl: 'videos.component.html'
 })
 class VideosComponent {
-* private backendService: BackendService;
+-* private backendService: BackendService;
 * constructor(backendService: BackendService) {
 *   this.backendService = backendService;
 * }
 }
 ```
+
 ---
 
 # Usage
@@ -259,6 +260,42 @@ import {BackendService} from './backend.service';
 })
 class VideosComponent {
   constructor(`private` backendService: BackendService) {}
+}
+```
+
+---
+
+# Usage
+Inline styles
+
+_videos.component.ts_
+```typescript
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html',
+  `styles: ['.good-video { background-color: green; }']`
+})
+class VideosComponent {
+  constructor() {}
+}
+```
+
+Styles only visible within this component (_videos.component.html_)
+
+---
+
+# Usage
+Styles from URL
+
+_videos.component.ts_
+```typescript
+@Component({
+  selector: 'videos',
+  templateUrl: 'videos.component.html',
+  `styleUrls: ['./videos.component.css']`
+})
+class VideosComponent {
+  constructor() {}
 }
 ```
 
