@@ -53,17 +53,14 @@ Tips:
 
 # Exercise 3.6 GitHub Search with Observables
 
-Implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
+In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
 ```bash
 git clone https://github.com/gofore/angular2-seed angular2-search
+git checkout search-exercise
+npm start
 ```
-
-Requirements:
-- Input field for search
-- Search button
-- Show a list of results with links to repositories. Use:
-  - item.full_name
-  - item.html_url
+- Open http://localhost:3000 and check that the search works
+- Open the code in your IDE
 
 # Exercise 3.7 Async Pipe
 
