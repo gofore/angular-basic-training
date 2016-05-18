@@ -57,6 +57,7 @@ In this exercise series we implement an app that uses GitHub's [search-repositor
 ```bash
 git clone https://github.com/gofore/angular2-seed angular2-search
 git checkout search-exercise
+npm install
 npm start
 ```
 - Open http://localhost:3000 and check that the search works
