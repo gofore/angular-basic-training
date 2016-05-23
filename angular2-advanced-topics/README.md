@@ -179,7 +179,7 @@ this.router.navigate(['/todo-lists', {search: 'foo'}])
 
 _my.component.html_
 ```html
-<div>{{user.name` | upperCase`}}</div> <!-- JOHN DOE -->
+<div>{{user.name` | uppercase`}}</div> <!-- JOHN DOE -->
 ```
 
 _my.component.ts_
@@ -187,7 +187,7 @@ _my.component.ts_
 import {UpperCasePipe} from '@angular/common';
 
 @Component({
-  pipes: [UpperCasePipe]
+* pipes: [UpperCasePipe]
 })
 class MyComponent {}
 ```
@@ -239,7 +239,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 ---
 
 # Forms
-- Angular 2 provides form functionalities:
+- Angular 2 provides common form functionalities:
   - Two-way data binding
   - Change tracking
   - Validation

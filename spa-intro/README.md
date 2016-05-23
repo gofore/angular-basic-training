@@ -4,6 +4,8 @@
 - Roope Hakulinen
 - Henri Ihalainen
 
+---
+
 ## Background
 - From Gofore Oy
 - Working on EU funding applying & managing system for Ministry of Employment and the Economy (Työ- ja Elinkeinoministeriö)
@@ -42,11 +44,6 @@
 - Browser fetches executable code that makes asynchronous calls for actual data to be shown
 - Data is visualized and/or manipulated and stored back on server asynchronously
 
----
-
-# Architecture
-
-Client vs. server-side
 
 ---
 
