@@ -43,34 +43,132 @@
 # ES6 - Key Features
 
 - Modules
-- Classes
-- `let` and `const` to replace `var`
 - Arrow functions
+- Classes
+- Multiline strings
+- `let` and `const` to replace `var`
 - Enhancements on basic types such as `includes()` for string and `find()` for array
 
 ---
 
-# Few Examples
+# Modules
+Allows `import`ing and `export`ing code between files (modules)
 
-`const` keyword and arrow functions:
+_lib.js_
+```javascript
+export function square(x) {
+   return x * x;
+}
+export function squareSum(x, y) {
+   return Math.sqrt(square(x) + square(y));
+}
+```
+
+_main.js_
+```javascript
+import { square, squareSum } from 'lib';
+console.log(square(11)); // 121
+console.log(squareSum(4, 3)); // 5
+```
+
+---
+
+# Arrow functions
+Traditional functions
+```javascript
+const myFunction = function (param1, param2) {
+  return param1 + param2;
+};
+```
+
+Arrow functions
+```javascript
+const myFunction = (param1, param2) => {
+  return param1 + param2;
+};
+```
+
+As lambda functions
+```javascript
+[1,2,3,4].map(`item => item * 2`)
+```
+which is the same as
+```javascript
+[1,2,3,4].map(`function (item) {`
+  `return item * 2;`
+`}`)
+```
+
+---
+
+# Classes
+
+```javascript
+class MyClass {
+  constructor(str) {
+    this.myString = str;
+  }
+
+  getNumber() {
+    return this.myNumber;
+  }
+}
+```
+```javascript
+const myClass = new MyClass('Hello World');
+```
+
+Can be exported:
+
+```javascript
+export class MyClass { }
+```
+
+**TypeScript classes are a little different**
+
+---
+
+# Multiline strings
+ES5 string:
+```javascript
+var str = "A VEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERY LONG" +
+"STRING" +
+"!"
+```
+
+ES6 multiline string with backticks (`):
+```javascript
+const str = `A VEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERY LONG
+STRING
+!
+```
+
+Also supports string interpolation
+```javascript
+const firstName = 'Roope';
+const lastName = 'Hakulinen';
+const str = `${lastName},
+${firstName}`;
+//Hakulinen,
+//Roope
+```
+
+
+---
+
+# Const and let
+
+`const` keyword makes constant **reference**
 
 ```javascript
 const input = [0, 1, 2, 3, 4];
-console.log(input.map(item => item * 2)); // Prints [0, 2, 4, 6, 8]
+input = []; // Uncaught TypeError: Assignment to constant variable.
+input.push(5); // Works, as input is just the reference
 ```
 
-```javascript
-const haystack = 'abcde';
-console.log(haystack.includes('bc')); // Prints true
-```
+For immutable objects & arrays there are libraries such as _Immutable.js_.
 
-```javascript
-const people = [
-  {id: 1, name: 'Bob'},
-  {id: 2, name: 'Mary'}
-];
-console.log(people.find(person => person.name === 'Mary').id); // Prints 2
-```
+**Rule of thumb: Always use `const` if possible, `let` otherwise.**
 
 ---
 
@@ -84,7 +182,7 @@ console.log(people.find(person => person.name === 'Mary').id); // Prints 2
 
 # Advantages
 
-- Adds type system on top of JavaScript to catch clear errors already on compile-time
+- Type system on top of JavaScript to catch errors already compile-time
 - Angular 2 is written in TypeScript
 
 ---
@@ -92,13 +190,15 @@ console.log(people.find(person => person.name === 'Mary').id); // Prints 2
 # Typing
 
 - Provides the same types as in JavaScript: `number`, `string`, `boolean`, `null`, `undefined` and `object`.
-- Also some "extra" types such as `any`, `enum`, `void` and `tuple`
+- Also some "extra" types such as `any`, `void` and `enum`
+- Arrays like `number[]`, `string[]` and `any[]`
+- `any` is basically anything like `number`, `string` or `any[]`
 
 ---
 
 # Interfaces
 
-- Interfaces are mostly used to declare the acceptable JavaScript object structures
+- Interfaces to declare the acceptable object structures
 - Can have optional properties (declared with `?` before `:`)
 
 ```typescript
@@ -124,26 +224,42 @@ document.body.innerHTML = greeter(user);
   - can have constructors
   - implement interfaces
   - extend other classes
-- Can be casted to other classes if properties match (same for interfaces)
+- Can be casted to other classes if properties match (same as for interfaces)
 
 ```typescript
-class Student {
-    fullName: string;
-    constructor(public firstName, public middleInitial, public lastName) {
-        this.fullName = firstName + " " + middleInitial + " " + lastName;
-    }
-}
 
 interface Person {
     firstName: string;
     lastName: string;
 }
 
-function greeter(person : Person) {
+class Student implements Person {
+    fullName: string;
+    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+function greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 
 var user = new Student("Jane", "M.", "User");
 
 document.body.innerHTML = greeter(user);
+```
+
+---
+
+# Annotations
+- Used to decorate classes and properties
+- Like Java annotations
+
+```typescript
+@Component({
+  template: 'my template'
+})
+class MyClass {
+  @Input() myProperty: string;
+}
 ```

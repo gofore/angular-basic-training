@@ -1,31 +1,40 @@
 # Exercise 1 - Todo List
 
-Your first exercise is to implement a todo list application with Angular 2. Start by cloning the exercise seed:
+Start by cloning the exercise seed, if not done yet:
+
 ```bash
 git clone https://github.com/gofore/angular2-seed angular2-exercise
+cd angular2-exercise
+npm install -g webpack webpack-dev-server typings typescript
 npm install
 npm start
 ```
 
 ## 1.1 Components and Templates
-Implement a todo list application:
-- Technical requirements:
-  - Todo list and todo list item should be separate components
-- Specification:
-  - List todo items came from a static array:
+A simple todo list.
 
-    ```typescript
-    items: [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: false}];
-    ```
+Tasks:
+- List todo items from _items_ property
 
-  - Mark items done by clicking them (show the item done-status after the item name)
-  - Bonus task: Add strikethrough to item names with done status
+```typescript
+private items = [{name: 'Do the laundry', done: false}, {name: 'Clean my room', done: false}];
+```
+
+like
+
+| Task           | Done  |
+|----------------|-------|
+| Do the laundry | false |
+| Clean my room  | false |
+
+- Mark items done/undone by clicking them
+- Bonus: Add strikethrough to item names with done status
 
 ## 1.2 Two-way Data Binding
 
 - Add new items
 - Add a check box for marking items done
-- Bonus task: Disable add item button if item name is empty
+- Bonus: Disable add item button if item name is empty
 
 ## 1.3 Service for Todo Items
 
@@ -38,5 +47,5 @@ Implement a todo list application:
   - List items
   - Add items
   - Change item done status
-- Bonus task: Add removal of items
-- Bonus task: Sort todo list by item id
+- Bonus: Add removal of items
+- Bonus: Sort todo list by item id

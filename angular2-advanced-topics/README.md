@@ -8,124 +8,113 @@
 
 ---
 
-# Router
+# Router - Basics
 Maps URLs to components
 
 _app.component.ts_
 ```typescript
+import {Component} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {TodoComponent} from './todo.component';
+import {TodosComponent} from './todos.component';
+
 @Component({
 *  directives: [ROUTER_DIRECTIVES]
 })
 *@Routes([
-*  {path: '/todo-lists', component: TodoListsComponent},
-*  {path: '/todo-lists/:id', component: TodoListComponent},
+*  {path: '/', component: TodosComponent},
 *  {path: '/todos/:id', component: TodoComponent}
 *])
-export class AppComponent implements OnInit {
+export class AppComponent {
+  constructor(private router: Router) {
+*   this.router.navigate(['/']);
+  }
 }
 ```
+
+(see next slide)
+---
+
+# Router - Basics (continued)
 
 _app.component.html_
 ```html
 <router-outlet></router-outlet>
 ```
 
+_index.ts_
+```typescript
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {AppComponent} from './app.component';
+
+bootstrap(AppComponent, [ROUTER_PROVIDERS]);
+```
+
 ---
 
-# Router
-Navigating to another route
+# Router - Navigating
+Navigating to routes:
+- In component with `router.navigate([url])`
+- In template with `a` with directive `[routerLink]=[url]`
 
 _app.component.ts_
 ```typescript
+import {Component} from '@angular/core';
+import {Routes, Router} from '@angular/router';
+import {TodosComponent} from 'todos.component';
+import {TodoComponent} from 'todo.component';
+
 @Component({ ... })
 @Routes([
-  {path: '/todo-lists', component: TodoListsComponent},
-  {path: '/todo-lists/:id', component: TodoListComponent},
+  {path: '/', component: TodosComponent},
   {path: '/todos/:id', component: TodoComponent}
 ])
-export class AppComponent implements OnInit {
-  constructor(`private router: Router`) {}
-
-  ngOnInit() {
-*   this.router.navigate(['/todos/:id', {id: 3}]);
+export class AppComponent {
+  constructor(`private router: Router`) {
+*   this.router.navigate(['/todos/3']);
   }
 }
 ```
+(see next slide)
 
+---
+
+# Router - Navigating (continued)
 _app.component.html_
 ```html
-<a [routerLink]="['/todos', {id: 3}]">
+<a [routerLink]="['/todos/3']">
   Todo
 </a>
 ```
 
 ---
 
-# Router Strategies
-- Two strategies for URL formation:
-  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`)
-  - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
-- Setting the strategy:
-
-```typescript
-import {provide} from '@angular/core';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-
-bootstrap(AppComponent, [
-  ROUTER_PROVIDERS,
-  `provide(LocationStrategy, {useClass: HashLocationStrategy})`
-]);
-```
-
----
-
-# Nested routers
-- Child components can define their own routes:
-
-_app.component.ts_
-```typescript
-@Component({...})
-*@Routes([
-*  {path: '/todo-lists', component: TodosComponent}
-*])
-class AppComponent { }
-```
-
-```typescript
-@Component({...})
-*@Routes([
-*  {path: '/', component: TodoListsComponent},
-*  {path: '/:id', component: TodoListComponent},
-*  {path: '/:id/todo/:todoId', component: TodoComponent}
-*])
-class TodosComponent { }
-```
-
----
-# Router Lifecycle Hooks
+# Router - Lifecycle Hooks
 - Supplement component lifecycle hooks
 - E.g.: `CanActivate`, `OnActivate` and `CanDeactivate`
 
 ```typescript
-import { OnActivate } from '@angular/router';
+import {OnActivate} from '@angular/router';
 
-export class TodoComponent `implements OnActivate` {
+export class TodosComponent `implements OnActivate` {
 *   onActivate() {
 *     // Route activated
 *   }
-*  }
+  }
 }
 ```
 ---
 
-# Router Lifecycle Hooks - CanDeactivate
+# Router - `CanDeactivate` Lifecycle Hook
 - Not yet implemented!
 - E.g. "Unsaved data will be lost" confirmations:
+- Can either return boolean _false_ or observable emitting _false_ to prevent navigating out
 
 ```typescript
 import { CanDeactivate } from '@angular/router';
-import { DialogService } from '../dialog.service';
-export class TodoComponent `implements CanDeactivate` {
+
+export class TodosComponent `implements CanDeactivate` {
 *  routerCanDeactivate(): any {
 *    if (...) return true;
 *    return this.dialog.confirm('Discard changes?');
@@ -135,40 +124,105 @@ export class TodoComponent `implements CanDeactivate` {
 
 ---
 
-# Query parameters
-- Used for optional and complex parameters
-- Usage in navigation:
+# Router - URL Parameters
+- `onActivate` will be called on activation with `routeSegment` as param
+- `routeSegment.getParam` can be used to access params
 
 _todos.component.ts_
 ```typescript
 @Component({...})
 *@Routes([
-*  {path: '/todo-lists', component: TodoListsComponent}
+*  {path: '/todos/:id', component: TodoComponent}
 *])
 class TodosComponent { }
 ```
 
-_todo-lists.component.ts_
+_todo.component.ts_
 ```typescript
 @Component({...})
-class TodoListsComponent {
-  `query: string;`
-  constructor(`private routeSegment: RouteSegment`) { }
-
-  onActivate() {
-    `this.query = routeSegment.getParam('id');`
+class TodoComponent implements OnActivate {
+  `id: number;`
+  onActivate(`routeSegment: RouteSegment`) {
+    `this.id = routeSegment.getParam('id');`
   }
 }
 ```
 
 
 ```typescript
-this.router.navigate(['/todo-lists', {search: 'foo'}])
+this.router.navigate(['/todos/1']);
 ```
 
 ---
 
-# Exercise 2.1
+# Router - Query Parameters
+- Used for optional and complex parameters
+
+_todos.component.ts_
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/todos/:id', component: TodoComponent}
+*])
+class TodosComponent { }
+```
+
+_todo.component.ts_
+```typescript
+@Component({...})
+class TodoComponent implements OnActivate {
+  `query: number;`
+  onActivate(`routeSegment: RouteSegment`) {
+    `this.query = routeSegment.getParam('query');`
+  }
+}
+```
+
+
+```typescript
+this.router.navigate(['/todos/1', {query: 'foo'}]); // URL: '/todos/1?query=foo'
+```
+
+---
+
+# Router - URL Strategies
+- Two strategies for URL formation:
+  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`)
+  - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
+- Setting the strategy:
+
+```typescript
+import {provide} from '@angular/core';
+import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from '@angular/common';
+
+bootstrap(AppComponent, [
+  ROUTER_PROVIDERS,
+  `provide(LocationStrategy, {useClass: HashLocationStrategy})`
+]);
+```
+
+---
+
+# Routers - Nested Routers
+- Child components can define their own routes:
+
+_app.component.ts_
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/todo-lists', component: TodoListsComponent}
+*])
+class AppComponent { }
+```
+
+```typescript
+@Component({...})
+*@Routes([
+*  {path: '/', component: TodosComponent},
+*  {path: '/todos/:id', component: TodoComponent},
+*])
+class TodoListsComponent { }
+```
 
 ---
 
@@ -234,10 +288,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 ---
 
-# Exercise 2.2
-
----
-
 # Forms
 - Angular 2 provides common form functionalities:
   - Two-way data binding
@@ -247,7 +297,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 ---
 
-# Template-driven Forms
+# Forms - Template-driven Forms
 Forms declared in templates rather than in component
 
 ```html
@@ -259,7 +309,7 @@ Forms declared in templates rather than in component
 
 ---
 
-# NgControl
+# Forms - NgControl
 `ngControl` directive adds control that tracks validity, dirtiness and visiting
 
 ```html
@@ -275,7 +325,7 @@ Forms declared in templates rather than in component
 
 ---
 
-# NgControl CSS Classes
+# Forms - NgControl & CSS Classes
 ![Control CSS Classes](angular2-advanced-topics/control-css-classes.png "Control CSS Classes")
 
 ```css
@@ -286,7 +336,7 @@ Forms declared in templates rather than in component
 
 ---
 
-# NgForm
+# Forms - NgForm
 Form automatically wraps the controls inside it
 
 ```html
@@ -297,10 +347,6 @@ Form automatically wraps the controls inside it
   <button (click)="submitForm(myForm)" `[disabled]="myForm.invalid"`>Submit</button>
 <form>
 ```
-
----
-
-# Exercise 2.3
 
 ---
 
@@ -345,7 +391,7 @@ This way the `UserService` would now be injectable to any child component of thi
 
 ---
 
-# Example
+# Directives - Example
 -  A directive for setting background color to yellow
 
 ```typescript
@@ -366,7 +412,7 @@ export class HighlightDirective {
 
 ---
 
-# Events for Directives
+# Directives - Events
 - We can use `host` property to define events with their corresponding handlers
 
 ```typescript
@@ -391,7 +437,7 @@ export class HighlightDirective {
 
 ---
 
-# Bind Value from Host Component
+# Directives - Bind Value from Host Component
 - We can bind host components property to our directive by declaring an `@Input` annotation:
 
 ```typescript
@@ -405,10 +451,6 @@ export class HighlightDirective {
 
 ---
 
-# Exercise 2.4
-
----
-
 # Zone.js
 - Implements concept of zones (inspired by Dart) in JavaScript
 - "A Zone is an execution context that persists across async tasks"
@@ -417,14 +459,14 @@ export class HighlightDirective {
 
 ---
 
-# Change detection in general
+# Change Detection - General
 - Idea: project the internal state into UI (DOM in web)
 - The internal state consists of JavaScript primitives such as objects, arrays, strings etc.
 - Change only possible on asynchronous events such as timeouts or HTTP request
 
 ---
 
-# Change detection in Angular 2
+# Change Detection - Angular 2
 - Zone.js makes it possible to track all possible change sources
 - Components change detector checks the bindings (like `{{name}}` and `(click)`) defined in its template on change
 - Bindings are propagated from the root to leaves in the depth first order
@@ -435,7 +477,7 @@ export class HighlightDirective {
 ![Change detection](angular2-advanced-topics/change-detection.png "Change detection")
 
 ---
-# Simplified implementation
+# Change Detection - Simplified Implementation
 ```typescript
 // very simplified version of actual source
 class ApplicationRef {
@@ -454,7 +496,7 @@ class ApplicationRef {
 ```
 ---
 
-# Change detection strategies
+# Change Detection - Strategies
 - Change detection strategy describes which strategy will be used the next time change detection is triggered
 - Angular 2 has six change detection strategies:
   - **CheckOnce**: After calling _detectChanges_ the mode of the change detector will become _Checked_.
@@ -470,7 +512,7 @@ class ApplicationRef {
 
 ---
 
-# Angular 2 change detection performance
+# Change Detection - Angular 2 Performance
 - Change detection is one of the key functionalities of Angular 2 and thus it is highly optimized
 - CDs get VM optimized monomorphic classes generated for them at runtime
 - Change detection is always single-pass (stable) because of uni-directional top-to-bottom flow

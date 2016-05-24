@@ -13,15 +13,26 @@
 
 ---
 
+# Slides
+
+[angular2-training.herokuapp.com](http://angular2-training.herokuapp.com/)
+
+---
+
 # Agenda
 
 ## Day 1
+### Morning
 - Introduction to SPAs
 - TypeScript & Tooling
 - Angular 2 Fundamentals
+### Afternoon
+- Angular 2 Advanced Topics
 
 ## Day 2
-- Angular 2 Advanced Topics
+### Morning
+- Reactive programming with Angular 2
+### Afternoon
 - Testing
 
 ---
