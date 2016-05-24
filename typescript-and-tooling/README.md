@@ -261,3 +261,20 @@ class MyClass {
   @Input() myProperty: string;
 }
 ```
+
+---
+
+# JSON
+- JavaScript Object Notation (JSON) is lightweight data-interchange format
+- Meant to be easy for both, humans and machines
+
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "friends": [
+    {"name": "Jane Doe"},
+    {"name": "John Doe Jr."}
+  ]
+}
+```
