@@ -88,15 +88,15 @@ const myFunction = (param1, param2) => {
 };
 ```
 
-As lambda functions
-```javascript
-[1,2,3,4].map(`item => item * 2`)
-```
-which is the same as
+ES5 map:
 ```javascript
 [1,2,3,4].map(`function (item) {`
   `return item * 2;`
 `}`)
+```
+can be written as ES6:
+```javascript
+[1,2,3,4].map(`item => item * 2`)
 ```
 
 ---
@@ -188,7 +188,6 @@ For immutable objects & arrays there are libraries such as _Immutable.js_.
 ---
 
 # Typing
-
 - Provides the same types as in JavaScript: `number`, `string`, `boolean`, `null`, `undefined` and `object`.
 - Also some "extra" types such as `any`, `void` and `enum`
 - Arrays like `number[]`, `string[]` and `any[]`
@@ -197,7 +196,6 @@ For immutable objects & arrays there are libraries such as _Immutable.js_.
 ---
 
 # Interfaces
-
 - Interfaces to declare the acceptable object structures
 - Can have optional properties (declared with `?` before `:`)
 
