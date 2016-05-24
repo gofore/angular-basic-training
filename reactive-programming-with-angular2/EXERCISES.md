@@ -1,6 +1,6 @@
 # Exercise 3 - RxJS
 
-Open [JS Bin template](http://jsbin.com/kepoyac/2/edit?html,js,console) for RxJS Observable exercise
+Open [JS Bin template](http://jsbin.com/kepoyac/34/edit?html,js,console) for RxJS Observable exercise
 
 # Exercise 3.1 Map and Filter
 Given the following stream of objects:
@@ -31,7 +31,7 @@ Given the following sources of integers:
 var source1 = Rx.Observable.interval(500).take(10);
 var source2 = Rx.Observable.interval(500).take(10);
 ```
-Compare the outputs of merge and concat operators
+Find out what's the difference in result stream item ordering between merge and concat operations
 
 # Exercise 3.4 Buffer
 Given the following source of integers:
