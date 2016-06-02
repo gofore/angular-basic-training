@@ -139,13 +139,18 @@ Rx.Observable.from([1,2,3,4]);
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented as observables for convenience
   ```javascript
-  this.http.get('url/restapi/resource')
-      .map((res:Response) => res.json())
+  import {Http} from '@angular/http';
+  constructor(http: Http) {} // Http service
+  ```
+
+  ```javascript
+  this.http.get('url/restapi/resource') // Returns observable
+      .map((res:Response) => res.json()) // Converts response to JSON format
       .subscribe(
-          data => { this.data = data},
-          err => console.error(err),
-          () => console.log('done')
-  );
+          data => { this.data = data}, // Success
+          err => console.error(err), // Failure
+          () => console.log('done') // Unsubscription
+      );
   ```
 ---
 

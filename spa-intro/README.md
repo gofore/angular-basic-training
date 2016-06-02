@@ -19,20 +19,21 @@
 
 ---
 
-# Agenda
-
-## Day 1
-### Morning
+## Agenda
+#### Day 1
+##### Morning
 - Introduction to SPAs
 - TypeScript & Tooling
 - Angular 2 Fundamentals
-### Afternoon
+
+##### Afternoon
 - Angular 2 Advanced Topics
 
-## Day 2
-### Morning
+#### Day 2
+##### Morning
 - Reactive programming with Angular 2
-### Afternoon
+
+##### Afternoon
 - Testing
 
 ---

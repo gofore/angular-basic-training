@@ -118,7 +118,7 @@ which lets you use just `karma run`
 
 ---
 # Angular 2 unit testing
-- Since Angular 2 code is mostly just ES6 classes it is very easy to instantiate classes for testing. Suppose we had the following component:
+- Since Angular 2 code is mostly just TS classes it is very easy to instantiate classes for testing. Suppose we had the following component:
 ```typescript
     @Component({
       selector: 'videos',

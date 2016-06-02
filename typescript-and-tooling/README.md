@@ -109,8 +109,8 @@ class MyClass {
     this.myString = str;
   }
 
-  getNumber() {
-    return this.myNumber;
+  getString() {
+    return this.myString;
   }
 }
 ```
