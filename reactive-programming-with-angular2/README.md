@@ -88,6 +88,7 @@ somethingReturningPromise().then(
 # Solution: Observables
 
 - Generalization of promises for streams
+- To be included in _EcmaScript standard_ in future (as of May 2016 they're still in phase 1 out of 4 before reaching standardization)
 - Idea:
   - You subscribe to stream of events so that your handler gets invoked every time there is a new item
   ```javascript
@@ -112,7 +113,6 @@ somethingReturningPromise().then(
   subscription.unsubscribe();
   // => cleanup
   ```  
-- To be included in _EcmaScript standard_ in future (as of May 2016 they're still in phase 1 out of 4 before reaching standardization)
 
 - Use case: Chat client with WebSocket
   - Observable used for representing incoming chat messages stream
@@ -157,7 +157,7 @@ Rx.Observable.from([1,2,3,4]);
 - Change detection with observables
   - Background: Angular 2 change detection is based on a directed tree where all the components get updated starting from the root when a change occurs.
   - If Angular 2 component depends only on its input properties, and they are observable, change detection can skip component's subtree until one of its input properties emits an event
-  - This can bring performance benefits e.g. if you use observables in some gigantic table
+  - This can bring performance benefits if you use observables on e.g. some gigantic table
 
 ---
 
