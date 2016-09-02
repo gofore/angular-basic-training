@@ -9,6 +9,7 @@
     - ES6
     - Webpack
     - Using IDEs and Editors for Angular 2 and TypeScript
+    - Angular CLI
   - TypeScript
     - Advantages
     - Typing
@@ -16,6 +17,7 @@
 - [Angular 2 Fundamentals](angular2-fundamentals/README.md)
   - Background
   - Architecture
+  - NgModules
   - Components
   - Templates
   - Component Lifecycle Hooks
@@ -29,6 +31,8 @@
   - Dependency Injection
   - Directives
 - [Reactive Programming with Angular 2](reactive-programming-with-angular2/README.md)
+  - Promises
+  - Observables
   - Reactive Programming with Observables
   - RxJS
 - [Testing](testing/README.md)
