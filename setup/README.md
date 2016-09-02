@@ -3,17 +3,17 @@
 ### Node.js, npm & git
 
 Links for installers/installation instruction:
-- [Node.js (at least version 4 or 5) & npm](https://nodejs.org/)
+- [Node.js version 6.x & npm version 3.x](https://nodejs.org/)
 - [git](http://git-scm.com/)
 
 Please, make sure that the applications are installed correctly by checking their version numbers (which do not need to exactly match). Example of a valid setup:
 
 ```shell
 > node --version
-v4.4.3
+v6.5.0
 
 > npm --version
-v3.5.4
+v3.10.3
 
 > git --version
 git version 2.6.4
