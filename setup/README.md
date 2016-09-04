@@ -20,7 +20,6 @@ git version 2.6.4
 ```
 
 ### Editor
-
 You may use any IDE you feel comfortable with but as we can't master all of them, we recommend either Atom or IntelliJ IDEA (or WebStorm) to be used.
 
 #### Atom
@@ -34,15 +33,14 @@ You may use any IDE you feel comfortable with but as we can't master all of them
   - [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS)
   - [_NodeJS_](https://plugins.jetbrains.com/plugin/6098?pr=idea)
 
-### Copy of Exercises Project
+### Project Skeleton for Exercises
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-git clone https://github.com/gofore/angular2-seed.git angular2-exercise
-cd angular2-exercise
-npm install -g webpack webpack-dev-server typings typescript
-npm install
-npm start
+npm install -g angular-cli@webpack
+ng new angular2-training
+cd angular2-training
+ng serve
 ```
 
-to download the code, install the dependencies and start the server. Then, visit `http://localhost:3000/` to check everything is working correctly.
+to generate a new project with Webpack and to start the server. Server is running okay when it says `webpack: bundle is now valid` on the last line. Then, visit `http://localhost:4200/` to check that _app works!_ is printed. Now your environment is ready for training. See you soon!
