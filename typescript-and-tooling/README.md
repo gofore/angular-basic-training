@@ -28,7 +28,23 @@
 - Widely used module bundler for web projects
 - Configurable with loaders and plugins
 - Handles both source code and assets like images and stylesheets
-- Allows you to write modular
+- Allows you to write modular applications
+
+---
+
+# Angular CLI
+
+- Command-line interface for Angular 2 development
+- Supports generation of project, components, services, pipes etc.
+- Usage with `ng` command:
+
+```shell
+ng new PROJECT_NAME
+cd PROJECT_NAME
+ng serve
+```
+
+Angular app now running on `localhost:4200`.
 
 ---
 

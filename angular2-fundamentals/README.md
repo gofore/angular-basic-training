@@ -44,6 +44,7 @@ project
 │  package.json
 └──src
     │  app.component.ts
+    |  app.module.ts
     │  index.html
     ├──todo
     │   └──components
@@ -59,6 +60,42 @@ project
 
 ---
 
+# NgModules
+- Each app defines at least single _NgModule_ with `@NgModule` annotation
+- Declares single unit of things relating to same thing
+- Defines template compilation context
+
+---
+
+# NgModules - example
+
+_app.module.ts_
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent, MyComponent, MyDirective, CustomPipe],
+  imports: [BrowserModule],
+  providers: [UserService, LessonsService],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+---
+
+# NgModules - Details
+
+- `declarations` contains list of application build blocks, such as components, pipes and directives, with certain selector
+- `imports` allows importing of other _NgModules_
+  - For example `BrowserModule` imports browser-specific renderers and core directives such as `ngFor` and `ngIf`
+- `providers` contains list of services for dependency injection
+- `bootstrap` contains root element for the application (usually named `AppComponent`)
+
+---
+
 # Components
 - Defines a build block for application UI
 - Has a template that it binds data to
@@ -68,18 +105,17 @@ project
 
 # Bootstrapping the Application
 
-_index.ts_
+_main.ts_
 ```typescript
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {Component} from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import { AppModule } from './app/app.module';
 
-@Component({
-  selector: 'todo-app',
-  template: `<h1>It works!</h1>`
-})
-class AppComponent {
+if (false) {
+  enableProdMode();
 }
-bootstrap(AppComponent);
+
+platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 ---

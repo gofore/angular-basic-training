@@ -29,6 +29,8 @@
 ##### Afternoon
 - Angular 2 Advanced Topics
 
+---
+
 #### Day 2
 ##### Morning
 - Reactive programming with Angular 2
