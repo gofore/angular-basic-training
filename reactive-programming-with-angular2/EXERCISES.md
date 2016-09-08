@@ -64,13 +64,13 @@ Tips:
 
 In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
 ```bash
-git clone https://github.com/gofore/angular2-seed angular2-search
+git clone https://github.com/gofore/angular2-exercises.git angular2-search
 cd angular2-search
-git checkout search-exercise
+git checkout search
 npm install
-npm start
+ng serve
 ```
-- Open http://localhost:3000 and check that the search works
+- Open http://localhost:4200 and check that the search works
 - Open the code in your IDE
 
 # Exercise 8 Async Pipe
