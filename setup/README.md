@@ -33,6 +33,9 @@ You may use any IDE you feel comfortable with but as we can't master all of them
   - [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS)
   - [_NodeJS_](https://plugins.jetbrains.com/plugin/6098?pr=idea)
 
+### Google Chrome
+[_Google Chrome_](https://www.google.com/chrome/) browser is needed for running and debugging Karma tests. 
+
 ### Project Skeleton for Exercises
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
