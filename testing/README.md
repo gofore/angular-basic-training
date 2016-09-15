@@ -19,29 +19,29 @@
 # First Jasmine test
 
 ```javascript
-it('true is true', function(){ expect(true).toEqual(true); });
+it('true is true', () => expect(true).toEqual(true););
 ```
 
 ---
 # Setup and tear-down
 - To keep test DRY, you can use `beforeEach`, `afterEach`, `beforeAll` and `afterAll`
 ```javascript
-describe("A spec using beforeEach and afterEach", function() {
+describe("A spec using beforeEach and afterEach", () => {
       var foo = 0;
 
-      beforeEach(function() {
+      beforeEach(() => {
         foo += 1;
       });
 
-      afterEach(function() {
+      afterEach(() => {
         foo = 0;
       });
 
-      it("is just a function, so it can contain any code", function() {
+      it("is just a function, so it can contain any code", () => {
         expect(foo).toEqual(1);
       });
 
-      it("can have more than one expectation", function() {
+      it("can have more than one expectation", () => {
         expect(foo).toEqual(1);
         expect(true).toEqual(true);
       });
@@ -52,11 +52,11 @@ describe("A spec using beforeEach and afterEach", function() {
 # Spies
 - Test double functions AKA spies let you stub any function and track calls to it
 ```javascript
-describe("A spy", function() {
+describe("A spy", () => {
       var foo, bar = null;
-      beforeEach(function() {
+      beforeEach(() => {
         foo = {
-          setBar: function(value) {
+          setBar: (value) => {
             bar = value;
           }
         };
@@ -65,13 +65,13 @@ describe("A spy", function() {
         foo.setBar(456, 'another param');
       });
 
-      it("tracks that the spy was called", function() {
+      it("tracks that the spy was called", () => {
         expect(foo.setBar).toHaveBeenCalled();
       });
-      it("tracks that the spy was called x times", function() {
+      it("tracks that the spy was called x times", () => {
         expect(foo.setBar).toHaveBeenCalledTimes(2);
       });
-      it("tracks all the arguments of its calls", function() {
+      it("tracks all the arguments of its calls", () => {
         expect(foo.setBar).toHaveBeenCalledWith(123);
         expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
       });
@@ -79,19 +79,19 @@ describe("A spy", function() {
 ```
 ---
 # Asynchronous
-- Execution of test cases and setup or tear-down blocks can be asynchronous -> mechanism neede to let Jasmine know when the block is completely executed
+- Execution of test cases and setup or tear-down blocks can be asynchronous -> mechanism needed to let Jasmine know when the block is completely executed
 - Jasmine supports this by checking whether there is argument declared for functions passed
 ```javascript
-    beforeEach(function(done) {
-      setTimeout(function() {
+    beforeEach((done) => {
+      setTimeout(() => {
         done();
       }, 1000);
     });
 ```
 - Default timeout before failing a test case is 5 seconds. Can be changed with extra parameter for `it` call:
 ```javascript
-    it("takes a long time", function(done) {
-      setTimeout(function() {
+    it("takes a long time", (done) => {
+      setTimeout(() => {
         done();
       }, 9000);
     }, 10000);
@@ -99,25 +99,14 @@ describe("A spy", function() {
 
 
 ---
-# Karma
-- Using browser for running tests is okay-ish for developing few test cases, but doesn't play well with build automation
-- Karma is a test runner with support e.g. for coverage reports and test results exports
-- To install Karma, run
-```shell
-npm install karma karma-jasmine karma-chrome-launcher --save-dev
-```
-which would allow you to use
-```shell
-./node_modules/karma/bin/karma start
-```
-to run tests, which is a little verbose, so run
-```shell
-npm install -g karma-cli
-```
-which lets you use just `karma run`
-
+# Angular Testing Platform
+- Angular 2 has its own testing platform that makes testing Angular components a lot easier
+- Enables developers to write isolated unit tests
+  - For services, components, directives, pipes
+  - Provides tools to fake all dependencies and injected values
+- Consists of TestBed class and some helper functions
 ---
-# Angular 2 unit testing
+# Example spec
 - Since Angular 2 code is mostly just TS classes it is very easy to instantiate classes for testing. Suppose we had the following component:
 ```typescript
     @Component({
@@ -151,6 +140,16 @@ new VideosComponent();
 new VideosComponent({getList: () => [{id: 1, name: 'The video'}]});
 ```
 ---
+# Karma
+- Using browser for running tests is okay-ish for developing few test cases, but doesn't play well with build automation
+- Karma is a test runner with support e.g. for coverage reports and test results exports
+- Angular CLI comes with Karma installed
+- To run tests, type:
+```shell
+ng test
+```
+---
+
 # E2E testing
 - End-to-End (E2E) tests test the whole flow of application
 - Implemented most usually with Protractor
@@ -159,12 +158,11 @@ new VideosComponent({getList: () => [{id: 1, name: 'The video'}]});
 # Protractor
 - E2E test framework for Angular applications
 - Runs tests against your application running in a real browser, interacting with it as a user would
-- To install, run
-```shell
-npm install -g protractor
-```
-which will install _protractor_ itself and _webdriver-manager_ which can be used to easily boot instance of Selenium Server
-
+- Angular CLI comes with Protractor installed
+  - To run E2E tests, type:
+  ```shell
+  ng e2e
+  ```
 ---
 # Example spec
 
@@ -186,10 +184,4 @@ describe('angularjs homepage todo list', function() {
     expect(completedAmount.count()).toEqual(2);
   });
 });
-```
-
-```shell
-webdriver-manager update
-webdriver-manager start
-protractor conf.js
 ```
