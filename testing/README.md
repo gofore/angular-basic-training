@@ -99,31 +99,16 @@ describe("A spy", () => {
 
 
 ---
-# Angular Testing Platform
+# Angular Testing Platform (ATP)
 - Angular 2 has its own testing platform that makes testing Angular components a lot easier
 - Enables developers to write isolated unit tests
   - For services, components, directives, pipes
   - Provides tools to fake all dependencies and injected values
 - Consists of TestBed class and some helper functions
+- Provides tools for test components and services with async behavior
 ---
 # Example spec
-- Since Angular 2 code is mostly just TS classes it is very easy to instantiate classes for testing. Suppose we had the following component:
-```typescript
-    @Component({
-      selector: 'videos',
-      templateUrl: 'videos.component.html'
-    })
-    class VideosComponent {
-    }
-```
-we could instantiate it like
-```typescript
-new VideosComponent();
-```
-
----
-# Mocking
-- The way Angular 2 DI is built makes it simple to provide mocked dependencies:
+- Suppose we had the following component:
 ```typescript
     @Component({
       selector: 'videos',
@@ -136,8 +121,22 @@ new VideosComponent();
       }
     }
 ```
+---
+# Setup
+- We can setup the test environment with mocks using TestBed:
 ```typescript
-new VideosComponent({getList: () => [{id: 1, name: 'The video'}]});
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ VideosComponent ],
+        providers: [{provide: VideoService, useClass: FakeVideoService}]
+      });
+
+      // create component and test fixture
+      fixture = TestBed.createComponent(VideosComponent);
+
+      // get test component from the fixture
+      comp = fixture.componentInstance;
+    });
 ```
 ---
 # Karma
@@ -165,10 +164,9 @@ ng test
   ```
 ---
 # Example spec
-
 ```javascript
-describe('angularjs homepage todo list', function() {
-  it('should add a todo', function() {
+describe('angularjs homepage todo list', () => {
+  it('should add a todo', () => {
     browser.get('https://angularjs.org');
 
     element(by.model('todoList.todoText')).sendKeys('write first protractor test');
