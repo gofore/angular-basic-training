@@ -40,10 +40,10 @@ You may use any IDE you feel comfortable with but as we can't master all of them
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@webpack
+npm install -g angular-cli@latest
 ng new angular2-training
 cd angular2-training
 ng serve
 ```
 
-to generate a new project with Webpack and to start the server. Server is running okay when it says `webpack: bundle is now valid` on the last line. Then, visit `http://localhost:4200/` to check that _app works!_ is printed. Now your environment is ready for training. See you soon!
+to generate a new project and to start the server. Server is running okay when it says `webpack: bundle is now valid` on the last line. Then, visit `http://localhost:4200/` to check that _app works!_ is printed. Now your environment is ready for training. See you soon!
