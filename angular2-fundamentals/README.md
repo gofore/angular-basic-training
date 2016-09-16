@@ -14,14 +14,14 @@
 - Based on successful Angular 1
 - First beta on December 2015
 - First release candidate on April 2016
-- Not even considered ready by features, not to mention bugs
+- Initial release on 14th of September 2016
 
 ---
 
 # Angular 2 & TypeScript
-- Available for JavaScript, Dart and TypeScript
-- TypeScript as de facto standard and recommended by many A2 core teams
-- Framework code under `@angular` packages such as `@angular/core` and `@angular/common`
+- Available for JavaScript, Dart and **TypeScript**
+- TypeScript is de facto standard and recommended by many A2 core team members
+- Framework code is distributed in modules such as `@angular/core` and `@angular/common`
 
 ---
 
@@ -64,10 +64,6 @@ project
 - Each app defines at least single _NgModule_ with `@NgModule` annotation
 - Declares single unit of things relating to same thing
 - Defines template compilation context
-
----
-
-# NgModules - example
 
 _app.module.ts_
 ```typescript
@@ -135,14 +131,14 @@ class TodosComponent {
 ---
 
 # Components - Templates
-Template with `templateUrl` relative to `src/` folder
+Template with `templateUrl`
 
 _todos.component.ts_
 ```typescript
 import {Component} from '@angular/core';
 
 @Component({
-  `templateUrl: 'components/todos/todos.component.html'`
+  `templateUrl: 'todos.component.html'`
 })
 class TodosComponent {
 }
@@ -168,16 +164,6 @@ import {Component} from '@angular/core';
   `selector: 'todos'`
 })
 class TodosComponent { }
-```
-
-_app.component.ts_
-```typescript
-import {Component} from '@angular/core';
-*import {TodosComponent} from './todos.component';
-@Component({
-* directives: [TodosComponent]
-})
-class AppComponent { }
 ```
 
 _app.component.html_
@@ -390,10 +376,9 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'todos',
   templateUrl: 'todos.component.html',
-  `styleUrls: ['./todos.component.css']`
+  `styleUrls: ['todos.component.css']`
 })
 class TodosComponent {
-  constructor() {}
 }
 ```
 
@@ -438,7 +423,13 @@ export class MyComponent `implements OnInit` {
 - `ngModel` allows us to bind input field into components property two-way:
 
 ```html
-<label>Your name: <input type="text" `[(ngModel)]="name"` /></label>
+Name: <input type="text" `[(ngModel)]="name"` />
+```
+
+which is just sugar for
+
+```html
+Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
 ```
 
 ---
@@ -449,10 +440,7 @@ export class MyComponent `implements OnInit` {
 - Examples:
   - `UserService`
   - `BackendService`
-
----
-
-# Services - `@Injectable` annotation
+- Declaring:
 
 _user.service.ts_
 ```typescript
@@ -478,25 +466,11 @@ export class UserService {
   }
 }
 ```
----
-
-```typescript
-import {Component} from '@angular/core';
-*import {UserService} from './user.service';
-
-@Component({...})
-export class MyComponent {
-  private role: string;
-  constructor(`private userService: UserService`) {
-    this.role = userService.getRole();
-  }
-}
-```
 
 ---
 
 # Asynchronous and Server-side Communication
-- Asynchronous is managed in Angular 2 by Observables (covered on advanced topics)
+- Asynchronous things are modeled as Observables (covered on advanced topics) in A2
   - For now, we only need to know that there is `subscribe` method
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 

@@ -1,54 +1,43 @@
-# Angular 2 & TypeScript Training
+# Angular 2 & TypeScript Training - Gofore Oy
 
 ## Trainers
-- Roope Hakulinen
-- Henri Ihalainen
-
----
-
-## Background
-- From Gofore Oy
+- Roope Hakulinen & Henri Ihalainen
 - Working on EU funding applying & managing system for Ministry of Employment and the Economy (Työ- ja Elinkeinoministeriö)
 - Used Angular 2 from its first beta (beginning of the year)
 
----
+## Slides
 
-# Slides
-
-[angular2-training.herokuapp.com](http://angular2-training.herokuapp.com/)
+Available in [angular2-training.herokuapp.com](http://angular2-training.herokuapp.com/)
 
 ---
 
-## Agenda
-#### Day 1
-##### Morning
+## Agenda - Day 1
+#### Morning
 - Introduction to SPAs
 - TypeScript & Tooling
 - Angular 2 Fundamentals
 
-##### Afternoon
+#### Afternoon
 - Angular 2 Advanced Topics
 
 ---
 
-#### Day 2
-##### Morning
+## Agenda - Day 2
+#### Morning
 - Reactive programming with Angular 2
 
-##### Afternoon
+#### Afternoon
 - Testing
 
 ---
 
-# Introduction to SPA & Angular
+# Introduction to SPAs & Angular
 
----
+## Agenda
 
-# Agenda
-
-1. What is a SPA?
-2. Real-life examples
-3. Technical overview
+- What is a SPA?
+- Real-life examples
+- Technical overview
 
 ---
 
@@ -58,6 +47,12 @@
 - Browser fetches executable code that makes asynchronous calls for actual data to be shown
 - Data is visualized and/or manipulated and stored back on server asynchronously
 
+---
+
+# Real-life Examples
+- [Google search](http://www.google.com)
+- [Facebook](http://facebook.com)
+- [Twitter](http://twitter.com)
 
 ---
 
@@ -67,10 +62,6 @@
 - JavaScript fetches the actual data via AJAX (Asynchronous JavaScript and XML). Data is usually JSON (or XML)
 - JavaScript renders the data on templates and binds event handlers for clicks, keyboard input etc.
 
----
-
-# Real-life Example
-- [Google search](http://www.google.com)
 
 ---
 

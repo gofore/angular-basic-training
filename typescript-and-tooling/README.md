@@ -11,7 +11,7 @@
   - Compiling ES6/TypeScript -> ES5 and LESS/SASS -> CSS
   - Combining multiple source files into single bundle file for faster loading
   - Running test suites
-  - Performance optimizations
+  - Optimizations (minification, Dead code elimination, tree shaking)
 
 ---
 
@@ -46,6 +46,25 @@ ng serve
 
 Angular app now running on `localhost:4200`.
 
+
+---
+
+# JSON
+- JavaScript Object Notation (JSON) is lightweight data-interchange format
+- Meant to be easy for both, humans and machines
+- Key-value pairs, where values can be any JavaScript primitives (except functions)
+
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "friends": [
+    {"name": "Jane Doe"},
+    {"name": "John Doe Jr."}
+  ]
+}
+```
+
 ---
 
 # ES6
@@ -58,34 +77,27 @@ Angular app now running on `localhost:4200`.
 
 # ES6 - Key Features
 
-- Modules
-- Arrow functions
-- Classes
-- Multiline strings
 - `let` and `const` to replace `var`
+- Arrow functions
+- Multiline strings
+- Modules
 - Enhancements on basic types such as `includes()` for string and `find()` for array
+
 
 ---
 
-# Modules
-Allows `import`ing and `export`ing code between files (modules)
+# Let and const
+`const` keyword makes constant **reference**
 
-_lib.js_
 ```javascript
-export function square(x) {
-   return x * x;
-}
-export function squareSum(x, y) {
-   return Math.sqrt(square(x) + square(y));
-}
+const input = [0, 1, 2, 3, 4];
+input = []; // Uncaught TypeError: Assignment to constant variable.
+input.push(5); // Works, as input is just the reference
 ```
 
-_main.js_
-```javascript
-import { square, squareSum } from 'lib';
-console.log(square(11)); // 121
-console.log(squareSum(4, 3)); // 5
-```
+For immutable objects & arrays there are libraries such as _Immutable.js_.
+
+**Rule of thumb: Always use `const` if possible, `let` otherwise.**
 
 ---
 
@@ -117,33 +129,6 @@ can be written as ES6:
 
 ---
 
-# Classes
-
-```javascript
-class MyClass {
-  constructor(str) {
-    this.myString = str;
-  }
-
-  getString() {
-    return this.myString;
-  }
-}
-```
-```javascript
-const myClass = new MyClass('Hello World');
-```
-
-Can be exported:
-
-```javascript
-export class MyClass { }
-```
-
-**TypeScript classes are a little different**
-
----
-
 # Multiline strings
 ES5 string:
 ```javascript
@@ -169,37 +154,38 @@ ${firstName}`;
 //Roope
 ```
 
-
 ---
 
-# Const and let
+# Modules
+Allows `import`ing and `export`ing code between files (modules)
 
-`const` keyword makes constant **reference**
-
+_lib.js_
 ```javascript
-const input = [0, 1, 2, 3, 4];
-input = []; // Uncaught TypeError: Assignment to constant variable.
-input.push(5); // Works, as input is just the reference
+export function square(x) {
+   return x * x;
+}
+export function squareSum(x, y) {
+   return Math.sqrt(square(x) + square(y));
+}
 ```
 
-For immutable objects & arrays there are libraries such as _Immutable.js_.
-
-**Rule of thumb: Always use `const` if possible, `let` otherwise.**
+_main.js_
+```javascript
+import { square, squareSum } from 'lib';
+console.log(square(11)); // 121
+console.log(squareSum(4, 3)); // 5
+```
 
 ---
 
 # TypeScript
 
 - Built by Microsoft to build JavaScript in scale
-- Initial release October 2012
+- Initial release in October 2012
 - Typed superset of JavaScript -> Any valid JS is valid TypeScript
-
----
-
-# Advantages
-
-- Type system on top of JavaScript to catch errors already compile-time
-- Angular 2 is written in TypeScript
+- Advantages:
+  - Type system on top of JavaScript to catch errors already on compile-time
+  - Angular 2 is written in TypeScript
 
 ---
 
@@ -275,22 +261,5 @@ document.body.innerHTML = greeter(user);
 })
 class MyClass {
   @Input() myProperty: string;
-}
-```
-
----
-
-# JSON
-- JavaScript Object Notation (JSON) is lightweight data-interchange format
-- Meant to be easy for both, humans and machines
-
-```json
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "friends": [
-    {"name": "Jane Doe"},
-    {"name": "John Doe Jr."}
-  ]
 }
 ```
