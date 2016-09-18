@@ -419,7 +419,7 @@ export class MyComponent `implements OnInit` {
 ---
 
 # Two-way Data Binding
-- Combining the `()` (output) and `[]` (input) as `([])` gives us two-way data binding
+- Combining the `()` (output) and `[]` (input) as `([])` (called _banana-box syntax_) gives us two-way data binding
 - `ngModel` allows us to bind input field into components property two-way:
 
 ```html

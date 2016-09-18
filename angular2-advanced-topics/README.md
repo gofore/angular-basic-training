@@ -8,220 +8,215 @@
 
 ---
 
-# Router - Basics
-Maps URLs to components
+# Router
+- Core responsibilities:
+  - Map URL into app state
+  - Provide transitions from one URL to another (state to another)
+- Supports lazy loading of certain paths
 
-_app.component.ts_
-```typescript
-import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {TodoComponent} from './todo.component';
-import {TodosComponent} from './todos.component';
-
-@Component({
-*  directives: [ROUTER_DIRECTIVES]
-})
-*@Routes([
-*  {path: '/', component: TodosComponent},
-*  {path: '/todos/:id', component: TodoComponent}
-*])
-export class AppComponent {
-  constructor(private router: Router) {
-*   this.router.navigate(['/']);
-  }
-}
-```
-
-(see next slide)
 ---
 
-# Router - Basics (continued)
+# Router - Basics
+Route declarations
+
+_app.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+*import { RouterModule } from '@angular/router';
+
+*const routeConfig = [
+*  {
+*    path: 'todos',
+*    component: TodosComponent
+*  }
+*];
+
+@NgModule({
+  declarations: [
+    AppComponent, TodosComponent, TodosComponent, TodoItemComponent
+  ],
+  imports: [
+    BrowserModule,
+*   RouterModule.forRoot(routeConfig),
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+---
+
+# Router - Basics
+`<router-outlet></router-outlet>` declares the placeholder for routed component tree
 
 _app.component.html_
 ```html
+<h1>App works!</h1>
 <router-outlet></router-outlet>
 ```
 
-_index.ts_
-```typescript
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {AppComponent} from './app.component';
+---
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS]);
+# Router - More advanced routes
+
+_app.module.ts_
+```typescript
+const routeConfig = [
+  {
+    path: 'todos',
+*   children: [
+*     {
+*       path: '',
+*       component: TodosComponent
+*     },
+*     {
+*       path: ':index',
+*       component: EditTodoItemComponent
+*     }
+*   ]
+  }
+];
+```
+
+declares routes `todos/` and `todos/:id`. `:id` is named placeholder for path parameter that can be accessed within the component.
+
+---
+
+# Router - Redirects
+- By default matching of URLs is done with _startsWith_ algorithm
+- `pathMatch: 'full'` can be used to set the algorithm to full matching
+- Redirects can be done with `redirectTo`
+
+_app.module.ts_
+```typescript
+const routeConfig = [
+  {
+*   path: ''
+*   pathMatch: 'full',
+*   redirectTo: 'todos/'
+  },
+  {
+    path: 'todos',
+    component: TodosComponent
+  }
+];
+```
+---
+
+# Router - Accessing Route Parameters
+- Route parameters can be accessed via `ActivedRoutes` instances `params` value as observable.
+- Every time the parameters change, new event will be sent.
+- Makes it possible not to load the component again and again from scratch
+
+```typescript
+@Component({})
+export class EditTodoItemComponent {
+  constructor(route: ActivatedRoute) {
+    route.params.subscribe((params) => {
+      this.index = +params['index']; // + converts string to number in JavaScript
+    });
+  }
+```
+
+---
+
+# Router - Fragments & Query Parameters
+- Fragments (`example.com#key=value`) and query parameters (`example.com?key=value`) are shared by all routes
+- Can be accessed just like path parameters:
+
+```typescript
+@Component({})
+export class MyComponent {
+  constructor(route: ActivatedRoute) {
+    route.queryParams.subscribe((params) => { // or .fragment
+      this.key = +params['key'];
+    });
+  }
 ```
 
 ---
 
 # Router - Navigating
-Navigating to routes:
-- In component with `router.navigate([url])`
-- In template with `a` with directive `[routerLink]=[url]`
+- Two ways to navigate between states:
+ - Imperatively from within the components code: `this.router.navigateByUrl('todos/1')` or `this.router.navigate(['todos', 1])`
+ - Declaratively from within the template: `<div [routerLink]=['todos', 1]>`
+- URLs starting with `/` are absolute navigations, others relative
+- `../` also works for accessing the "parent" URL
 
 _app.component.ts_
 ```typescript
-import {Component} from '@angular/core';
-import {Routes, Router} from '@angular/router';
-import {TodosComponent} from 'todos.component';
-import {TodoComponent} from 'todo.component';
-
-@Component({ ... })
-@Routes([
-  {path: '/', component: TodosComponent},
-  {path: '/todos/:id', component: TodoComponent}
-])
 export class AppComponent {
   constructor(`private router: Router`) {
-*   this.router.navigate(['/todos/3']);
+*   this.router.navigate(['todos']);
   }
 }
 ```
-(see next slide)
 
----
-
-# Router - Navigating (continued)
 _app.component.html_
 ```html
-<a [routerLink]="['/todos/3']">
-  Todo
+<a [routerLink]="['todos', 3]">
+  Todo 3
 </a>
 ```
 
 ---
 
-# Router - Lifecycle Hooks
-- Supplement component lifecycle hooks
-- E.g.: `CanActivate`, `OnActivate` and `CanDeactivate`
-
-```typescript
-import {OnActivate} from '@angular/router';
-
-export class TodosComponent `implements OnActivate` {
-*   onActivate() {
-*     // Route activated
-*   }
-  }
-}
-```
----
-
-# Router - `CanDeactivate` Lifecycle Hook
-- Not yet implemented!
-- E.g. "Unsaved data will be lost" confirmations:
-- Can either return boolean _false_ or observable emitting _false_ to prevent navigating out
-
-```typescript
-import { CanDeactivate } from '@angular/router';
-
-export class TodosComponent `implements CanDeactivate` {
-*  routerCanDeactivate(): any {
-*    if (...) return true;
-*    return this.dialog.confirm('Discard changes?');
-*  }
-}
-```
+# Router - Guards
+- Multiple guards available for each route:
+  - `CanActivate` to mediate navigation to a route
+  - `CanActivateChild` to mediate navigation to a child route
+  - `CanDeactivate` to mediate navigation away from the current route
+  - `Resolve` to perform route data retrieval before route activation
+  - `CanLoad` to mediate navigation to a feature module loaded asynchronously
+- The `Can*` guards can return either boolean or promise (resolving to a boolean value) to allow or prevent navigation
 
 ---
+# Router - Guards
+- Usage:
 
-# Router - URL Parameters
-- `onActivate` will be called on activation with `routeSegment` as param
-- `routeSegment.getParam` can be used to access params
-
-_todos.component.ts_
+_app.module.ts_
 ```typescript
-@Component({...})
-*@Routes([
-*  {path: '/todos/:id', component: TodoComponent}
-*])
-class TodosComponent { }
-```
-
-_todo.component.ts_
-```typescript
-@Component({...})
-class TodoComponent implements OnActivate {
-  `id: number;`
-  onActivate(`routeSegment: RouteSegment`) {
-    `this.id = routeSegment.getParam('id');`
+const routeConfig = [
+  {
+    path: 'todos',
+*   canActivate: [AuthGuard],
+    component: TodosComponent
   }
-}
+];
 ```
 
-
+_auth-guard.ts_
 ```typescript
-this.router.navigate(['/todos/1']);
-```
+import { CanActivate, Router,
+  ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
----
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router, private authService: AuthService) {}
 
-# Router - Query Parameters
-- Used for optional and complex parameters
-
-_todos.component.ts_
-```typescript
-@Component({...})
-*@Routes([
-*  {path: '/todos/:id', component: TodoComponent}
-*])
-class TodosComponent { }
-```
-
-_todo.component.ts_
-```typescript
-@Component({...})
-class TodoComponent implements OnActivate {
-  `query: number;`
-  onActivate(`routeSegment: RouteSegment`) {
-    `this.query = routeSegment.getParam('query');`
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.authService.checkLogin(state.url);
   }
-}
-```
-
-
-```typescript
-this.router.navigate(['/todos/1', {query: 'foo'}]); // URL: '/todos/1?query=foo'
 ```
 
 ---
 
 # Router - URL Strategies
 - Two strategies for URL formation:
-  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`)
+  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`) (default)
   - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
 - Setting the strategy:
 
 ```typescript
-import {provide} from '@angular/core';
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from '@angular/common';
-
-bootstrap(AppComponent, [
-  ROUTER_PROVIDERS,
-  `provide(LocationStrategy, {useClass: HashLocationStrategy})`
-]);
-```
-
----
-
-# Routers - Nested Routers
-- Child components can define their own routes:
-
-_app.component.ts_
-```typescript
-@Component({...})
-*@Routes([
-*  {path: '/todo-lists', component: TodoListsComponent}
-*])
-class AppComponent { }
-```
-
-```typescript
-@Component({...})
-*@Routes([
-*  {path: '/', component: TodosComponent},
-*  {path: '/todos/:id', component: TodoComponent},
-*])
-class TodoListsComponent { }
+@NgModule({
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routeConfig, `{ useHash: true }`)
+  ],
+  declarations: [ AppComponent ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {}
 ```
 
 ---
@@ -269,6 +264,7 @@ class MyComponent {}
 - Declared with `@Pipe` annotation
 - `PipeTransform` interface with `transform` method
 - `transform` takes the value as first argument and the optional arguments as rest of parameters
+- Must be declared in `NgModule` declaration to be available in templates
 
 ```typescript
 import {Pipe, PipeTransform} from '@angular/core';
@@ -294,38 +290,57 @@ import {Pipe, PipeTransform} from '@angular/core';
   - Change tracking
   - Validation
   - Error handling
+- Angular 2 forms can be either model- or template-driven
+  - Only template-driven forms are covered here, as they are enough for most use cases
+- To enable forms, we need to add `FormsModule` to imports of our `NgModule`:
+
+```typescript
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+*   FormsModule
+  ]
+})
+export class AppModule { }
+```
 
 ---
 
 # Forms - Template-driven Forms
-Forms declared in templates rather than in component
+- Forms declared in templates rather than in component
+- Each input inside form element is attached by default
+- Each input needs to have (unique) name attribute set
 
 ```html
 <form>
-  <input type="text" [(ngModel)]="name" />
-  <input type="email" [(ngModel)]="email" />
+  <input type="text" name="name" [(ngModel)]="name" />
+  <input type="email" name="email" [(ngModel)]="email" />
 <form>
 ```
 
 ---
 
-# Forms - NgControl
-`ngControl` directive adds control that tracks validity, dirtiness and visiting
+# Forms - Using Template-local Variables
+Forms export `FormControl` as `ngModel` for each input to be bound to template-local variable
 
 ```html
 <form>
-  <input type="text" [(ngModel)]="name" `ngControl="name"` `#name="ngForm"` />
-  <input type="email" [(ngModel)]="email" `ngControl="email"` `#email="ngForm"` />
-  <span [hidden]="`name.valid && email.valid`">
+  <input type="text" [(ngModel)]="name" `name="name"` `#nameModel="ngModel"` required />
+  <input type="email" [(ngModel)]="email" `name="email"` `#emailModel="ngModel"` required />
+  <span [hidden]="`nameModel.valid && emailModel.valid`">
     We have an invalid input.
   </span>
 <form>
 ```
-(`#name` and `#email` are called template-local variables)
+(`#nameModel` and `#emailModel` are called template-local variables)
 
 ---
 
-# Forms - NgControl & CSS Classes
+# Forms - CSS Classes
+- CSS classes are attached automatically by framework
+
 ![Control CSS Classes](angular2-advanced-topics/control-css-classes.png "Control CSS Classes")
 
 ```css
@@ -337,15 +352,32 @@ Forms declared in templates rather than in component
 ---
 
 # Forms - NgForm
-Form automatically wraps the controls inside it
+- Forms exports `ngForm` which can be bound into template-local variable
+- Contains combined information about all the input controls inside the form
 
 ```html
-<form #myForm="ngForm">
-  <input type="text" [(ngModel)]="name" ngControl="name" #name="ngForm" />
-  <input type="email" [(ngModel)]="email" ngControl="email" #email="ngForm" />
+<form `#myForm="ngForm" (submit)="submitForm(myForm)"`>
+  <input type="text" [(ngModel)]="name" name="name" #name="ngModel" />
+  <input type="email" [(ngModel)]="email" name="email" #email="ngModel" />
 
-  <button (click)="submitForm(myForm)" `[disabled]="myForm.invalid"`>Submit</button>
+  <button type="submit" `[disabled]="myForm.invalid"`>Submit</button>
 <form>
+```
+
+---
+
+# Forms - Accessing Form Inside Component
+- Template-driven forms can be accessed from component with `@ViewChild('myForm')` annotation:
+
+```typescript
+import { ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+@Component(..)
+export class MyComponent {
+  @ViewChild('myForm')
+  private FormGroup myForm;
+}
 ```
 
 ---
