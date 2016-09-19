@@ -33,7 +33,7 @@ var source2 = Rx.Observable.interval(500).take(10);
 ```
 1. Merge streams
 2. Concatenate streams
-3. What's the difference between combined streams
+3. What's the difference between combined streams?
 
 # Exercise 4 Buffer
 Given the following source of integers:
