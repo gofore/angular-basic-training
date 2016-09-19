@@ -139,6 +139,39 @@ describe("A spy", () => {
     });
 ```
 ---
+# Async with ATP
+- Let's change the implementation of the VideoService to return a promise:
+```typescript
+    ngOnInit() {
+      this.videoService.getList().then(videos => this.videos = videos);
+    }
+```
+- This means that we'll have to deal with asynchronous behavior
+- Angular Testing Platform provides two different approaches for managing this
+---
+# async()
+- We can run test code within asynchronous zone
+```typescript
+    it('should show videos after getVideos promise (async)', async(() => {
+      fixture.detectChanges();          // trigger data binding
+      fixture.whenStable().then(() => { // wait for async getVideos
+        fixture.detectChanges();        // update view with videos
+        expect(getVideos()).toBe(testVideos);
+      });
+    }));
+```
+---
+# fakeAsync()
+- Or within fake asynchronous zone
+```typescript
+    it('should show videos after getVideos promise (fakeAsync)', fakeAsync(() => {
+      fixture.detectChanges(); // trigger data binding
+      tick();                  // wait for async getVideos
+      fixture.detectChanges(); // update view with videos
+      expect(getVideos()).toBe(testVideos);
+    }));
+```
+---
 # Karma
 - Using browser for running tests is okay-ish for developing few test cases, but doesn't play well with build automation
 - Karma is a test runner with support e.g. for coverage reports and test results exports
