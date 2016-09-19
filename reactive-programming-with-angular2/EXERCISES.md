@@ -1,6 +1,6 @@
 # RxJS Exercises
 
-Open [JS Bin template](http://jsbin.com/rejacefiyu/1/edit?html,js,console) for RxJS Observable exercise
+Open [JS Bin template](http://jsbin.com/bokemujela/1/edit?html,js,console) for RxJS Observable exercise
 
 # Exercise 1 Map and Filter
 Given the following stream of objects:
@@ -31,14 +31,16 @@ Given the following sources of integers:
 var source1 = Rx.Observable.interval(500).take(10);
 var source2 = Rx.Observable.interval(500).take(10);
 ```
-Find out what's the difference in result stream item ordering between merge and concat operations
+1. Merge streams
+2. Concatenate streams
+3. What's the difference between combined streams
 
 # Exercise 4 Buffer
 Given the following source of integers:
 ```javascript
 Rx.Observable.interval(100).take(100);
 ```
-Calculate the sum of items emitted within one second
+Calculate the sum of items emitted every second
 
 # Exercise 5 Double Click
 From the mouse click stream:
