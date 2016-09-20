@@ -33,7 +33,7 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [
-    AppComponent, TodosComponent, TodosComponent, TodoItemComponent
+    AppComponent, TodosComponent, TodoItemComponent
   ],
   imports: [
     BrowserModule,
