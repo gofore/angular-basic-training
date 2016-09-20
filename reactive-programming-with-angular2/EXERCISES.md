@@ -53,16 +53,7 @@ Tips:
 - [debounceTime operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md)
 - [buffer operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/buffer.md)
 
-# Exercise 6 Todo REST API
-
-- Modify your todo service to use the given [Todo REST API](https://github.com/gofore/todo-backend). Use it to:
-  - List items (GET http://gofore-todo.herokuapp.com/todo-lists/:listId)
-  - Add items (POST http://gofore-todo.herokuapp.com/todo-lists/:listId)
-  - Modify items (PUT http://gofore-todo.herokuapp.com/todos/:itemId)
-- Bonus: Add removal of items
-- Bonus: Sort todo list by item id
-
-# Exercise 7 GitHub Search with Observables
+# Exercise 6 GitHub Search with Observables
 
 In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
 ```bash
@@ -75,21 +66,30 @@ ng serve
 - Open http://localhost:4200 and check that the search works
 - Open the code in your IDE
 
-# Exercise 8 Async Pipe
+# Exercise 7 Async Pipe
 
 Store your search result into an Observable (instead of subscribing it) and use async pipe in the template to show the result.
 
 - [Angular 2 pipes](https://angular.io/docs/ts/latest/guide/pipes.html)
 
-# Exercise 9 Show Search Results Instantly
+# Exercise 8 Show Search Results Instantly
 
 - Show search results instantly when typing
 - No need for search button anymore
 
-# Exercise 10 Improve the Search
+# Exercise 9 Improve the Search
 - Add the following improvements:
   - Don’t hit the search endpoint on every key stroke
   - Don’t hit the search endpoint with the same query params for subsequent requests
   - Deal with out-of-order responses
   - Don't crash on errors
   - Don't hit the search endpoint on empty query (implement this after the error handling)
+
+# Exercise 10 Todo REST API
+
+- Modify your todo service to use the given [Todo REST API](https://github.com/gofore/todo-backend). Use it to:
+  - List items (GET http://gofore-todo.herokuapp.com/todo-lists/:listId)
+  - Add items (POST http://gofore-todo.herokuapp.com/todo-lists/:listId)
+  - Modify items (PUT http://gofore-todo.herokuapp.com/todos/:itemId)
+- Bonus: Add removal of items
+- Bonus: Sort todo list by item id
