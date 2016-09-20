@@ -135,9 +135,9 @@ Rx.Observable.from([1,2,3,4]);
 
 # Observables in Angular 2
 
-- RxJS used
+- RxJS 5 used
 - Observables used extensively instead of promises
-  - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented as observables for convenience
+  - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
   ```javascript
   import {Http} from '@angular/http';
   constructor(http: Http) {} // Http service
@@ -149,7 +149,7 @@ Rx.Observable.from([1,2,3,4]);
       .subscribe(
           data => { this.data = data}, // Success
           err => console.error(err), // Failure
-          () => console.log('done') // Unsubscription
+          () => console.log('done') // Done
       );
   ```
 ---

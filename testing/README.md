@@ -4,11 +4,13 @@
 
 # Unit testing
 - Testing of components in isolation from other components
-- Usually done automatically on file save (concept of _guarding_)
+- Guard against changes that break existing code
+- Specify and clarify what the code does
+- Can be executed automatically e.g. on file save (concept of _guarding_)
 
 ---
 # Jasmine
-- Unit testing tool for JavaScript
+- Unit testing framework for JavaScript
 - Simple basic syntax:
   - `describe(string, function)` to define suite of test cases
   - `it(string, function)` to declare single test case
@@ -78,34 +80,13 @@ describe("A spy", () => {
 });
 ```
 ---
-# Asynchronous
-- Execution of test cases and setup or tear-down blocks can be asynchronous -> mechanism needed to let Jasmine know when the block is completely executed
-- Jasmine supports this by checking whether there is argument declared for functions passed
-```javascript
-    beforeEach((done) => {
-      setTimeout(() => {
-        done();
-      }, 1000);
-    });
-```
-- Default timeout before failing a test case is 5 seconds. Can be changed with extra parameter for `it` call:
-```javascript
-    it("takes a long time", (done) => {
-      setTimeout(() => {
-        done();
-      }, 9000);
-    }, 10000);
-```
-
-
----
 # Angular Testing Platform (ATP)
 - Angular 2 has its own testing platform that makes testing Angular components a lot easier
 - Enables developers to write isolated unit tests
   - For services, components, directives, pipes
   - Provides tools to fake all dependencies and injected values
 - Consists of TestBed class and some helper functions
-- Provides tools for test components and services with async behavior
+- Provides tools to test components and services that have async behavior
 ---
 # Example spec
 - Suppose we had the following component:
@@ -173,7 +154,6 @@ describe("A spy", () => {
 ```
 ---
 # Karma
-- Using browser for running tests is okay-ish for developing few test cases, but doesn't play well with build automation
 - Karma is a test runner with support e.g. for coverage reports and test results exports
 - Angular CLI comes with Karma installed
 - To run tests, type:
@@ -183,9 +163,9 @@ ng test
 ---
 
 # E2E testing
-- End-to-End (E2E) tests test the whole flow of application
-- Implemented most usually with Protractor
-
+- End-to-End (E2E) tests test flow of the application
+- Ensures that the components of the application function together as expected
+- E2E tests often define use cases of the application
 ---
 # Protractor
 - E2E test framework for Angular applications
