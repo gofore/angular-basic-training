@@ -1,4 +1,4 @@
-# Angular 2 and TypeScript Training
+# Angular 2 Training
 
 ## Training topics
 
