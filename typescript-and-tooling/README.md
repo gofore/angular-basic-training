@@ -20,6 +20,44 @@
 - Node.js is JavaScript interpreter built on top of Chrome's V8 JavaScript engine
 - npm (node package manager) is the package manager for Node
   - More packages than on any other package manager for any other language: over 270k (May 2016) ([modulecounts.com](http://www.modulecounts.com/))
+- Usage on command line:
+
+```shell
+# Execute JavaScript file
+node my-js-file.js
+```
+
+---
+
+# npm project configuration: package.json
+- Declares dependencies, development-time dependencies and commands available
+- Can be generated with `npm init`
+
+```shell
+npm install # install dependencies (--production for only "dependencies")
+npm build # build codes (eg. TypeScript -> JavaScript)
+npm start # and run start script
+```
+
+```json
+{
+  "name": "My project",
+  "author": "My company",
+  "scripts": {
+    "build": "my-build.sh",
+    "start": "my-webserver.sh"
+  },
+  "dependencies": {
+    "@angular/core": "2.0.0",
+    "@angular/forms": "2.0.0",
+    "@angular/http": "2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.0",
+    "jasmine": "^2.5.0"
+  }
+}
+```
 
 ---
 
@@ -36,6 +74,7 @@
 
 - Command-line interface for Angular 2 development
 - Supports generation of project, components, services, pipes etc.
+- Recommended by the core team as basis for Angular 2 application
 - Usage with `ng` command:
 
 ```shell
@@ -68,15 +107,13 @@ Angular app now running on `localhost:4200`.
 ---
 
 # ES6
-
 - Newest version of EcmaScript standard that is the basis for JavaScript
-- Published 2015
+- Published 2015 (called also ES2015 because of that)
 - Provides a lot of improvements for writing JavaScript in scale
 
 ---
 
 # ES6 - Key Features
-
 - `let` and `const` to replace `var`
 - Arrow functions
 - Multiline strings
@@ -87,7 +124,8 @@ Angular app now running on `localhost:4200`.
 ---
 
 # Let and const
-`const` keyword makes constant **reference**
+- `let` declares variable (eg. `let myVar = 'asd';`)
+- `const` declares constant **reference** (not constant value)
 
 ```javascript
 const input = [0, 1, 2, 3, 4];
@@ -95,36 +133,41 @@ input = []; // Uncaught TypeError: Assignment to constant variable.
 input.push(5); // Works, as input is just the reference
 ```
 
-For immutable objects & arrays there are libraries such as _Immutable.js_.
+For immutable objects & arrays there are libraries such as [_Immutable.js_](https://facebook.github.io/immutable-js/).
 
 **Rule of thumb: Always use `const` if possible, `let` otherwise.**
 
 ---
 
 # Arrow functions
-Traditional functions
+- Traditional function (for each `func(2)` returns 3):
+
 ```javascript
-const myFunction = function (param1, param2) {
-  return param1 + param2;
+const func = function (param1) {
+  return param1 + 1;
 };
 ```
 
-Arrow functions
+- Arrow function:
+
 ```javascript
-const myFunction = (param1, param2) => {
-  return param1 + param2;
+const func = (param1) => {
+  return param1 + 1;
 };
 ```
 
-ES5 map:
+- Parenthesis can be emitted if only one parameter:
+
 ```javascript
-[1,2,3,4].map(`function (item) {`
-  `return item * 2;`
-`}`)
+const func = param1 => {
+  return param1 + 1;
+};
 ```
-can be written as ES6:
+
+- Curly brackets and `return` can be emitted if returning simple value:
+
 ```javascript
-[1,2,3,4].map(`item => item * 2`)
+const func = param1 => param1 + 1;
 ```
 
 ---
@@ -132,26 +175,24 @@ can be written as ES6:
 # Multiline strings
 ES5 string:
 ```javascript
-var str = "A VEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERY LONG" +
+const str = "MULTILINE" +
 "STRING" +
 "!"
 ```
 
 ES6 multiline string with backticks (`):
 ```javascript
-const str = `A VEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERY LONG
+const str = `MULTILINE
 STRING
-!
+!´
 ```
 
 Also supports string interpolation
 ```javascript
-const firstName = 'Roope';
-const lastName = 'Hakulinen';
-const str = `${lastName},
-${firstName}`;
-//Hakulinen,
-//Roope
+const firstName = 'John';
+const lastName = 'Doe';
+const str = `${lastName}, ${firstName}`;
+//Doe, John
 ```
 
 ---
@@ -194,6 +235,13 @@ console.log(squareSum(4, 3)); // 5
 - Also some "extra" types such as `any`, `void` and `enum`
 - Arrays like `number[]`, `string[]` and `any[]`
 - `any` is basically anything like `number`, `string` or `any[]`
+- Example:
+
+```typescript
+let luckyNumber: number = 50;
+let name: string = 100; // TypeError: Can't assign number to string
+const anything: any = {}; // Anything accepts any type
+```
 
 ---
 
@@ -207,13 +255,11 @@ interface Person {
     lastName?: string;
 }
 
-function greeter(person: Person): string {
+greeter(person: Person): string => {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 
-var user = { firstName: "Jane", lastName: "User" };
-
-document.body.innerHTML = greeter(user);
+greeter({ firstName: "Jane", lastName: "User" });
 ```
 
 ---
@@ -227,7 +273,6 @@ document.body.innerHTML = greeter(user);
 - Can be casted to other classes if properties match (same as for interfaces)
 
 ```typescript
-
 interface Person {
     firstName: string;
     lastName: string;
@@ -240,13 +285,12 @@ class Student implements Person {
     }
 }
 
-function greeter(person: Person) {
+greeter(person: Person) => {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 
-var user = new Student("Jane", "M.", "User");
-
-document.body.innerHTML = greeter(user);
+const student = new Student("Jane", "M.", "User");
+greeter(student);
 ```
 
 ---

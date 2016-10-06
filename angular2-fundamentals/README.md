@@ -1,6 +1,8 @@
 # Angular 2 Fundamentals
-- Background
+- npm Modules
+- File Structure
 - Architecture
+- NgModules
 - Components
 - Templates
 - Component Lifecycle Hooks
@@ -10,58 +12,40 @@
 
 ---
 
-# Background
-- Based on successful Angular 1
-- First beta on December 2015
-- First release candidate on April 2016
-- Initial release on 14th of September 2016
-
----
-
-# Angular 2 & TypeScript
-- Available for JavaScript, Dart and **TypeScript**
-- TypeScript is de facto standard and recommended by many A2 core team members
-- Framework code is distributed in modules such as `@angular/core` and `@angular/common`
-
----
-
-# Architecture
-- Tree structure of components
-  - Each component has a template in which more components can be used
-  - Components can also use services (singletons) to e.g. share data
-
-![Component tree](angular2-fundamentals/component-tree.png "Component tree")
+# Angular 2 npm Modules
+- Framework code is distributed as npm modules:
+  - `@angular/common`: Common utilities (pipes, structural directives etc.)
+  - `@angular/core`: Core functionality (always needed)
+  - `@angular/forms`: Form handling
+  - `@angular/http`: HTTP requests
+  - `@angular/platform-*`: Platform-specific modules (platforms: browser, server, webworker)
+  - `@angular/router`: Routing functionality
+  - `@angular/upgrade`: NgUpgrade to upgrade from A1 -> A2
 
 ---
 
 # File Structure
-- Split to domains (_todo_ & _other_domain_)
-- File naming _name.type.file_type_:
+- [Angular 2 style guide](https://angular.io/styleguide) declares set of rules
+- [Codelyzer](https://github.com/mgechev/codelyzer) (tslint plugin) lets you lint against them
+- File naming **_name.type.filetype_**:
+  - _my.module.ts_
   - _todo.component.ts_
-  - _user-service.component.ts_
-```
-project
-│  package.json
-└──src
-    │  app.component.ts
-    |  app.module.ts
-    │  index.html
-    ├──todo
-    │   └──components
-    │       │   todos.component.html
-    │       │   todos.component.ts
-    │       │   todo.component.html
-    │       │   todo.component.ts
-    │   └──services
-    │       │   todo.service.ts
-    │   └──pipes
-    └──other_domain
-```
+  - _user.service.ts_
+  - _json.pipe.ts_
+  - _yellow-background.directive.ts_
+
+---
+
+# Architecture
+- App needs to have at least one **module**
+- Module has one root **component**
+- Component can have child components
 
 ---
 
 # NgModules
-- Each app defines at least single _NgModule_ with `@NgModule` annotation
+- Each app has single root _NgModule_
+- Declared with `@NgModule` annotation
 - Declares single unit of things relating to same thing
 - Defines template compilation context
 
@@ -72,18 +56,17 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [AppComponent, MyComponent, MyDirective, CustomPipe],
+  declarations: [AppComponent],
   imports: [BrowserModule],
-  providers: [UserService, LessonsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 ```
+
 ---
 
 # NgModules - Details
-
 - `declarations` contains list of application build blocks, such as components, pipes and directives, with certain selector
 - `imports` allows importing of other _NgModules_
   - For example `BrowserModule` imports browser-specific renderers and core directives such as `ngFor` and `ngIf`
@@ -92,22 +75,19 @@ export class AppModule {
 
 ---
 
-# Components
-- Defines a build block for application UI
-- Has a template that it binds data to
-- Can contain other components
-
----
-
-# Bootstrapping the Application
+# Booting the application
+- Browser executes (compiled) _main.ts_
+- _main.ts_ is responsible for setting up our application
+- Root module provided for Angular `bootstrapModule`
 
 _main.ts_
 ```typescript
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+import { environment } from './environments/environment';
 import { AppModule } from './app/app.module';
 
-if (false) {
+if (environment.production) {
   enableProdMode();
 }
 
@@ -116,96 +96,247 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 ---
 
-# Components - `@Component` Annotation
-Class with `@Component` annotation
+# Components
+- Build blocks of application UI
+- Has a template that it binds data to
+- Can contain other components
+- Class with `@Component` annotation
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({})
-class TodosComponent {
-}
+class TodosComponent { }
 ```
 
 ---
 
-# Components - Templates
-Template with `templateUrl`
+# Components
+- Two parameters are mandatory for `@Component`:
+  - template with `template` (inline template) or `templateUrl` (separate file)
+  - selector (should always start with `app` prefix)
+- Components need to be declared in NgModule's declarations to be available
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  `templateUrl: 'todos.component.html'`
-})
-class TodosComponent {
-}
-```
-
-_todos.component.html_
-```html
-<div>
-  <h1>My todos</h1>
-</div>
-```
-
----
-
-# Components - Selector
-Selector for usage in templates
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-@Component({
-  templateUrl: 'todos.component.html',
-  `selector: 'todos'`
+  `templateUrl: 'todos.component.html'`,
+  `selector: 'app-todos'`
 })
 class TodosComponent { }
 ```
 
-_app.component.html_
-```html
-<todos></todos>
+_app.module.ts_
+```typescript
+@NgModule({
+  declarations: [AppComponent, `TodosComponent`]
+  ...
+})
+export class AppModule { }
 ```
 
 ---
 
-# Components - Data Binding
-Binding data from the component to the template.
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-
-@Component({
-  selector: 'todos',
-  templateUrl: 'todos.component.html'
-})
-class TodosComponent {
-  `private todoTask: string = 'Do the laundry';`
-}
-```
+# Templates
+- Plain HTML with few Angular specific additions*
 
 _todos.component.html_
 ```html
-<div>
-  <h1>`{{todoTask}}`</h1>
-</div>
+<h1>My todo application</h1>
+```
+
+- Selectors can be used to add other components
+
+_app.component.html_
+```html
+<h2>Todos</h2>
+<app-todos></app-todos>
 ```
 
 ---
-# Components - Iterating over Array
-Showing an property array in the template.
+
+# Template Syntax
+- Five additions to HTML
+  - **Data binding** with _property name_ inside _double curly braces ({{}})_
+
+  ```typescript
+  {{property}}
+  ```
+
+  - **Attribute binding** with _attribute name_ inside _square brackets ([])_
+
+  ```typescript
+  <input [disabled]="property" />
+  ```
+
+  - **Event binding** with _event name_ inside _parenthesis_
+
+  ```typescript
+  <div (click)="clickHandler()"></div>
+  ```
+
+  - **Structural directives** with _asterisk ( * ) followed by directive name_
+
+  ```html
+  <div *ngIf="showItem">Item</div>
+  ```
+
+  - **Template local variables** with _hash (#) followed by name_
+
+  ```typescript
+  <input #nameInput />
+  ```
+
+---
+
+# Data Binding
+Bind property from the component to the template
+
+_app.component.ts_
+```typescript
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-component',
+  templateUrl: 'app.component.html'
+})
+class AppComponent {
+  `private title: string = 'app works!';`
+}
+```
+
+_app.component.html_
+```html
+<h1>`{{title}}`</h1>
+```
+
+---
+
+# Attribute Binding
+Bind value from component into HTML attribute
+
+_app.component.ts_
+```typescript
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-component',
+  templateUrl: 'app.component.html'
+})
+class AppComponent {
+  `private isDisabled: boolean = true;`
+}
+```
+
+_app.component.html_
+```html
+<input [disabled]="isDisabled" />
+```
+
+---
+
+# Attribute Binding for Components
+- Attribute binding only works for native properties of HTML elements by default
+- Same concept can also be used to pass data from parent component to child component
+
+_parent.component.html_
+```html
+  <app-child `[foo]="todo"`></app-child>
+```
+
+_child.component.ts_
+```typescript
+import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-child'
+})
+class ChildComponent {
+* @Input()
+* foo: string;
+}
+```
+
+---
+
+# Event Binding
+- Register handler code for events
+- `$event` contains the value of event
+
+_todos.component.html_
+```html
+<input type="text" `(change)="handleNewValue($event)"`></input>
+```
+
+app.component.ts_
+```typescript
+import {Component} from '@angular/core';
+
+@Component({..})
+class AppComponent {
+* handleNewEvent(value: string) {
+*   // Do something with value
+* }
+}
+```
+
+---
+
+# Event Binding for Components
+- Event binding only works for native events of HTML elements by default
+- Same concept can also be used to pass data from child component to parent component
+
+_parent.component.html_
+```html
+  <app-child `(change)="todo"`></app-child>
+```
+
+_child.component.ts_
+```typescript
+import {Component, Output} from '@angular/core';
+
+@Component({
+  selector: 'app-child'
+})
+class ChildComponent {
+* @Output()
+* change: EventEmitter<string> = new EventEmitter();
+}
+```
+
+---
+
+# Two-way Data Binding
+- Two-way data binding with `ngModel` inside _banana-box syntax_: `[(ngModel)]`
+- Data flow is bi-directional:
+  - value from component is updated to input
+  - when user modifies the value, it is updated to component
+
+```html
+Name: <input type="text" `[(ngModel)]="name"` />
+```
+
+which is just sugar for
+
+```html
+Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
+```
+
+---
+
+# Structural Directives
+- Modify the structure of template
+- Two most used are  `*ngIf` and `*ngFor`
 
 _todos.component.ts_
 ```typescript
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'todos',
+  selector: 'app-todos',
   templateUrl: 'todos.component.html'
 })
 class TodosComponent {
@@ -222,130 +353,6 @@ _todos.component.html_
 
 ---
 
-# Components - Event Handlers
-Registering handler code for events.
-
-_todos.component.html_
-```html
-<div *ngFor="let todo of todos">
-  <div `(click)="openTodo(todo)"`>{{todo.name}}</div>
-</div>
-```
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-
-@Component({
-  selector: 'todos',
-  templateUrl: 'todos.component.html'
-})
-class TodosComponent {
-  todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];  
-
-* openTodo(todo: Todo) {
-*   // Open todo
-* }
-}
-```
-
----
-# Components - Inputs
-Passing data from parent component to child.
-
-_todos.component.html_
-```html
-<div *ngFor="let todo of todos">
-  <todo `[item]="todo"`></todo>
-</div>
-```
-
-_todo.component.ts_
-```typescript
-import {Component, Input} from '@angular/core';
-
-@Component({
-  selector: 'todo'
-})
-class TodoComponent {
-* @Input() item: Todo;
-}
-```
-
-
----
-
-# Components - Outputs
-Passing events from child component to parent component.
-
-_todo.component.ts_
-```typescript
-import {Component, Output, EventEmitter} from '@angular/core';
-
-@Component({
-  selector: 'todo',
-  templateUrl: 'todo.component.html'
-})
-class TodoComponent {
-* @Output() prioritized: EventEmitter<number>;
-
-* prioritize(priority: number) {
-*   this.rate.emit(priority);
-* }
-}
-```
-
-_todos.component.html_
-```html
-<div *ngFor="let todo of todos">
-  <todo [item]="todo" `(prioritized)="currentPriority = $event"`></todo>
-  {{currentPriority}}
-</div>
-```
-
----
-
-# Components - DI with Constructor Parameters
-Pass services (and other injectables) for usage in the component.
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-*import {BackendService} from './backend.service';
-
-@Component({
-  selector: 'todos',
-  templateUrl: 'todos.component.html'
-})
-class TodosComponent {
-* private backendService: BackendService;
-* constructor(backendService: BackendService) {
-*   this.backendService = backendService;
-* }
-}
-```
-
----
-
-# Components - Visibility
-Store dependency as property with visibility.
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-import {BackendService} from './backend.service';
-
-@Component({
-  selector: 'todos',
-  templateUrl: 'todos.component.html'
-})
-class TodosComponent {
-  constructor(`private` backendService: BackendService) {}
-}
-```
-
----
-
 # Components - Inline Styles
 Inline styles to be used within the template. Scoped for just this element by A2.
 
@@ -354,7 +361,7 @@ _todos.component.ts_
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'todos',
+  selector: 'app-todos',
   templateUrl: 'todos.component.html',
   `styles: ['.active-todo { background-color: yellow; }']`
 })
@@ -374,7 +381,7 @@ _todos.component.ts_
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'todos',
+  selector: 'app-todos',
   templateUrl: 'todos.component.html',
   `styleUrls: ['todos.component.css']`
 })
@@ -384,29 +391,10 @@ class TodosComponent {
 
 ---
 
-# Component-template bindings
-- There are different types of interaction between the component and template
-  - Bind data to be shown with `{{property name}}`
-  - Attributes with `[attribute name]`
-  - Event handlers with `(event name)`
-  - Templates with `*template name`
-
-
-_todos.component.html_
-
-```html
-<h2>Todo `{{name}}`</h2>
-<div `*ngFor`="let todo of todos">
-  <todo `[data]`="todo" `(click)`="openTodo(todo)"></todo>
-</div>
-```
-
----
-
 # Component Lifecycle Hooks
 - For hooking into certain lifecycle events
 - Interface for each hook
-- Example hooks: `ngOnInit`, `ngOnChanges` and `ngOnDestroy`
+- Example hooks: `ngOnInit` (interface `OnInit`), `ngOnChanges` (interface `OnChanges`) and `ngOnDestroy` (interface `OnDestroy`)
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -416,30 +404,14 @@ export class MyComponent `implements OnInit` {
 }
 ```
 
----
-
-# Two-way Data Binding
-- Combining the `()` (output) and `[]` (input) as `([])` (called _banana-box syntax_) gives us two-way data binding
-- `ngModel` allows us to bind input field into components property two-way:
-
-```html
-Name: <input type="text" `[(ngModel)]="name"` />
-```
-
-which is just sugar for
-
-```html
-Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
-```
+- `ngOnInit` should be used for initialization of data for testability
 
 ---
 
 # Services
-- Application-wide singletons
+- Module-wide singletons
 - Used to store state, communicate with backends etc.
-- Examples:
-  - `UserService`
-  - `BackendService`
+- Examples: `UserService`, `BackendService`
 - Declaring:
 
 _user.service.ts_
@@ -451,18 +423,37 @@ export class UserService {
 }
 ```
 
+- Need to be registered for NgModule
+
+_app.module.ts_
+```typescript
+@NgModule(
+  ...
+* providers: [UserService]
+)
+export class AppModule() {}
+```
+
 ---
 
-# Services - Using Other Services
-Inject other services to be used inside this service.
+# DI with Constructor Parameters
+Services can be accessed by declaring them inside constructor parameters.
 
-_user.service.ts_
+_todos.component.ts_
 ```typescript
-import {Injectable} from '@angular/core';
+import {Component} from '@angular/core';
+*import {BackendService} from './backend.service';
 
-@Injectable()
-export class UserService {
-  constructor(`backendService: BackendService`) {
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html'
+})
+class TodosComponent {
+* constructor(private backendService: BackendService) {
+* }
+
+  initializeData() {
+    this.backendService.makeRequest();
   }
 }
 ```
@@ -470,7 +461,7 @@ export class UserService {
 ---
 
 # Asynchronous and Server-side Communication
-- Asynchronous things are modeled as Observables (covered on advanced topics) in A2
+- Asynchronous things are modeled as Observables (covered later) in A2
   - For now, we only need to know that there is `subscribe` method
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 

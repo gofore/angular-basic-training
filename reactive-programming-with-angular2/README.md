@@ -3,7 +3,6 @@
 ---
 
 # Background
-
 - Reactive programming is programming with asynchronous data streams
 - JavaScript is asynchronous by design
   - HTTP requests
@@ -13,12 +12,11 @@
 ---
 
 # Callbacks
-
 - Traditionally solved by registering _callback_ functions to be executed upon completion of task
 - E.g. `setTimeout` that calls callback function once given amount of milliseconds has passed
 
 ```javascript
-window.setTimeout(function() {
+window.setTimeout(() => {
 	// Executed after one second
 }, 1000);
 ```
@@ -26,13 +24,12 @@ window.setTimeout(function() {
 ---
 
 # Problem: Messy Code
-
 - Using callbacks quickly leads to messy code with multiple nested functions that is hard to follow and rationalize
 
 ```javascript
-getData(function(x){
-    getMoreData(x, function(y){
-        getMoreData(y, function(z){
+getData((x) => {
+    getMoreData(x, (y) => {
+        getMoreData(y, (z) => {
             ...
         });
     });
@@ -44,7 +41,6 @@ getData(function(x){
 ---
 
 # Solution: Promises
-
 - _Promise_ is a promise of providing a value later
 - Implemented in ES6
 - Promise constructor takes single argument that is a function with two parameters:
@@ -53,7 +49,7 @@ getData(function(x){
 - Both functions allow arguments that are provided for promise consumer
 
 ```javascript
-new Promise(function(resolve, reject) {
+new Promise((resolve, reject) => {
   if (...) resolve(x);
   else if (...) resolve(y);
   else reject();
@@ -63,7 +59,6 @@ new Promise(function(resolve, reject) {
 ---
 
 # Promises are Resolved or Rejected
-
 - Promises are consumed by calling `then` on them. `then` takes two arguments: success and failure handler
 
 ```javascript
@@ -79,14 +74,12 @@ somethingReturningPromise().then(
 ---
 
 # Problem: Stream Handling and Disposability
-
 - Promises don't work for streams, they are just to subscribe for single events
 - Promises can't be cancelled
 
 ---
 
 # Solution: Observables
-
 - Generalization of promises for streams
 - To be included in _EcmaScript standard_ in future (as of May 2016 they're still in phase 1 out of 4 before reaching standardization)
 - Idea:
@@ -104,11 +97,11 @@ somethingReturningPromise().then(
 
 - Observables can be unsubscribed and some code (e.g. cleaning) be executed on unsubscription
   ```javascript
-  var observable = Rx.Observable.create(observer => {
+  const observable = Rx.Observable.create(observer => {
       observer.next(42);
       return () => console.log('cleanup');
   });
-  var subscription = observable.subscribe(x => console.log(x));
+  const subscription = observable.subscribe(x => console.log(x));
   // => 42
   subscription.unsubscribe();
   // => cleanup
@@ -120,7 +113,6 @@ somethingReturningPromise().then(
 ---
 
 # RxJS
-
 - _Reactive Extensions'_ implementation for JavaScript
 - A set of libraries for representing asynchronous data streams with Observables and modifying them with various stream operations
 - Allow observables to also be created from e.g. objects, maps and arrays
@@ -134,7 +126,6 @@ Rx.Observable.from([1,2,3,4]);
 ---
 
 # Observables in Angular 2
-
 - RxJS 5 used
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
@@ -162,5 +153,4 @@ Rx.Observable.from([1,2,3,4]);
 ---
 
 # Observables in action
-
 Demo content available [here](https://github.com/gofore/angular2-training/tree/master/reactive-programming-with-angular2/demo)

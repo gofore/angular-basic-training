@@ -28,8 +28,8 @@ Calculate the sum of all items
 # Exercise 3 Merge and Concat
 Given the following sources of integers:
 ```javascript
-var source1 = Rx.Observable.interval(500).take(10);
-var source2 = Rx.Observable.interval(500).take(10);
+const source1 = Rx.Observable.interval(500).take(10);
+const source2 = Rx.Observable.interval(500).take(10);
 ```
 1. Merge streams
 2. Concatenate streams
