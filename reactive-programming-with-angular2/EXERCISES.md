@@ -25,7 +25,13 @@ Rx.Observable.range(0,10);
 ```
 Calculate the sum of all items
 
-# Exercise 3 Merge and Concat
+# Exercise 3 Scan
+Use scan operator to calculate the accumulated value after each integer emitted:
+```javascript
+Rx.Observable.interval(500).take(10);
+```
+
+# Exercise 4 Merge and Concat
 Given the following sources of integers:
 ```javascript
 const source1 = Rx.Observable.interval(500).take(10);
@@ -35,14 +41,14 @@ const source2 = Rx.Observable.interval(500).take(10);
 2. Concatenate streams
 3. What's the difference between combined streams?
 
-# Exercise 4 Buffer
+# Exercise 5 Buffer
 Given the following source of integers:
 ```javascript
 Rx.Observable.interval(100).take(100);
 ```
 Calculate the sum of items emitted every second
 
-# Exercise 5 Double Click
+# Exercise 6 Double Click
 From the mouse click stream:
 ```javascript
 Rx.Observable.fromEvent(document, 'click');
@@ -53,7 +59,7 @@ Tips:
 - [debounceTime operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md)
 - [buffer operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/buffer.md)
 
-# Exercise 6 GitHub Search with Observables
+# Exercise 7 GitHub Search with Observables
 
 In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
 ```bash
@@ -66,18 +72,18 @@ ng serve
 - Open http://localhost:4200 and check that the search works
 - Open the code in your IDE
 
-# Exercise 7 Async Pipe
+# Exercise 8 Async Pipe
 
 Store your search result into an Observable (instead of subscribing it) and use async pipe in the template to show the result.
 
 - [Angular 2 pipes](https://angular.io/docs/ts/latest/guide/pipes.html)
 
-# Exercise 8 Show Search Results Instantly
+# Exercise 9 Show Search Results Instantly
 
 - Show search results instantly when typing
 - No need for search button anymore
 
-# Exercise 9 Improve the Search
+# Exercise 10 Improve the Search
 - Add the following improvements:
   - Don’t hit the search endpoint on every key stroke
   - Don’t hit the search endpoint with the same query params for subsequent requests
@@ -85,7 +91,7 @@ Store your search result into an Observable (instead of subscribing it) and use 
   - Don't crash on errors
   - Don't hit the search endpoint on empty query (implement this after the error handling)
 
-# Exercise 10 Todo REST API
+# (Exercise 11 Todo REST API)
 
 - Modify your todo service to use the given [Todo REST API](https://github.com/gofore/todo-backend). Use it to:
   - List items (GET http://gofore-todo.herokuapp.com/todo-lists/:listId)
