@@ -4,6 +4,7 @@
 
 # Background
 - Reactive programming is programming with asynchronous data streams
+  - "Reacting to changes in a stream"
 - JavaScript is asynchronous by design
   - HTTP requests
   - Timeouts
@@ -42,12 +43,9 @@ getData((x) => {
 
 # Solution: Promises
 - _Promise_ is a promise of providing a value later
-- Implemented in ES6
 - Promise constructor takes single argument that is a function with two parameters:
-  - `resolve`: function to be called when we want to indicate success
-  - `reject`: function to be called when we want to indicate failure
-- Both functions allow arguments that are provided for promise consumer
-
+  - `resolve`: function to be called when we want to indicate __success__
+  - `reject`: function to be called when we want to indicate __failure__
 ```javascript
 new Promise((resolve, reject) => {
   if (...) resolve(x);
@@ -55,12 +53,11 @@ new Promise((resolve, reject) => {
   else reject();
 });
 ```
-
+  - Both functions allow arguments that are provided for promise consumer
 ---
 
 # Promises are Resolved or Rejected
 - Promises are consumed by calling `then` on them. `then` takes two arguments: success and failure handler
-
 ```javascript
 somethingReturningPromise().then(
   (value) => { // Resolved
@@ -70,87 +67,162 @@ somethingReturningPromise().then(
     // Handle reject case, e.g. show an error note
   });
 ```
-
 ---
 
 # Problem: Stream Handling and Disposability
-- Promises don't work for streams, they are just to subscribe for single events
-- Promises can't be cancelled
-
+- Promises don't work for streams, they are just to subscribe for __single events__
+- Promises can't be __cancelled__
 ---
 
 # Solution: Observables
 - Generalization of promises for streams
-- To be included in _EcmaScript standard_ in future (as of May 2016 they're still in phase 1 out of 4 before reaching standardization)
-- Idea:
-  - You subscribe to stream of events so that your handler gets invoked every time there is a new item
-  ```javascript
-  observable.subscribe(item => item.value.doSomething());
-  ```
-  - Streams can also be manipulated with traditional array conversion functions such as _map_ and _filter_
-  ```javascript
-  observable.map(item => item.length).filter(length => length === 5);
-  ```
-  - You can merge, concat and do other operations on streams to produce new streams from the existing ones
-
----
-
-- Observables can be unsubscribed and some code (e.g. cleaning) be executed on unsubscription
-  ```javascript
-  const observable = Rx.Observable.create(observer => {
-      observer.next(42);
-      return () => console.log('cleanup');
-  });
-  const subscription = observable.subscribe(x => console.log(x));
-  // => 42
-  subscription.unsubscribe();
-  // => cleanup
-  ```  
-
-- Use case: Chat client with WebSocket
-  - Observable used for representing incoming chat messages stream
-
+- A way for representing __asynchronous event streams__
+  - e.g. mouse clicks, HTTP requests, WebSocket streams
 ---
 
 # RxJS
-- _Reactive Extensions'_ implementation for JavaScript
-- A set of libraries for representing asynchronous data streams with Observables and modifying them with various stream operations
-- Allow observables to also be created from e.g. objects, maps and arrays
+- _ReactiveX_ is a library for representing __asynchronous event streams__ with __Observables__ and modifying them with various __stream operations__
+- _RxJS_ is a _ReactiveX_ implementation for JavaScript
+- Angular 2 integrates with __RxJS 5__
+---
+### Idea:
+_"In ReactiveX an observer subscribes to an Observable."_
+- You subscribe to stream of events so that your handler gets invoked every time there is a new item
+```javascript
+observable.subscribe(item => doSomething(item));
+```
+---
+Streams can be manipulated with traditional array conversion functions such as _map_ and _filter_
+```javascript
+  observable.map(item => item.length)
+        .filter(length => length === 5);
+```
+You can _merge_, _concat_ and do other operations on streams to __produce new streams__ from the existing ones
+```javascript
+const observable3 = observable1.merge(observable2);
+```
+[ReactiveX operators](http://reactivex.io/documentation/operators.html)
+---
+
+# Real-life Example
+```javascript
+const observable = Rx.Observable.fromEvent(document, 'click');
+observable.subscribe(event => handleEvent(event));
+```
+---
+
+Observables can also be created from e.g. __objects__, __maps__ and __arrays__
 ```javascript
 Rx.Observable.of(42);
 Rx.Observable.from([1,2,3,4]);
+Rx.Observable.range(1,10);
 ```
-- Works with Promises
-  - Promises and observable sequences can be mixed
-  - Promises can be converted to observable sequences and vice versa
+---
+# Under the Hood
+- You can create an Observable from scratch by using the Create operator.
+  ```javascript
+  const observable = Rx.Observable.create(observer => {
+      observer.next(42);
+      observer.next(7);
+      observer.complete();
+      return () => console.log('cleanup');
+  });
+
+  observable.subscribe(
+      next => console.log(next),
+      error => console.error(error),
+      () => console.log('oncomplete')
+  );
+
+  // => 42
+  // => 7
+  // => oncomplete
+  // => cleanup
+  ```  
+---
+
+# Error Handling
+- Observable dies on error
+  ```javascript
+  const observable = Rx.Observable.create(observer => {
+      observer.next(42);
+      observer.error('error occurred!');
+      observer.next(7);
+      observer.complete();
+      return () => console.log('cleanup');
+  });
+
+  observable.subscribe(
+      next => console.log(next),
+      error => console.error(error),
+      () => console.log('oncomplete')
+  );
+
+  // => 42
+  // => error occurred!
+  // => cleanup
+  ```  
+---
+
+# Catching Errors
+- The way to survive from errors is by catching them and returning a new observable sequence
+```javascript
+    observable.catch((error) => {
+        console.log(error);
+        return Rx.Observable.of([1, 2, 3]);
+    };
+```
+---
+
+# Cancelling
+- Observable sequence subscriptions can be unsubscribed
+  - E.g. interval operator creates an observable that emits a sequence of integers spaced by a particular time interval
+    ```javascript
+    const observable = Rx.Observable.interval(2000);
+    const subscription = observable.subscribe(val => console.log(val));
+    // => 1
+    // => 2
+    // ...
+    ```
+  - Sequence will not stop until unsubscribed
+    ```javascript
+    subscription.unsubscribe();
+    ```
+---
+# Observables in Action:
+## DEMO
 ---
 
 # Observables in Angular 2
-- RxJS 5 used
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
-  ```javascript
+  ```typescript
   import {Http} from '@angular/http';
-  constructor(http: Http) {} // Http service
+  constructor(private http: Http) {} // Http service
+  ```
+  ```typescript
+      this.http.get('url/restapi/resource') // Returns observable
+          .map((res:Response) => res.json()) // Converts response to JSON format
+          .subscribe(
+              data => { this.data = data}, // Success
+              err => console.error(err), // Failure
+              () => console.log('done') // Done
+          );
+  ```
+  - Changes in route parameters are propagated through an observable sequence
+  ```typescript
+      constructor(route: ActivatedRoute) {
+          route.params.subscribe(params => this.index = +params['index'];);
+      }
   ```
 
-  ```javascript
-  this.http.get('url/restapi/resource') // Returns observable
-      .map((res:Response) => res.json()) // Converts response to JSON format
-      .subscribe(
-          data => { this.data = data}, // Success
-          err => console.error(err), // Failure
-          () => console.log('done') // Done
-      );
-  ```
 ---
-
-- Change detection with observables
-  - Background: Angular 2 change detection is based on a directed tree where all the components get updated starting from the root when a change occurs.
-  - If Angular 2 component depends only on its input properties, and they are observable, change detection can skip component's subtree until one of its input properties emits an event
-  - This can bring performance benefits if you use observables on e.g. some gigantic table
+# Hot vs. Cold Observables
+- Cold observables start running __upon subscription__
+  - E.g. http request
+- Hot observables are already producing values __before the subscription__ is active
+  - E.g. mouse move events
 
 ---
-
-# Observables in action
-Demo content available [here](https://github.com/gofore/angular2-training/tree/master/reactive-programming-with-angular2/demo)
+# Exercises
+[Open exercise instructions](https://github.com/gofore/angular2-training/blob/master/reactive-programming-with-angular2/EXERCISES.md)
