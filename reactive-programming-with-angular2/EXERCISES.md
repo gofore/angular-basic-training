@@ -48,19 +48,14 @@ Rx.Observable.interval(100).take(100);
 ```
 Calculate the sum of items emitted every second
 
-# Exercise 6 Double Click
-From the mouse click stream:
+# Exercise 6 Mouse Position
+Log mouse position to console on every 500 ms
 ```javascript
-Rx.Observable.fromEvent(document, 'click');
+Rx.Observable.fromEvent(document, 'mousemove');
 ```
-Use stream operators to detect double clicks (two clicks within 250 ms)
-
-Tips:
-- [debounceTime operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md)
-- [buffer operator](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/buffer.md)
+[Mousemove Event Documentation](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove)
 
 # Exercise 7 GitHub Search with Observables
-
 In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
 ```bash
 git clone https://github.com/gofore/angular2-exercises.git angular2-search

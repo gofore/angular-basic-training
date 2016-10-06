@@ -9,6 +9,7 @@
   - HTTP requests
   - Timeouts
   - UI events (clicks, key presses, etc.)
+  - _How to handle all this?_
 
 ---
 
@@ -77,7 +78,8 @@ somethingReturningPromise().then(
 # Solution: Observables
 - Generalization of promises for streams
 - A way for representing __asynchronous event streams__
-  - e.g. mouse clicks, HTTP requests, WebSocket streams
+  - e.g. mouse clicks, WebSocket streams
+- Can also be used for single events e.g. HTTP requests  
 ---
 
 # RxJS
@@ -104,13 +106,6 @@ const observable3 = observable1.merge(observable2);
 [ReactiveX operators](http://reactivex.io/documentation/operators.html)
 ---
 
-# Real-life Example
-```javascript
-const observable = Rx.Observable.fromEvent(document, 'click');
-observable.subscribe(event => handleEvent(event));
-```
----
-
 Observables can also be created from e.g. __objects__, __maps__ and __arrays__
 ```javascript
 Rx.Observable.of(42);
@@ -118,6 +113,49 @@ Rx.Observable.from([1,2,3,4]);
 Rx.Observable.range(1,10);
 ```
 ---
+
+# Real-life Example
+```javascript
+const observable = Rx.Observable.fromEvent(document, 'click');
+observable.subscribe(event => handleEvent(event));
+```
+---
+
+# Subscribing
+- Subscribe method takes three functions as arguments:
+  - __onNext__: called when a new item is emitted
+  - __onError__: called if observable sequence fails
+  - __onComplete__: called when sequence is complete
+
+  ```javascript
+  observable.subscribe(
+      next => console.log(next),
+      error => console.error(error),
+      () => console.log('oncomplete')
+  );
+  ```  
+---
+
+# Unsubscribing (cancelling)
+- Observable sequence subscriptions can be unsubscribed
+  - E.g. interval operator creates an observable that emits a sequence of integers spaced by a particular time interval
+    ```javascript
+    const observable = Rx.Observable.interval(2000);
+    const subscription = observable.subscribe(val => console.log(val));
+    // => 1
+    // => 2
+    // ...
+    ```
+  - Sequence will not stop until unsubscribed
+    ```javascript
+    subscription.unsubscribe();
+    ```
+---
+
+# Observables in Action:
+## DEMO
+---
+
 # Under the Hood
 - You can create an Observable from scratch by using the Create operator.
   ```javascript
@@ -174,32 +212,16 @@ Rx.Observable.range(1,10);
 ```
 ---
 
-# Cancelling
-- Observable sequence subscriptions can be unsubscribed
-  - E.g. interval operator creates an observable that emits a sequence of integers spaced by a particular time interval
-    ```javascript
-    const observable = Rx.Observable.interval(2000);
-    const subscription = observable.subscribe(val => console.log(val));
-    // => 1
-    // => 2
-    // ...
-    ```
-  - Sequence will not stop until unsubscribed
-    ```javascript
-    subscription.unsubscribe();
-    ```
----
-# Observables in Action:
-## DEMO
+# Hot vs. Cold Observables
+- Cold observables start running __upon subscription__
+  - E.g. http request
+- Hot observables are already producing values __before the subscription__ is active
+  - E.g. mouse move events
 ---
 
 # Observables in Angular 2
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
-  ```typescript
-  import {Http} from '@angular/http';
-  constructor(private http: Http) {} // Http service
-  ```
   ```typescript
       this.http.get('url/restapi/resource') // Returns observable
           .map((res:Response) => res.json()) // Converts response to JSON format
@@ -209,20 +231,17 @@ Rx.Observable.range(1,10);
               () => console.log('done') // Done
           );
   ```
+---
+
+# Observables in Angular 2
   - Changes in route parameters are propagated through an observable sequence
   ```typescript
       constructor(route: ActivatedRoute) {
           route.params.subscribe(params => this.index = +params['index'];);
       }
   ```
-
+  - And much more!
 ---
-# Hot vs. Cold Observables
-- Cold observables start running __upon subscription__
-  - E.g. http request
-- Hot observables are already producing values __before the subscription__ is active
-  - E.g. mouse move events
 
----
 # Exercises
 [Open exercise instructions](https://github.com/gofore/angular2-training/blob/master/reactive-programming-with-angular2/EXERCISES.md)

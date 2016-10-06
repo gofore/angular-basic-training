@@ -51,22 +51,22 @@ const observable = Rx.Observable.interval(500)
   .map(buf => buf.reduce((acc, cur) => acc + cur));
 ```
 
-Observable from event: Create Observable from mousemove event and take value emitted every 2000 ms:
+Double Click
 ```javascript
-const move = Rx.Observable.fromEvent(document, 'mousemove')
-  .throttleTime(500);
-const pos = move.map(e => {
-  return {x: e.clientX, y: e.clientY};
-});
-const s = pos.subscribe(e => console.log('x: ' + e.x + ' y: ' + e.y));
+const click = Rx.Observable.fromEvent(document, 'click');
+
+const clicks = click.buffer(click.debounceTime(500))
+  .filter(buf => buf.length >= 2);
+
+clicks.subscribe(() => console.log('double click'));
 ```
 
 Flatmap example:
 ```javascript
-const o = Rx.Observable.range(1,10);
-const o2 = o.flatMap(x => Rx.Observable.range(x,2));
-o2.subscribe(x => console.log(x));
-```
+const o = Rx.Observable.range(0, 10)
+  .flatMap(x => Rx.Observable.of([x, x*2]));
+
+o.subscribe(x => console.log(x));```
 
 Wait for several asynchronous operations to finish: Fork join
 ```javascript
