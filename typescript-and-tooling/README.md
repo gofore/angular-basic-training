@@ -123,9 +123,23 @@ Angular app now running on `localhost:4200`.
 
 ---
 
+# Problem: Variable Hoisting
+
+Totally unexpected behavior called variable hoisting:
+
+```typescript
+if (true) {
+  var a = 0;
+}
+console.log(a);
+```
+
+---
+
 # Let and const
+- `let` and `const` work as usual
 - `let` declares variable (eg. `let myVar = 'asd';`)
-- `const` declares constant **reference** (not constant value)
+- `const` declares constant **reference** (!= constant value)
 
 ```javascript
 const input = [0, 1, 2, 3, 4];
@@ -139,7 +153,28 @@ For immutable objects & arrays there are libraries such as [_Immutable.js_](http
 
 ---
 
+# Problem: `this` not lexical
+
+```html
+<button>Do something</button>
+```
+
+```typescript
+var user = {
+    data: 'foo',
+    clickHandler: function (event) {
+      console.log(this.data);
+    }
+};
+
+document.querySelector('button').addEventListener('click', user.clickHandler); // undefined
+document.querySelector('button').addEventListener('click', user.clickHandler.bind(user)); // foo
+```
+
+---
+
 # Arrow functions
+- Lexical `this` and nicer syntax
 - Traditional function (for each `func(2)` returns 3):
 
 ```javascript
@@ -175,7 +210,7 @@ const func = param1 => param1 + 1;
 # Multiline strings
 ES5 string:
 ```javascript
-const str = "MULTILINE" +
+const str = "SO LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONG MULTILINE" +
 "STRING" +
 "!"
 ```
@@ -191,7 +226,7 @@ Also supports string interpolation
 ```javascript
 const firstName = 'John';
 const lastName = 'Doe';
-const str = `${lastName}, ${firstName}`;
+const str = `${lastName}, ${firstName}´;
 //Doe, John
 ```
 
