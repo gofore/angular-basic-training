@@ -191,7 +191,7 @@ const func = (param1) => {
 };
 ```
 
-- Parenthesis can be emitted if only one parameter:
+- Parenthesis can be omitted if only one parameter:
 
 ```javascript
 const func = param1 => {
