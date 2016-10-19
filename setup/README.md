@@ -42,7 +42,7 @@ If it's not possible to use Intellij IDEA or Webstorm, you may use Atom although
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@1.0.0-beta.15
+npm install -g angular-cli@1.0.0-beta.17
 ng new angular2-training
 cd angular2-training
 ng serve
