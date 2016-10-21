@@ -48,7 +48,7 @@ You may also use Atom, although, it lacks code completion and auto-import featur
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@1.0.0-beta.17
+npm install -g angular-cli@1.0.0-beta.18
 ng new angular2-training
 cd angular2-training
 ng serve
