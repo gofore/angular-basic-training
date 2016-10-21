@@ -20,15 +20,21 @@ git version 2.6.4
 ```
 
 ### Editor
-You may use any IDE you feel comfortable with but we recommend IntelliJ IDEA Ultimate (or WebStorm Ultimate) to be used since it provides very good support for Angular 2 development.
+You may use any IDE you feel comfortable with but we recommend __IntelliJ IDEA Ultimate__ (or WebStorm Ultimate) or __Visual Studio Code__ to be used since they provide very good support for Angular 2 development.
 
-If it's not possible to use Intellij IDEA or Webstorm, you may use Atom although it lacks code completion and auto-import features.
+You may also use Atom, although, it lacks code completion and auto-import features.
 
 #### IntelliJ IDEA Ultimate
 - Proprietary (though 30-day trial available)
 - Install recommended plugins through IntelliJ IDEA plugin management:
   - [_AngularJS_](https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS)
   - [_NodeJS_](https://plugins.jetbrains.com/plugin/6098?pr=idea)
+
+#### Visual Studio Code
+- Free & open source
+- Install recommended extentions:
+  - [_TSLint_](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+  - [_Auto Import_](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport)
 
 #### Atom
 - Free & lightweight
