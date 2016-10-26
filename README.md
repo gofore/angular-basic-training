@@ -42,6 +42,7 @@
   - Idea
   - Upgrading Angular 1 Directives
   - Downgrading Angular 2 Components
+- [Lazy Loading](angular2-other-topics/lazy-loading/README.md)  
 
 [Useful Resources](useful-resources/README.md)
 
