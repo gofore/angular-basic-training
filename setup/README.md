@@ -41,7 +41,7 @@ If you prefer using Atom or Brackets, please, find instructions below.
 - TypeScript package (called [_atom-typescript_](https://atom.io/packages/atom-typescript)) needs to be installed
 - No auto-import support
 
-### Brackets
+#### Brackets
 - Free, recommended version: 1.7
 - Required extensions for TypeScript support (follow GitHub page installation instructions):
   - [_brackets-npm-registry_](https://github.com/zaggino/brackets-npm-registry)
