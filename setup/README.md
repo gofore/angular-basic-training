@@ -22,7 +22,7 @@ git version 2.6.4
 ### Editor
 You may use any IDE you feel comfortable with but we recommend __IntelliJ IDEA Ultimate__ (or WebStorm Ultimate) or __Visual Studio Code__ to be used since they provide very good support for Angular 2 development.
 
-You may also use Atom, although, it lacks code completion and auto-import features.
+If you prefer using Atom or Brackets, please, find instructions below.
 
 #### IntelliJ IDEA Ultimate
 - Proprietary (though 30-day trial available)
@@ -38,11 +38,18 @@ You may also use Atom, although, it lacks code completion and auto-import featur
 
 #### Atom
 - Free & lightweight
-- Easy to use
 - TypeScript package (called [_atom-typescript_](https://atom.io/packages/atom-typescript)) needs to be installed
+- No auto-import support
+
+### Brackets
+- Free, recommended version: 1.7
+- Required extensions for TypeScript support (follow GitHub page installation instructions):
+  - [_brackets-npm-registry_](https://github.com/zaggino/brackets-npm-registry)
+  - [_brackets-typescript_](https://github.com/zaggino/brackets-typescript)
+- No auto-import support
 
 ### Google Chrome
-[_Google Chrome_](https://www.google.com/chrome/) browser is needed for running and debugging Karma tests. 
+[_Google Chrome_](https://www.google.com/chrome/) browser is needed for running and debugging Karma tests.
 
 ### Project Skeleton for Exercises
 Go to your workspace directory (`Documents/GitHub` etc.) and run
