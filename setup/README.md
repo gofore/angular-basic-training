@@ -55,7 +55,7 @@ If you prefer using Atom or Brackets, please, find instructions below.
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@1.0.0-beta.17
+npm install -g angular-cli@1.0.0-beta.18
 ng new angular2-training
 cd angular2-training
 ng serve
