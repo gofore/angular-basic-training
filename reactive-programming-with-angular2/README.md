@@ -114,13 +114,6 @@ Rx.Observable.range(1,10);
 ```
 ---
 
-# Real-life Example
-```javascript
-const observable = Rx.Observable.fromEvent(document, 'click');
-observable.subscribe(event => handleEvent(event));
-```
----
-
 # Subscribing
 - Subscribe method takes three functions as arguments:
   - __onNext__: called when a new item is emitted

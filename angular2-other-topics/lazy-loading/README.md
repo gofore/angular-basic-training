@@ -50,6 +50,15 @@ const routeConfig = [
     path: 'feature',
     loadChildren: 'app/feature/feature.module#FeatureModule'
   }];
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    RouterModule.forRoot(routeConfig),
+    HttpModule,
+  ],
+})
 ```
 
 ---
@@ -63,4 +72,12 @@ const routeConfig = [
     component: FeatureComponent
   }
 ];
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    RouterModule.forChild(routeConfig)
+  ],
+})
 ```
