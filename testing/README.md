@@ -79,7 +79,7 @@ it('stubs the function return value', () => {
       templateUrl: 'videos.component.html'
     })
     class VideosComponent {
-      private videos: Video[];
+      videos: Video[];
 
       constructor(videoService: VideoService) {
         this.videos = videoService.getList();

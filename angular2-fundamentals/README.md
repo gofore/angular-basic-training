@@ -204,7 +204,7 @@ import {Component} from '@angular/core';
   templateUrl: 'app.component.html'
 })
 class AppComponent {
-  `private title: string = 'app works!';`
+  `title: string = 'app works!';`
 }
 ```
 
@@ -227,7 +227,7 @@ import {Component} from '@angular/core';
   templateUrl: 'app.component.html'
 })
 class AppComponent {
-  `private isDisabled: boolean = true;`
+  `isDisabled: boolean = true;`
 }
 ```
 
@@ -340,7 +340,7 @@ import {Component} from '@angular/core';
   templateUrl: 'todos.component.html'
 })
 class TodosComponent {
-  `private todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];`
+  `todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];`
 }
 ```
 
@@ -471,7 +471,7 @@ import {Http} from '@angular/http';
 
 @Component({...})
 export class MyComponent {
-  private filteredData: any[];
+  filteredData: any[];
   constructor(private http: Http) {
   }
 
