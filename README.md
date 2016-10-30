@@ -38,11 +38,8 @@
 - [Testing](testing/README.md)
   - Unit Testing
   - E2E Testing
-- [Upgrading from Angular 1](upgrading-from-angular1/README.md)
-  - Idea
-  - Upgrading Angular 1 Directives
-  - Downgrading Angular 2 Components
-- [Lazy Loading](angular2-other-topics/lazy-loading/README.md)  
+- [Lazy Loading](angular2-other-topics/lazy-loading/README.md)
+- [Animations](angular2-other-topics/animations/README.md)
 
 [Useful Resources](useful-resources/README.md)
 
