@@ -19,7 +19,7 @@ npm install --save web-animations-js
 _angular-cli.json_
 ```json
 "scripts": [
-  "../node_modules/web-animations-js/web-animations.min.js",
+  "../node_modules/web-animations-js/web-animations.min.js"
 ],
 ```
 
