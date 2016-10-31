@@ -116,10 +116,10 @@ _my.component.ts_
 ```typescript
 trigger('myTrigger', [
   state('state1', style({
-    backgroundColor: '#fff'
+    'backgroundColor': '#fff'
   })),
   state('state2', style({
-    backgroundColor: '#000'
+    'backgroundColor': '#000'
   }))
 ])
 export class MyComponent {
