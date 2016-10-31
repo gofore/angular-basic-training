@@ -4,7 +4,6 @@
 
 # Background
 - Reactive programming is programming with asynchronous data streams
-  - "Reacting to changes in a stream"
 - JavaScript is asynchronous by design
   - HTTP requests
   - Timeouts
@@ -47,6 +46,7 @@ getData((x) => {
 - Promise constructor takes single argument that is a function with two parameters:
   - `resolve`: function to be called when we want to indicate __success__
   - `reject`: function to be called when we want to indicate __failure__
+
 ```javascript
 new Promise((resolve, reject) => {
   if (...) resolve(x);
@@ -59,6 +59,7 @@ new Promise((resolve, reject) => {
 
 # Promises are Resolved or Rejected
 - Promises are consumed by calling `then` on them. `then` takes two arguments: success and failure handler
+
 ```javascript
 somethingReturningPromise().then(
   (value) => { // Resolved
@@ -96,12 +97,13 @@ observable.subscribe(item => doSomething(item));
 ---
 Streams can be manipulated with traditional array conversion functions such as _map_ and _filter_
 ```javascript
-  observable.map(item => item.length)
-        .filter(length => length === 5);
+  observable
+    .filter(node => node.children.length > 2)
+    .map(node => node.name);
 ```
 You can _merge_, _concat_ and do other operations on streams to __produce new streams__ from the existing ones
 ```javascript
-const observable3 = observable1.merge(observable2);
+const resultStream = stream1.merge(stream2);
 ```
 [ReactiveX operators](http://reactivex.io/documentation/operators.html)
 ---
@@ -122,26 +124,24 @@ Rx.Observable.range(1,10);
 
   ```javascript
   observable.subscribe(
-      next => console.log(next),
-      error => console.error(error),
-      () => console.log('oncomplete')
+      next => doSomething(next), // onNext
+      error => handleError(error), // onError
+      () => done() // onComplete
   );
   ```  
 ---
 
 # Unsubscribing (cancelling)
 - Observable sequence subscriptions can be unsubscribed
-  - E.g. interval operator creates an observable that emits a sequence of integers spaced by a particular time interval
+  - E.g. observable that produces events that are saved into the memory
     ```javascript
-    const observable = Rx.Observable.interval(2000);
-    const subscription = observable.subscribe(val => console.log(val));
-    // => 1
-    // => 2
-    // ...
+    const eventSubscription = eventStream.subscribe(
+          event => this.events.push(event)
+    );
     ```
   - Sequence will not stop until unsubscribed
     ```javascript
-    subscription.unsubscribe();
+    eventSubscription.unsubscribe();
     ```
 ---
 
@@ -149,53 +149,8 @@ Rx.Observable.range(1,10);
 ## DEMO
 ---
 
-# Under the Hood
-- You can create an Observable from scratch by using the Create operator.
-  ```javascript
-  const observable = Rx.Observable.create(observer => {
-      observer.next(42);
-      observer.next(7);
-      observer.complete();
-      return () => console.log('cleanup');
-  });
-
-  observable.subscribe(
-      next => console.log(next),
-      error => console.error(error),
-      () => console.log('oncomplete')
-  );
-
-  // => 42
-  // => 7
-  // => oncomplete
-  // => cleanup
-  ```  
----
-
-# Error Handling
-- Observable dies on error
-  ```javascript
-  const observable = Rx.Observable.create(observer => {
-      observer.next(42);
-      observer.error('error occurred!');
-      observer.next(7);
-      observer.complete();
-      return () => console.log('cleanup');
-  });
-
-  observable.subscribe(
-      next => console.log(next),
-      error => console.error(error),
-      () => console.log('oncomplete')
-  );
-
-  // => 42
-  // => error occurred!
-  // => cleanup
-  ```  
----
-
 # Catching Errors
+- Observables die on errors
 - The way to survive from errors is by catching them and returning a new observable sequence
 ```javascript
     observable.catch((error) => {
