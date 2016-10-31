@@ -15,6 +15,7 @@
 # Angular 2 npm Modules
 - Framework code is distributed as npm modules:
   - `@angular/common`: Common utilities (pipes, structural directives etc.)
+  - `@angular/compiler`: Ahead-of-Time compiler
   - `@angular/core`: Core functionality (always needed)
   - `@angular/forms`: Form handling
   - `@angular/http`: HTTP requests
@@ -215,6 +216,32 @@ _app.component.html_
 
 ---
 
+# Structural Directives
+- Modify the structure of template
+- Two most used are  `*ngIf` and `*ngFor`
+
+_todos.component.ts_
+```typescript
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html'
+})
+class TodosComponent {
+  `todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];`
+}
+```
+
+_todos.component.html_
+```html
+<div `*ngFor="let todo of todos"`>
+  {{todo.name}}
+</div>
+```
+
+---
+
 # Attribute Binding
 Bind value from component into HTML attribute
 
@@ -268,16 +295,16 @@ class ChildComponent {
 
 _todos.component.html_
 ```html
-<input type="text" `(change)="handleNewValue($event)"`></input>
+<input type="text" `(change)="handleChanged($event.target.value)"`></input>
 ```
 
-app.component.ts_
+_todos.component.ts_
 ```typescript
 import {Component} from '@angular/core';
 
 @Component({..})
-class AppComponent {
-* handleNewEvent(value: string) {
+class TodosComponent {
+* handleChanged(value: string) {
 *   // Do something with value
 * }
 }
@@ -323,32 +350,6 @@ which is just sugar for
 
 ```html
 Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
-```
-
----
-
-# Structural Directives
-- Modify the structure of template
-- Two most used are  `*ngIf` and `*ngFor`
-
-_todos.component.ts_
-```typescript
-import {Component} from '@angular/core';
-
-@Component({
-  selector: 'app-todos',
-  templateUrl: 'todos.component.html'
-})
-class TodosComponent {
-  `todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];`
-}
-```
-
-_todos.component.html_
-```html
-<div `*ngFor="let todo of todos"`>
-  {{todo.name}}
-</div>
 ```
 
 ---
