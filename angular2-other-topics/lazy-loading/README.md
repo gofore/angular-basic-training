@@ -44,7 +44,7 @@ A feature module is loaded when it is routed to the first time
 const routeConfig = [
   {
     path: '',
-    redirectTo: 'MainComponent'
+    component: AppComponent
   },
   {
     path: 'feature',
