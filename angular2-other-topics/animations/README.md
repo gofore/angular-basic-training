@@ -187,3 +187,19 @@ export class MyComponent {
 transition(`':enter'`, ...); // void => *
 transition(`':leave'`, ...); // * => void
 ```
+
+---
+
+# Animation Events
+- Events to be registered
+  - (@myTrigger.start)="animationStarted($event)"
+  - (@myTrigger.done)="animationDone($event)"
+
+```html
+<div
+  [@myTrigger]="state"
+  (@myTrigger.start)="animationStarted($event)"
+  (@myTrigger.done)="animationDone($event)">
+  My element
+</div>
+```
