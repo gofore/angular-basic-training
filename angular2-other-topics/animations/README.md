@@ -192,8 +192,8 @@ transition(`':leave'`, ...); // * => void
 
 # Animation Events
 - Events to be registered
-  - (@myTrigger.start)="animationStarted($event)"
-  - (@myTrigger.done)="animationDone($event)"
+  - `(@myTrigger.start)="animationStarted($event)"`
+  - `(@myTrigger.done)="animationDone($event)"`
 
 ```html
 <div
