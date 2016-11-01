@@ -198,8 +198,8 @@ transition(`':leave'`, ...); // * => void
 ```html
 <div
   [@myTrigger]="state"
-  (@myTrigger.start)="animationStarted($event)"
-  (@myTrigger.done)="animationDone($event)">
+* (@myTrigger.start)="animationStarted($event)"
+* (@myTrigger.done)="animationDone($event)">
   My element
 </div>
 ```
