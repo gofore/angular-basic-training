@@ -167,6 +167,12 @@ _app.component.html_
   {{property}}
   ```
 
+  - **Structural directives** with _asterisk ( * ) followed by directive name_
+
+  ```html
+  <div *ngIf="showItem">Item</div>
+  ```
+
   - **Attribute binding** with _attribute name_ inside _square brackets ([])_
 
   ```typescript
@@ -177,12 +183,6 @@ _app.component.html_
 
   ```typescript
   <div (click)="clickHandler()"></div>
-  ```
-
-  - **Structural directives** with _asterisk ( * ) followed by directive name_
-
-  ```html
-  <div *ngIf="showItem">Item</div>
   ```
 
   - **Template local variables** with _hash (#) followed by name_
