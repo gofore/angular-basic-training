@@ -376,7 +376,7 @@ import { FormGroup } from '@angular/forms';
 @Component(..)
 export class MyComponent {
   @ViewChild('myForm')
-  private FormGroup myForm;
+  private myForm: FormGroup;
 }
 ```
 
