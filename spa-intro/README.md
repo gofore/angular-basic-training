@@ -64,7 +64,7 @@ Available at [angular2-training.herokuapp.com](http://angular2-training.herokuap
 # Angular 2
 - Built by 20 core developers working for Google & lots of open source devs
 - Built with TypeScript (ES6 and Dart versions available)
-- First beta 1/2016, first RC 5/2016, 2.0.0 9/2016
+- First beta 1/2016, first RC 5/2016, 2.0.0 9/2016, _4.0.0 3/2017_
 - Complete rewrite of AngularJS
 - Not just another web framework, complete platform
 - -> Not just for SPAs, but also for desktop and mobile applications
