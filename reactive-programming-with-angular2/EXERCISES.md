@@ -53,7 +53,7 @@ Log mouse position to console on every 500 ms
 ```javascript
 Rx.Observable.fromEvent(document, 'mousemove');
 ```
-[Mousemove Event Documentation](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove)
+[Mousemove Event Documentation](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove) (Tip: check out throttleTime -operator)
 
 # Exercise 7 GitHub Search with Observables
 In this exercise series we implement an app that uses GitHub's [search-repositories API](https://developer.github.com/v3/search/#search-repositories). Start by cloning the exercise seed:
