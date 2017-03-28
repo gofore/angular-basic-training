@@ -1,10 +1,5 @@
 # Angular 2 & TypeScript Training - Gofore Oy
 
-## Trainers
-- Roope Hakulinen & Henri Ihalainen
-- Working on EU funding applying & managing system for Ministry of Employment and the Economy (Työ- ja Elinkeinoministeriö)
-- Used Angular 2 from its first beta (beginning of the year)
-
 ## Slides
 Available at [angular2-training.herokuapp.com](http://angular2-training.herokuapp.com/)
 
