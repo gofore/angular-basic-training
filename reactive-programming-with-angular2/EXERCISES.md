@@ -1,6 +1,6 @@
 # RxJS Exercises
 
-Open [JS Bin template](http://jsbin.com/bokemujela/1/edit?html,js,console) for RxJS Observable exercise
+Open [JS Bin template](http://jsbin.com/negukijoqe/edit?html,js,console) for RxJS Observable exercise
 
 # Exercise 1 Map and Filter
 Given the following stream of objects:
