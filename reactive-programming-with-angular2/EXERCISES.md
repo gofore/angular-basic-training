@@ -34,7 +34,7 @@ Rx.Observable.interval(500).take(10);
 # Exercise 4 Merge and Concat
 Given the following sources of integers:
 ```javascript
-const source1 = Rx.Observable.interval(500).take(10);
+const source1 = Rx.Observable.interval(500).take(10).map(x => x + 10);
 const source2 = Rx.Observable.interval(500).take(10);
 ```
 1. Merge streams
@@ -46,7 +46,7 @@ Given the following source of integers:
 ```javascript
 Rx.Observable.interval(100).take(100);
 ```
-Calculate the sum of items emitted every second
+Calculate the sum of items emitted every second (Tip: check out bufferTime -operator)
 
 # Exercise 6 Mouse Position
 Log mouse position to console on every 500 ms
