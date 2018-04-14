@@ -7,6 +7,7 @@ sections = [
 	'reactive-programming-with-angular/README.md',
 	'testing/README.md',
 	'angular-other-topics/animations/README.md',
+	'angular-other-topics/change-detection/README.md',
 	'angular-other-topics/lazy-loading/README.md',
 	'useful-resources/README.md'
 ]
