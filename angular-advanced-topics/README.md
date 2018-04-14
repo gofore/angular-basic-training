@@ -1,4 +1,4 @@
-# Angular 2 Advanced Topics
+# Angular Advanced Topics
 - Router
 - Pipes
 - Directives
@@ -223,8 +223,8 @@ export class AppModule {}
 
 # Pipes
 - Simple display-value transformations
-- Similar concept as _filters_ in Angular 1
-- Angular 2 provides few common ones, e.g.: `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
+- Similar concept as _filters_ in AngularJS
+- Angular provides few common ones, e.g.: `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
 
 _my.component.html_
 ```html
@@ -285,12 +285,12 @@ import {Pipe, PipeTransform} from '@angular/core';
 ---
 
 # Forms
-- Angular 2 provides common form functionalities:
+- Angular provides common form functionalities:
   - Two-way data binding
   - Change tracking
   - Validation
   - Error handling
-- Angular 2 forms can be either model- or template-driven
+- Angular forms can be either model- or template-driven
   - Only template-driven forms are covered here, as they are enough for most use cases
 - To enable forms, we need to add `FormsModule` to imports of our `NgModule`:
 
@@ -341,7 +341,7 @@ Forms export `FormControl` as `ngModel` for each input to be bound to template-l
 # Forms - CSS Classes
 - CSS classes are attached automatically by framework
 
-![Control CSS Classes](angular2-advanced-topics/control-css-classes.png "Control CSS Classes")
+![Control CSS Classes](angular-advanced-topics/control-css-classes.png "Control CSS Classes")
 
 ```css
 .ng-invalid[required] {
@@ -389,7 +389,7 @@ export class MyComponent {
 
 ---
 
-# Dependency Injection in Angular 2
+# Dependency Injection in Angular
 The root dependency injector is created for root component (`AppComponent` in this case) with `bootstrap` method
 
 ```TypeScript
@@ -415,7 +415,7 @@ This way the `UserService` would now be injectable to any child component of thi
 ---
 
 # Directives
-- There are three kinds of directives in Angular 2:
+- There are three kinds of directives in Angular:
   - Components, which are basically selectors with templates and inputs and outputs
   - Structural directives, `ngFor` and `ngIf` are examples of these
   - Attribute directives
@@ -487,7 +487,7 @@ export class HighlightDirective {
 - Implements concept of zones (inspired by Dart) in JavaScript
 - "A Zone is an execution context that persists across async tasks"
 - In practice makes it possible to track the asyncronous calls made (HTTP, timers and event listeners) within the zone
-- Angular 2 uses zones internally to track changes in state
+- Angular uses zones internally to track changes in state
 
 ---
 
@@ -498,7 +498,7 @@ export class HighlightDirective {
 
 ---
 
-# Change Detection - Angular 2
+# Change Detection - Angular
 - Zone.js makes it possible to track all possible change sources
 - Components change detector checks the bindings (like `{{name}}` and `(click)`) defined in its template on change
 - Bindings are propagated from the root to leaves in the depth first order
@@ -506,7 +506,7 @@ export class HighlightDirective {
 
 ---
 
-![Change detection](angular2-advanced-topics/change-detection.png "Change detection")
+![Change detection](angular-advanced-topics/change-detection.png "Change detection")
 
 ---
 # Change Detection - Simplified Implementation
@@ -530,7 +530,7 @@ class ApplicationRef {
 
 # Change Detection - Strategies
 - Change detection strategy describes which strategy will be used the next time change detection is triggered
-- Angular 2 has six change detection strategies:
+- Angular has six change detection strategies:
   - **CheckOnce**: After calling _detectChanges_ the mode of the change detector will become _Checked_.
   - **Checked**: Change detector should be skipped until its mode changes to _CheckOnce_.
   - **CheckAlways**: After calling _detectChanges_ the mode of the change detector will remain _CheckAlways_.
@@ -544,8 +544,8 @@ class ApplicationRef {
 
 ---
 
-# Change Detection - Angular 2 Performance
-- Change detection is one of the key functionalities of Angular 2 and thus it is highly optimized
+# Change Detection - Angular Performance
+- Change detection is one of the key functionalities of Angular and thus it is highly optimized
 - CDs get VM optimized monomorphic classes generated for them at runtime
 - Change detection is always single-pass (stable) because of uni-directional top-to-bottom flow
 - More optimizations possible with _immutables_ and _observables_

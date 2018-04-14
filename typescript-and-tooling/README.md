@@ -72,9 +72,9 @@ npm start # and run start script
 
 # Angular CLI
 
-- Command-line interface for Angular 2 development
+- Command-line interface for Angular development
 - Supports generation of project, components, services, pipes etc.
-- Recommended by the core team as basis for Angular 2 application
+- Recommended by the core team as basis for Angular application
 - Usage with `ng` command:
 
 ```shell
@@ -261,7 +261,7 @@ console.log(squareSum(4, 3)); // 5
 - Typed superset of JavaScript -> Any valid JS is valid TypeScript
 - Advantages:
   - Type system on top of JavaScript to catch errors already on compile-time
-  - Angular 2 is written in TypeScript
+  - Angular is written in TypeScript
 
 ---
 

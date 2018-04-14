@@ -3,11 +3,12 @@ import os
 sections = [
 	'spa-intro/README.md',
 	'typescript-and-tooling/README.md',
-	'angular2-fundamentals/README.md',
-	'angular2-advanced-topics/README.md',
-	'reactive-programming-with-angular2/README.md',
+	'angular-fundamentals/README.md',
+	'angular-advanced-topics/README.md',
+	'reactive-programming-with-angular/README.md',
 	'testing/README.md',
-	'upgrading-from-angular1/README.md',
+	'angular-other-topics/animations/README.md',
+	'angular-other-topics/lazy-loading/README.md',
 	'useful-resources/README.md'
 ]
 

@@ -5,7 +5,7 @@
 ---
 
 # Browser Support
-![Web Animations compatibility table](angular2-other-topics/animations/web-animations-compatibility.png "Web Animations compatibility table")
+![Web Animations compatibility table](angular-other-topics/animations/web-animations-compatibility.png "Web Animations compatibility table")
 [Polyfill](https://github.com/web-animations/web-animations-js) for older browsers
 
 ---

@@ -1,4 +1,4 @@
-# Welcome to Gofore's Angular 2 Training!
+# Welcome to Gofore's Angular Training!
 ## Setup
 ### Node.js, npm & git
 
@@ -20,7 +20,7 @@ git version 2.6.4
 ```
 
 ### Editor
-You may use any IDE you feel comfortable with but we recommend __IntelliJ IDEA Ultimate__ (or WebStorm Ultimate) or __Visual Studio Code__ to be used since they provide very good support for Angular 2 development.
+You may use any IDE you feel comfortable with but we recommend __IntelliJ IDEA Ultimate__ (or WebStorm Ultimate) or __Visual Studio Code__ to be used since they provide very good support for Angular development.
 
 If you prefer using Atom or Brackets, please, find instructions below.
 
@@ -43,9 +43,9 @@ If you prefer using Atom or Brackets, please, find instructions below.
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@1.7.3
-ng new angular2-training
-cd angular2-training
+npm install -g angular-cli@6.0.0-rc.4
+ng new angular-training
+cd angular-training
 ng serve
 ```
 

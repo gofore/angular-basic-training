@@ -1,4 +1,4 @@
-# Reactive Programming With Angular 2
+# Reactive Programming With Angular
 
 ---
 
@@ -86,7 +86,7 @@ somethingReturningPromise().then(
 # RxJS
 - _ReactiveX_ is a library for representing __asynchronous event streams__ with __Observables__ and modifying them with various __stream operations__
 - _RxJS_ is a _ReactiveX_ implementation for JavaScript
-- Angular 2 integrates with __RxJS 5__
+- Angular integrates with __RxJS 5__
 ---
 ### Idea:
 _"In ReactiveX an observer subscribes to an Observable."_
@@ -167,7 +167,7 @@ Rx.Observable.range(1,10);
   - E.g. mouse move events
 ---
 
-# Observables in Angular 2
+# Observables in Angular
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
   ```typescript
@@ -181,7 +181,7 @@ Rx.Observable.range(1,10);
   ```
 ---
 
-# Observables in Angular 2
+# Observables in Angular
   - Changes in route parameters are propagated through an observable sequence
   ```typescript
       constructor(route: ActivatedRoute) {
@@ -192,4 +192,4 @@ Rx.Observable.range(1,10);
 ---
 
 # Exercises
-[Open exercise instructions](https://github.com/gofore/angular2-training/blob/master/reactive-programming-with-angular2/EXERCISES.md)
+[Open exercise instructions](https://github.com/gofore/angular-training/blob/master/reactive-programming-with-angular/EXERCISES.md)

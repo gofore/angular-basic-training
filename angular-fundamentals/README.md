@@ -1,4 +1,4 @@
-# Angular 2 Fundamentals
+# Angular Fundamentals
 - npm Modules
 - File Structure
 - Architecture
@@ -12,7 +12,7 @@
 
 ---
 
-# Angular 2 npm Modules
+# Angular npm Modules
 - Framework code is distributed as npm modules:
   - `@angular/common`: Common utilities (pipes, structural directives etc.)
   - `@angular/compiler`: Ahead-of-Time compiler
@@ -21,12 +21,12 @@
   - `@angular/http`: HTTP requests
   - `@angular/platform-*`: Platform-specific modules (platforms: browser, server, webworker)
   - `@angular/router`: Routing functionality
-  - `@angular/upgrade`: NgUpgrade to upgrade from A1 -> A2
+  - `@angular/upgrade`: NgUpgrade to upgrade from AngularJS -> Angular
 
 ---
 
 # File Structure
-- [Angular 2 style guide](https://angular.io/styleguide) declares set of rules
+- [Angular style guide](https://angular.io/styleguide) declares set of rules
 - [Codelyzer](https://github.com/mgechev/codelyzer) (tslint plugin) lets you lint against them
 - File naming **_name.type.filetype_**:
   - _my.module.ts_
