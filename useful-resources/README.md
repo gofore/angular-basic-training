@@ -2,6 +2,7 @@
 
 - [Thoughtram](https://blog.thoughtram.io/): Highly advanced articles about Angular, RxJS and other related libraries.
 - [Style guide](https://angular.io/guide/styleguide): Angular's official style guide. Worth skimming through.
+- [ngrev](https://github.com/mgechev/ngrev): Graphical tool for reverse engineering of Angular projects. 
 - [Ahead-of-Time compilation](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html) - Boost build times by compiling offline (not in browser)
 - [Release schedule](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md) - Angular's release schedule and versioning info
 - [Web workers support](https://angular.io/docs/ts/latest/api/#!?apiFilter=worker) - Boost up performance with threading

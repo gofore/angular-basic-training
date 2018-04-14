@@ -326,6 +326,7 @@ import { Component, Input } from '@angular/core';
 - Also some "extra" types such as `any`, `void` and `enum`
 - `any` is basically anything like `number`, `string` or `any[]`
 - Types are marked after the name
+- Type declaration can be omitted when assigning 
 - Examples:
 
 ```typescript

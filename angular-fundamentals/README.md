@@ -14,26 +14,31 @@
 
 # Angular npm Modules
 - Framework code is distributed as npm modules:
+  - `@angular/animations`: Advanced animations functionality
   - `@angular/common`: Common utilities (pipes, structural directives etc.)
   - `@angular/compiler`: Ahead-of-Time compiler
   - `@angular/core`: Core functionality (always needed)
   - `@angular/forms`: Form handling
-  - `@angular/http`: HTTP requests
+  - `@angular/language-service`: Language service for Angular templates for better IDE support
   - `@angular/platform-*`: Platform-specific modules (platforms: browser, server, webworker)
   - `@angular/router`: Routing functionality
+  - `@angular/service-worker`: Service worker functionality
   - `@angular/upgrade`: NgUpgrade to upgrade from AngularJS -> Angular
+
+  - `@angular/http`: Deprecated HTTP client
 
 ---
 
-# File Structure
+# Coding Style
 - [Angular style guide](https://angular.io/styleguide) declares set of rules
-- [Codelyzer](https://github.com/mgechev/codelyzer) (tslint plugin) lets you lint against them
+- [Codelyzer](https://github.com/mgechev/codelyzer) (TSLint plugin) checks for 
 - File naming **_name.type.filetype_**:
-  - _my.module.ts_
-  - _todo.component.ts_
+  - _app.module.ts_
+  - _todos.component.ts_
+  - _todos.component.html_
+  - _todos.component.scss_
   - _user.service.ts_
   - _json.pipe.ts_
-  - _yellow-background.directive.ts_
 
 ---
 
@@ -45,10 +50,9 @@
 ---
 
 # NgModules
-- Each app has single root _NgModule_
-- Declared with `@NgModule` annotation
-- Declares single unit of things relating to same thing
-- Defines template compilation context
+- Each application has single root _NgModule_
+- _NgModule_ is a class with `@NgModule` annotation
+- Declares collection of related elements (components, services etc.)
 
 _app.module.ts_
 ```typescript
@@ -71,28 +75,100 @@ export class AppModule { }
 - `declarations` contains list of application build blocks, such as components, pipes and directives, with certain selector
 - `imports` allows importing of other _NgModules_
   - For example `BrowserModule` imports browser-specific renderers and core directives such as `ngFor` and `ngIf`
+- `exports` allows declaring what is exported from this module (covered later)
 - `providers` contains list of services for dependency injection
-- `bootstrap` contains root element for the application (usually named `AppComponent`)
+- `bootstrap` contains root element(s) for the application (usually named `AppComponent`)
 
 ---
 
 # Booting the application
-- Browser executes (compiled) _main.ts_
-- _main.ts_ is responsible for setting up our application
-- Root module provided for Angular `bootstrapModule`
+- We need to tell Angular to start our application
+- This is done by providing root module `bootstrapModule`
+- This will go through the `bootstrap` array and checks for those selectors in HTML
 
 _main.ts_
 ```typescript
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { enableProdMode } from '@angular/core';
-import { environment } from './environments/environment';
 import { AppModule } from './app/app.module';
 
-if (environment.production) {
-  enableProdMode();
-}
-
 platformBrowserDynamic().bootstrapModule(AppModule);
+```
+
+_index.html_
+```html
+<html>
+    <body>
+        <app-root></app-root>
+    </body>
+</html>
+```
+
+---
+
+# Modules in Large Applications
+- Modules are meant to offer possibility to divide the functionality in logical modules
+- For example one could have `CustomerModule`, `AdminModule` and `BillingModule`
+- To access `exports` of another module, it needs to be `imported` to the module:
+
+_app.module.ts_
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+*import { HttpClientModule } from '@angular/common';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, `HttpClientModule`],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+---
+
+# Exporting 
+- Exporting allows declaring the public API provided by the module
+- Consider company-specific UI module where `ListComponent` utilizes `ListRowComponent`:
+
+_ui.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+import { ListComponent } from './list.component';
+import { ListRowComponent } from './list-row.component';
+
+@NgModule({
+  declarations: [ListComponent, ListRowComponent],
+  imports: [],
+  exports: [ListComponent],
+  providers: []
+})
+export class UiModule { }
+```
+
+---
+
+# Modules as Exports
+- Directives `ngIf` and `ngFor` are defined actually in `CommonModule`
+- But that is not imported anywhere?
+- Actually, `BrowserModule` is exporting `CommonModule` as seen in [source](https://github.com/angular/angular/blob/5.2.9/packages/platform-browser/src/browser.ts#L89)
+- -> Modules can be exported as part of module
+- If `ListModule` and `TableModule` were separate modules:
+
+_ui.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+import { ListModule } from './list.module';
+import { TableModule } from './table.module';
+
+@NgModule({
+  declarations: [],
+  imports: [],
+  exports: [ListModule, TableModule],
+  providers: []
+})
+export class UiModule { }
 ```
 
 ---
@@ -114,10 +190,10 @@ class TodosComponent { }
 ---
 
 # Components
-- Two parameters are mandatory for `@Component`:
+- Two parameters are mandatory for `@Component` annotation:
   - template with `template` (inline template) or `templateUrl` (separate file)
-  - selector (should always start with `app` prefix)
-- Components need to be declared in NgModule's declarations to be available
+  - selector (should always start with application specific prefix like the default: `app`)
+- Components need to be declared in NgModule's declarations to be available in templates
 
 _todos.component.ts_
 ```typescript
@@ -141,6 +217,25 @@ export class AppModule { }
 
 ---
 
+# Generating a Component
+Browse to root of the project and run:
+
+```shell
+ng generate component todos 
+```
+
+or abbreviated one:
+
+```shell
+ng g c todos
+```
+
+This will:
+- Create a folder called `todos` with the component, template, styles and test file
+- Add the component to `declarations` of your `AppModule`
+
+---
+
 # Templates
 - Plain HTML with few Angular specific additions*
 
@@ -156,6 +251,11 @@ _app.component.html_
 <h2>Todos</h2>
 <app-todos></app-todos>
 ```
+
+---
+
+# Tree Structure
+- Including components in templates causes tree-like structure
 
 ---
 
@@ -198,7 +298,7 @@ Bind property from the component to the template
 
 _app.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-component',
@@ -217,12 +317,12 @@ _app.component.html_
 ---
 
 # Structural Directives
-- Modify the structure of template
+- Modify the *structure* of the template
 - Two most used are  `*ngIf` and `*ngFor`
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-todos',
@@ -247,7 +347,7 @@ Bind value from component into HTML attribute
 
 _app.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-component',
@@ -265,6 +365,15 @@ _app.component.html_
 
 ---
 
+# Special Attribute Bindings
+- Classes and styles have special syntax available:
+```html
+<div [class.active]="isActive"></div>
+<div [style.display]="isShown ? 'block' : 'none'"></div>
+```
+
+---
+
 # Attribute Binding for Components
 - Attribute binding only works for native properties of HTML elements by default
 - Same concept can also be used to pass data from parent component to child component
@@ -276,7 +385,7 @@ _parent.component.html_
 
 _child.component.ts_
 ```typescript
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-child'
@@ -291,7 +400,8 @@ class ChildComponent {
 
 # Event Binding
 - Register handler code for events
-- `$event` contains the value of event
+- The actual event can be referenced with `$event`
+- The events are basic [DOM events](https://www.w3schools.com/jsref/dom_obj_event.asp) (like `click`, `mouseover`, `change` and `input`)
 
 _todos.component.html_
 ```html
@@ -300,7 +410,7 @@ _todos.component.html_
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({..})
 class TodosComponent {
@@ -323,14 +433,14 @@ _parent.component.html_
 
 _child.component.ts_
 ```typescript
-import {Component, Output} from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-child'
 })
 class ChildComponent {
 * @Output()
-* change: EventEmitter<string> = new EventEmitter();
+* change = new EventEmitter<string>();
 }
 ```
 
@@ -338,8 +448,8 @@ class ChildComponent {
 
 # Two-way Data Binding
 - Two-way data binding with `ngModel` inside _banana-box syntax_: `[(ngModel)]`
-- Data flow is bi-directional:
-  - value from component is updated to input
+- Data flow is still unidirectional, though:
+  - value from component is updated to input on change
   - when user modifies the value, it is updated to component
 
 ```html
@@ -354,12 +464,38 @@ Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
 
 ---
 
+# CSS Encapsulation
+- Component can have styles applied:
+    - Inline in annotation (field `styles` in `@Component`)
+    - In external files (field `styleUrls`)
+- These styles are scoped for component -> No other component can get affected by them
+
+_todos.component.html_
+```html
+<div class="todos"></div>
+```
+
+_todos.component.css_
+```css
+.todos {
+    background-color: red;
+}
+```
+
+Does not affect styles here:
+
+_clients.component.html _
+```html
+<div class="todos"></div>
+```
+
+---
+
 # Components - Inline Styles
-Inline styles to be used within the template. Scoped for just this element by Angular.
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-todos',
@@ -370,16 +506,13 @@ class TodosComponent {
 }
 ```
 
-Styles only visible within this component (_todos.component.html_)
-
 ---
 
-# Components - Styles from URL
-Style files to be used within the template. Scoped for just this element by Angular.
+# Components - Styles From File
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-todos',
@@ -398,7 +531,7 @@ class TodosComponent {
 - Example hooks: `ngOnInit` (interface `OnInit`), `ngOnChanges` (interface `OnChanges`) and `ngOnDestroy` (interface `OnDestroy`)
 
 ```typescript
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 export class MyComponent `implements OnInit` {
   `ngOnInit() { ... }`
@@ -417,7 +550,7 @@ export class MyComponent `implements OnInit` {
 
 _user.service.ts_
 ```typescript
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 *@Injectable()
 export class UserService {
@@ -437,13 +570,33 @@ export class AppModule() {}
 
 ---
 
+# Generating a Service
+Browse to root of the project and run:
+
+```shell
+ng generate service todos 
+```
+
+or abbreviated one:
+
+```shell
+ng g s todos
+```
+
+This will:
+- Create a file called `todos.service.ts` in the root of `app/` folder along with the test stub
+- *not* add it as provider in `AppModule` so you must do it yourself!
+
+---
+
 # DI with Constructor Parameters
-Services can be accessed by declaring them inside constructor parameters.
+- Angular implements concept called `Dependency Injection`
+- In DI you can just ask for the dependencies as constructor parameters as follows:
 
 _todos.component.ts_
 ```typescript
-import {Component} from '@angular/core';
-*import {BackendService} from './backend.service';
+import { Component } from '@angular/core';
+*import { BackendService } from './backend.service';
 
 @Component({
   selector: 'app-todos',
@@ -459,25 +612,27 @@ class TodosComponent {
 }
 ```
 
+Angular will then pass the singleton instance of `BackendService` to the component when creating it.
+
 ---
 
 # Asynchronous and Server-side Communication
 - Asynchronous things are modeled as Observables (covered later) in Angular
   - For now, we only need to know that there is `subscribe` method
-- For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
+- For AJAX requests, use `HttpClient` service found in `@angular/common` 
 
 ```typescript
-import {Component} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common';
 
 @Component({...})
 export class MyComponent {
   filteredData: any[];
-  constructor(private http: Http) {
+  constructor(private httpClient: HttpClient) {
   }
 
   getData() {
-*    this.http.get('https://example.com/mydata').subscribe(data => {
+*    this.httpClient.get('https://example.com/mydata').subscribe(data => {
       // Do stuff with data
       this.filteredData = data.filter(item => item.id > 100);
     })
