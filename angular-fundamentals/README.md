@@ -355,7 +355,7 @@ Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
 ---
 
 # Components - Inline Styles
-Inline styles to be used within the template. Scoped for just this element by A2.
+Inline styles to be used within the template. Scoped for just this element by Angular.
 
 _todos.component.ts_
 ```typescript
@@ -375,7 +375,7 @@ Styles only visible within this component (_todos.component.html_)
 ---
 
 # Components - Styles from URL
-Style files to be used within the template. Scoped for just this element by A2.
+Style files to be used within the template. Scoped for just this element by Angular.
 
 _todos.component.ts_
 ```typescript
@@ -462,7 +462,7 @@ class TodosComponent {
 ---
 
 # Asynchronous and Server-side Communication
-- Asynchronous things are modeled as Observables (covered later) in A2
+- Asynchronous things are modeled as Observables (covered later) in Angular
   - For now, we only need to know that there is `subscribe` method
 - For AJAX requests, there is `Http` service with support for GET, POST, PUT, DELETE, HEAD and PATCH requests
 

@@ -43,7 +43,7 @@ If you prefer using Atom or Brackets, please, find instructions below.
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g angular-cli@6.0.0-rc.4
+npm install -g angular-cli@1.7.5
 ng new angular-training
 cd angular-training
 ng serve

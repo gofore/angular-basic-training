@@ -1,12 +1,10 @@
 # Angular (2+) Basic Training
 
 ## Training topics
-
-- [Introduction to Single-Page Web Applications (SPAs)](spa-intro/README.md)
-- [Tooling and TypeScript](typescript-and-tooling/README.md)
+- [SPAs, Tooling and TypeScript](spas-tooling-and-typescript/README.md)
   - Tooling
     - Node.js and npm
-    - ES6
+    - ES2015 (ES6)
     - Webpack
     - Using IDEs and Editors for Angular and TypeScript
     - Angular CLI

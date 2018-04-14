@@ -1,8 +1,7 @@
 import os
 
 sections = [
-	'spa-intro/README.md',
-	'typescript-and-tooling/README.md',
+	'spas-tooling-and-typescript/README.md',
 	'angular-fundamentals/README.md',
 	'angular-advanced-topics/README.md',
 	'reactive-programming-with-angular/README.md',
