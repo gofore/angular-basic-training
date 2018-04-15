@@ -1,7 +1,7 @@
 # Angular Advanced Topics
 - Router
-- Pipes
 - Forms
+- Pipes
 - Directives
 
 ---
@@ -14,7 +14,7 @@
 
 ---
 
-# Router - Basics
+# Router Basics
 Route declarations
 
 _app.module.ts_
@@ -44,7 +44,7 @@ export class AppModule { }
 
 ---
 
-# Router - Basics
+# Router Basics
 `<router-outlet></router-outlet>` declares the placeholder for routed component tree
 
 _app.component.html_
@@ -80,10 +80,10 @@ declares routes `todos/` and `todos/:id`. `:id` is named placeholder for path pa
 
 ---
 
-# Router - Redirects
-- By default matching of URLs is done with _startsWith_ algorithm
+# Redirects
+- By default matching of URLs is done with _startsWith_ algorithm (and everything starts with path `'''`)
 - `pathMatch: 'full'` can be used to set the algorithm to full matching
-- Redirects can be done with `redirectTo`
+- Redirects can be done by using `redirectTo` instead of specifying `component`
 
 _app.module.ts_
 ```typescript
@@ -99,12 +99,13 @@ const routeConfig = [
   }
 ];
 ```
+
 ---
 
-# Router - Accessing Route Parameters
-- Route parameters can be accessed via `ActivedRoutes` instances `params` value as observable.
-- Every time the parameters change, new event will be sent.
-- Makes it possible not to load the component again and again from scratch
+# Accessing Route Parameters
+- Route parameters can be accessed via `params` field of `ActivatedRoute` as observable
+- Once parameters change new event will be sent.
+- Makes it possible to reuse the same component instead of instantiating a new one
 
 ```typescript
 @Component({})
@@ -118,9 +119,9 @@ export class EditTodoItemComponent {
 
 ---
 
-# Router - Fragments & Query Parameters
+# Fragments & Query Parameters
 - Fragments (`example.com#key=value`) and query parameters (`example.com?key=value`) are shared by all routes
-- Can be accessed just like path parameters:
+- Can be accessed like path parameters:
 
 ```typescript
 @Component({})
@@ -135,31 +136,68 @@ export class MyComponent {
 ---
 
 # Router - Navigating
-- Two ways to navigate between states:
- - Imperatively from within the components code: `this.router.navigateByUrl('todos/1')` or `this.router.navigate(['todos', 1])`
- - Declaratively from within the template: `<div [routerLink]=['todos', 1]>`
-- URLs starting with `/` are absolute navigations, others relative
-- `../` also works for accessing the "parent" URL
+Two ways to navigate between states:
+- Imperatively inside a component: 
 
-_app.component.ts_
 ```typescript
-export class AppComponent {
-  constructor(`private router: Router`) {
-*   this.router.navigate(['todos']);
-  }
-}
+this.router.navigateByUrl('todos/1')
 ```
 
-_app.component.html_
-```html
-<a [routerLink]="['todos', 3]">
-  Todo 3
-</a>
+- Declaratively inside a template:
+ 
+```typescript
+<a [routerLink]="todos/1"></a>
 ```
 
 ---
 
-# Router - Guards
+# Navigation syntax
+- Parts of paths can be composed easily with the array syntax
+- Array syntax concatenates the parts with `/`
+- So the below are the same:
+
+```typescript
+this.router.navigateByUrl('todos/1/tasks');
+this.router.navigate(['todos', 1, 'tasks']);
+```
+
+```html
+<a [routerLink]="todos/1/tasks"></a>
+<a [routerLink]="['todos', 1, 'tasks']"></a>
+```
+
+---
+
+# Absolute vs. Relative Navigation
+
+- If the path starts with a slash (`/`), it is an absolute navigation.
+- Example:
+```typescript
+// Assuming we are now in example.com/todos/1
+this.router.navigateByUrl('tasks'); // example.com/todos/1/tasks
+this.router.navigateByUrl('/tasks'); // example.com/tasks
+```
+- `../` can be used to go one level up
+```typescript
+// Assuming we are now in example.com/todos/1/tasks
+this.router.navigateByUrl('../'); // example.com/todos/1
+```
+
+---
+
+# Router Guards
+- Guards allow changing the behaviour of routing for certain routes
+- Guards can be registered for navigation into and out of route
+- Guards can cancel the routing and instead redirect user to somewhere else
+- Example use cases:
+ - Authentication
+ - Preloading data for component
+ - Logging
+ - "You have unsaved changes. Are you sure you want to leave?"
+
+---
+
+# Guard Types
 - Multiple guards available for each route:
   - `CanActivate` to mediate navigation to a route
   - `CanActivateChild` to mediate navigation to a child route
@@ -169,7 +207,7 @@ _app.component.html_
 - The `Can*` guards can return either boolean or promise (resolving to a boolean value) to allow or prevent navigation
 
 ---
-# Router - Guards
+# Guard Example
 - Usage:
 
 _app.module.ts_
@@ -199,7 +237,7 @@ export class AuthGuard implements CanActivate {
 
 ---
 
-# Router - URL Strategies
+# Router URL Strategies
 - Two strategies for URL formation:
   - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`) (default)
   - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
@@ -219,94 +257,62 @@ export class AppModule {}
 
 ---
 
-# Pipes
-- Simple display-value transformations
-- Similar concept as _filters_ in AngularJS
-- Angular provides few common ones, e.g.: `UpperCasePipe`, `LowerCasePipe` and `DatePipe`
-
-_my.component.html_
-```html
-<div>{{user.name` | uppercase`}}</div> <!-- JOHN DOE -->
-```
-
-_my.component.ts_
-```typescript
-import {UpperCasePipe} from '@angular/common';
-
-@Component({
-* pipes: [UpperCasePipe]
-})
-class MyComponent {}
-```
-
----
-
-# Pipe arguments
-
-```html
-<div>{{user.birthDay | date`:'fullDate'`}}</div> <!-- Friday, April 15, 1988 -->
-```
-
----
-
-# Multiple pipes
-- Pipes can be piped (like in UNIX)
-
-```html
-<div>{{user.birthDay` | date:'fullDate' | uppercase`}}</div> <!-- FRIDAY, APRIL 15, 1988 -->
-```
-
----
-
-# Custom Pipes
-- Declared with `@Pipe` annotation
-- `PipeTransform` interface with `transform` method
-- `transform` takes the value as first argument and the optional arguments as rest of parameters
-- Must be declared in `NgModule` declaration to be available in templates
-
-```typescript
-import {Pipe, PipeTransform} from '@angular/core';
-
-*@Pipe({name: 'exponential'})
-*export class ExponentialPipe implements PipeTransform {
-*  transform(value: number, exponent: string): number {
-    let exp = parseFloat(exponent);
-    return Math.pow(value, isNaN(exp) ? 1 : exp);
-  }
-}
-```
-
-```html
-<div>{{10 | exponential:3}}</div> <!-- 1000 -->
-```
-
----
-
 # Forms
-- Angular provides common form functionalities:
+- Angular provides highly advanced form management functionality:
   - Two-way data binding
   - Change tracking
   - Validation
   - Error handling
-- Angular forms can be either model- or template-driven
-  - Only template-driven forms are covered here, as they are enough for most use cases
-- To enable forms, we need to add `FormsModule` to imports of our `NgModule`:
+
+---
+
+# Template-driven vs. Reactive Forms
+- Angular forms can be either template-driven or reactive
+- Both have their own `NgModule`: `FormsModule` and `ReactiveFormsModule`
+- Both modules are in `@angular/forms` npm package
+- The underlying principles are the same but the usage is different
+- Both can be used within a single application, even on single component
+- Only template-driven forms are covered in this training, as they are enough for most use cases
+
+---
+
+# Reactive Forms
+- As the name suggests, based on reactive programming (covered tomorrow)
+- Form controls defined in component instead of template
+- Require more boilerplate code
+- For complex use cases 
+- More easy to test
+
+---
+
+# Reactive Forms Example
 
 ```typescript
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@NgModule({
-  imports: [
-    BrowserModule,
-*   FormsModule
-  ]
-})
-export class AppModule { }
+export class TodosComponent {
+    todosForm: FormGroup;
+    
+    constructor(private fb: FormBuilder) {
+        this.todosForm = this.fb.group({
+          name: ['', Validators.required],
+          done: [false],
+        });
+    }
+}
+```
+
+```html
+<form [formGroup]="todosForm">
+    <input class="form-control" formControlName="name">
+    <input type="checkbox" formControlName="done">
+</form>
 ```
 
 ---
 
-# Forms - Template-driven Forms
+# Template-driven Forms
 - Forms declared in templates rather than in component
 - Each input inside form element is attached by default
 - Each input needs to have (unique) name attribute set
@@ -320,7 +326,7 @@ export class AppModule { }
 
 ---
 
-# Forms - Using Template-local Variables
+# Using Template-local Variables
 Forms export `FormControl` as `ngModel` for each input to be bound to template-local variable
 
 ```html
@@ -332,11 +338,10 @@ Forms export `FormControl` as `ngModel` for each input to be bound to template-l
   </span>
 <form>
 ```
-(`#nameModel` and `#emailModel` are called template-local variables)
 
 ---
 
-# Forms - CSS Classes
+# CSS Classes
 - CSS classes are attached automatically by framework
 
 ![Control CSS Classes](angular-advanced-topics/control-css-classes.png "Control CSS Classes")
@@ -379,6 +384,82 @@ export class MyComponent {
 ```
 
 ---
+
+
+---
+
+# Pipes
+- Simple display-value transformations
+- Similar concept as _filters_ in AngularJS
+- Angular provides few commonly needed pipes, e.g.: `uppercase`, `lowecase` and `date`
+
+```html
+<!-- user.name is initially "john doe" -->
+<div>{{user.name` | uppercase`}}</div> <!-- JOHN DOE -->
+```
+
+---
+
+# Pipe arguments
+- Pipes can take arguments that modify its behavior:
+```html
+<div>{{user.birthDay | date`:'fullDate'`}}</div> <!-- Friday, April 15, 1988 -->
+<div>{{user.birthDay | date`:'yyyy-MM-dd HH:mm a z':'+0900'`}}</div> <!-- 1988-04-15 05:03 PM GMT+9 -->
+```
+
+---
+
+# Multiple pipes
+- Pipes can be piped (like in UNIX)
+
+```html
+<div>{{user.birthDay` | date:'fullDate' | uppercase`}}</div>
+<!-- FRIDAY, APRIL 15, 1988 -->
+```
+
+---
+
+# Custom Pipes
+- Declared with `@Pipe` annotation
+- `PipeTransform` interface with `transform` method
+- `transform` takes the value as first argument and the optional arguments after it
+- Must be declared in `NgModule` declaration to be available in templates
+
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+
+*@Pipe({ name: 'exponential' })
+*export class ExponentialPipe implements PipeTransform {
+*  transform(value: number, exponent: string): number {
+    const exp = parseFloat(exponent);
+    return Math.pow(value, isNaN(exp) ? 1 : exp);
+  }
+}
+```
+
+```html
+<div>{{10 | exponential:3}}</div> <!-- 1000 -->
+```
+
+---
+
+# Generating a Pipe
+Browse to root of the project and run:
+
+```shell
+ng generate pipe capitalize 
+```
+
+or abbreviated one:
+
+```shell
+ng g p capitalize
+```
+
+This will:
+- Create a file called `capitalize.pipe.ts` in the root of `app/` folder along with the test stub
+- add it as declaration in `AppModule` so it is available in the templates
+
 
 # Directives
 - There are three kinds of directives in Angular:

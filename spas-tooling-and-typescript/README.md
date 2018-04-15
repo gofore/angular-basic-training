@@ -183,6 +183,7 @@ Available at [angular-basic-training.herokuapp.com](http://angular-basic-trainin
 - Tests
 - Update your dependencies
 - Supports CSS preprocessors (SASS and LESS)
+- Allows third-party generators for Angular CLI projects
 
 ---
 
@@ -305,6 +306,31 @@ console.log(squareSum(4, 3)); // 5
 
 ```javascript
 import { Component, Input } from '@angular/core';
+```
+
+---
+
+# Array Functions
+- `map`, `filter` and `reduce` operate over the array
+- `map` creates a new array with the results of calling a provided function on every element in the calling array. 
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.map(item => item * 2); 
+// result is [0, 2, 4, 6] 
+```
+
+- `filter` creates a new array with all elements that pass the test implemented by the provided function.
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.filter(item => item < 2); 
+// result is [0, 1]
+```
+
+- `reduce` applies a function against an accumulator and each element in the array (from left to right) to reduce it to a single value.
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.reduce((acc, item) => acc + item , 0); 
+// result is 6
 ```
 
 ---

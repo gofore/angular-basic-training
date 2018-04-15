@@ -8,13 +8,16 @@
 - Specify and clarify what the code does
 
 ---
+
 # Jasmine
 - Unit testing framework for JavaScript
 - Simple basic syntax:
   - `describe(string, function)` to define suite of test cases
   - `it(string, function)` to declare single test case
   - `expect(a).toBe(b)` to make assertions
+  
 ---
+
 # First Jasmine Test
 - Class under test
 ```typescript
@@ -27,7 +30,9 @@
       }
   }
 ```
+
 ---
+
 # First Jasmine Test
 - Test case
 ```typescript
@@ -43,7 +48,9 @@
       });
   });
 ```
+
 ---
+
 # Spies
 - Test double functions AKA spies let you stub any function and track calls to it
 
@@ -55,6 +62,7 @@ it('tracks that the spy was called', () => {
   expect(person.getName).toHaveBeenCalled();
 });
 ```
+
 ---
 
 # Spies
@@ -65,12 +73,16 @@ it('stubs the function return value', () => {
   expect(person.getName()).toBe('Jane');
 });
 ```
+
 ---
+
 # Angular Testing Platform (ATP)
 - TestBed for wiring angular components for testing
 - Inject mock dependencies
 - Testing components with async behavior
+
 ---
+
 # Component Under Test
 - Suppose we had the following component:
 ```typescript
@@ -86,7 +98,9 @@ it('stubs the function return value', () => {
       }
     }
 ```
+
 ---
+
 # Wiring Up
 - We can setup the test environment with mocks using TestBed:
 ```typescript
@@ -97,7 +111,9 @@ it('stubs the function return value', () => {
       });
     });
 ```
+
 ---
+
 # Access to Tested Component
 ```typescript
 fixture = TestBed.createComponent(VideosComponent);
@@ -109,7 +125,9 @@ debugElement = fixture.debugElement;
 nativeElement = fixture.nativeElement;
 
 ```
+
 ---
+
 # Async with ATP
 - Let's change the implementation of the VideoService to return a promise:
 ```typescript
@@ -120,6 +138,7 @@ nativeElement = fixture.nativeElement;
 - This means that we'll have to deal with asynchronous behavior
 
 ---
+
 # async()
 - We can run test code within asynchronous zone
 ```typescript
@@ -131,7 +150,9 @@ nativeElement = fixture.nativeElement;
       });
     }));
 ```
+
 ---
+
 # fakeAsync()
 - Or within fake asynchronous zone
 ```typescript
@@ -142,30 +163,37 @@ nativeElement = fixture.nativeElement;
       expect(getVideos()).toBe(testVideos);
     }));
 ```
+
 ---
+
 # Karma
 - Karma is a test runner with support e.g. for coverage reports and test results exports
 - Angular CLI comes with Karma installed
 - To run tests, type:
 ```shell
-ng test
+npm run test
 ```
+
 ---
 
 # E2E testing
 - End-to-End (E2E) tests test flow of the application
 - Ensures that the components of the application function together as expected
 - E2E tests often define use cases of the application
+
 ---
+
 # Protractor
 - E2E test framework for Angular applications
 - Runs tests against your application running in a real browser, interacting with it as a user would
 - Angular CLI comes with Protractor installed
   - To run E2E tests, type:
   ```shell
-  ng e2e
+  npm run e2e
   ```
+
 ---
+
 # Example spec
 ```javascript
 describe('Protractor Demo App', () => {
