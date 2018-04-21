@@ -36,7 +36,8 @@
 - [Testing](testing/README.md)
   - Unit Testing
   - E2E Testing
-- [Other topics](angular-other-topics/README.md)
+- [Lazy Loading](angular-other-topics/lazy-loading/README.md)
+- [Animations](angular-other-topics/animations/README.md)
 
 [Useful Resources](useful-resources/README.md)
 
