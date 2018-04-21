@@ -1,20 +1,37 @@
 # Lazy Loading
 
 ---
-# Lazy Loading
-Speeds up application load time by splitting it into multiple bundles and loading them on demand
+# Background
+- Web applications are used more and more with mobile devices
+- Many countries still have slow internet connections
+- Load time has a huge impact on user experience
+
 
 ---
-# Background
-- Applications are used more and more with mobile devices
-- Many countries still have slow internet connections
-- Load time effects a lot on user experience
+# Lazy Loading
+- Traditional apps load everything in the beginning
+- Lazy loading means only loading parts after initial page load
+
+---
+# Default Bundling
+
+![Build without lazy loading](angular-other-topics/lazy-loading/build-without-lazy-loading.png)
+
+Chunks are:
+- _polyfills.bundle.js_: Polyfills required to run the app (see _polyfills.ts_)
+- _main.bundle.js_: Actual application code along with vendor code (Angular)
+- _styles.bundle.css_: Styles for the application
+- _inline.bundle.js_: Tiny webpack loader to load the app
+
+---
+# Custom Chunks
+
+![Build with lazy loading](angular-other-topics/lazy-loading/build-with-lazy-loading.png)
 
 ---
 # Angular Module Loading
 - By default, modules are loaded eagerly when the application starts
-- They can also be loaded lazily by the router
-- Lazy loading: Module is loaded when it is routed to the first time
+- Modules can loaded lazily by the router with `loadChildren`
 
 ---
 # Angular Module Loading
@@ -31,45 +48,48 @@ A feature module is loaded when it is routed to the first time
 ![Lazy Loaded Module](angular-other-topics/lazy-loading/chunk.PNG)
 
 ---
-# Simple & Easy
-- Easy to configure with the router
-- Angular-CLI supports it by default
+# Angular CLI
+- Angular CLI has built-in support for lazy loading
+- Works for both development and production builds
+- If `loadChildren` is detected chunks will be generated -> no extra configuration required
 
 ---
 # Router Configuration
-- AppModule _routerConfig_
-- loadChildren property defines module location and module class, separated by #
 
+_app.module.ts_
 ```javascript
-const routeConfig = [
+const routes: Routes = [
   {
     path: '',
     component: AppComponent
   },
   {
-    path: 'feature',
-    loadChildren: 'app/feature/feature.module#FeatureModule'
+    path: 'todos',
+    loadChildren: './todos/todos.module#TodosModule'
   }];
 
 @NgModule({
   ...
   imports: [
     ...
-    RouterModule.forRoot(routeConfig),
-    HttpModule,
+    RouterModule.forRoot(routes)    
   ],
 })
 ```
 
 ---
 # Router Configuration
-- FeatureModule _routerConfig_
 
+_todos.module.ts_
 ```javascript
-const routeConfig = [
+const routes: Routes = [
   {
     path: '',
-    component: FeatureComponent
+    component: TodosComponent
+  },
+  {
+    path: ':id',
+    component: EditTodoComponent
   }
 ];
 
@@ -77,7 +97,31 @@ const routeConfig = [
   ...
   imports: [
     ...
-    RouterModule.forChild(routeConfig)
+    RouterModule.forChild(routes)
   ],
 })
+export class TodosModule {}
+```
+
+---
+# Demo
+
+[https://github.com/RoopeHakulinen/angular-lazy-loading](https://github.com/RoopeHakulinen/angular-lazy-loading)
+
+---
+
+# Analyzing Bundle Sizes
+
+```bash
+{
+  "scripts": {
+     ...
+    "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/stats.json"
+  }
+}
+```
+
+```bash
+npm install webpack-bundle-analyzer --save-dev
+npm run analyze
 ```
