@@ -72,7 +72,7 @@
                 links.map(function (link) {
                     var href = link.attrs[0][1];
                     var parts = href.split('/');
-                    var name = parts[parts.length - 1].replace(/-/g, ' ');
+                    var name = parts[parts.length - 2].replace(/-/g, ' ');
                     return '<h1><a href="?' + href + '#1">' + name.charAt(0).toUpperCase() + name.slice(1) + '</a></h1>';
                 }).reduce(function (before, current) {
                     return before + current;
