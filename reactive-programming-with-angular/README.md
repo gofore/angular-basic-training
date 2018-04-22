@@ -145,8 +145,8 @@ Rx.Observable.range(1,10);
     ```
 ---
 
-# Observables in Action:
-## DEMO
+# Demo
+
 ---
 
 # Catching Errors
@@ -171,8 +171,7 @@ Rx.Observable.range(1,10);
 - Observables used extensively instead of promises
   - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
   ```typescript
-      this.http.get('url/restapi/resource') // Returns observable
-          .map((res:Response) => res.json()) // Converts response to JSON format
+      this.httpClient.get('url/restapi/resource') // Returns observable
           .subscribe(
               data => { this.data = data}, // Success
               err => console.error(err), // Failure
@@ -182,14 +181,75 @@ Rx.Observable.range(1,10);
 ---
 
 # Observables in Angular
-  - Changes in route parameters are propagated through an observable sequence
-  ```typescript
-      constructor(route: ActivatedRoute) {
-          route.params.subscribe(params => this.index = +params['index'];);
-      }
-  ```
-  - And much more!
+- Changes in route parameters are propagated through an observable sequence
+```typescript
+  constructor(route: ActivatedRoute) {
+      route.params.subscribe(params => this.index = +params['index']);
+  }
+```
+  
 ---
 
 # Exercises
 [Open exercise instructions](https://github.com/gofore/angular-training/blob/master/reactive-programming-with-angular/EXERCISES.md)
+
+---
+# RxJS 5.5
+- RxJS 5.5.0 introduced major change to RxJS called _pipeable operators_
+- Importing is a mess with 5.5 but RxJS 6 will fix it
+- [Read more](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md)
+
+---
+# Pipeable Operators Example
+
+Pre RxJS 5.5
+```typescript
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
+const source$ = Observable.range(0, 10);
+source$
+  .filter(x => x % 2 === 0)
+  .map(x => x + x)
+  .subscribe(x => console.log(x))
+```
+
+RxJS 5.5
+```typescript
+import { range } from 'rxjs/observable/range';
+import { map } from 'rxjs/operators/map';
+import { filter } from 'rxjs/operators/filter';
+
+const source$ = range(0, 10);
+source$.pipe(
+  filter(x => x % 2 === 0),
+  map(x => x + x)
+).subscribe(x => console.log(x))
+```
+
+---
+# RxJS 5.5 Renaming
+Some of the operators are reserved words in JavaScript:
+- `do` -> `tap`
+- `catch` -> `catchError`
+- `switch` -> `switchAll`
+- `finally` -> `finalize`
+
+---
+# RxJS 5.5 Pros
+- No more "prototype patching" -> Tree-shaking possible -> Smaller bundle sizes
+- Custom operators are easier to make
+- Better tooling support by linters and compilers
+
+---
+# RxJS 6
+- Released 05/2018
+- Major changes:
+ - Simpler imports (`import { map, filter } from 'rxjs/operators'`)
+ - Errors thrown asynchronously
+ - Deprecations
+ - New operator (`throwIfEmpty`)
+- Provides compatibility library (`rxjs-compat`) to support the migration from 5 to 6
+- See Ben Lesh's (RxJS 5 author) presentation in ngConf 2018 for more details ([slides](https://docs.google.com/presentation/d/1h-h4IUgh8mRqItF2F2Ih8g-H9gYjb8MCwHnoIVm-hiU/edit#slide=id.g367dcb4296_0_0), [video](https://www.youtube.com/watch?time_continue=1&v=JCXZhe6KsxQ))
