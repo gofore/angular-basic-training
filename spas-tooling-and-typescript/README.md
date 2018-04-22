@@ -1,7 +1,10 @@
 # Angular Basic Training - Gofore
 
-## Slides
-Available at [angular-basic-training.herokuapp.com](http://angular-basic-training.herokuapp.com/)
+- Open slides: [angular-basic-training.herokuapp.com](http://angular-basic-training.herokuapp.com/)
+- Open IDE and start local dev server as instructed in [prerequisites](https://github.com/gofore/angular-basic-training/blob/master/setup/README.md)
+- If using IntelliJ IDEA, open "Settings" and go to _TypeScript > Code Style > TypeScript_ and set:
+ - Spaces: Within > "Object literal braces" & "ES6 import/export braces"
+ - Punctuation: "Use Single quotes in always"
 
 ---
 
