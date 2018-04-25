@@ -168,8 +168,8 @@ Rx.Observable.range(1,10);
 ---
 
 # Observables in Angular
-- Observables used extensively instead of promises
-  - E.g. HTTP requests can be merely seen as single events (there is only one response) but they are implemented using observables
+- Observables used exclusively instead of promises
+  - E.g. HTTP requests only result in single event (one response) but they are modeled as observables
   ```typescript
       this.httpClient.get('url/restapi/resource') // Returns observable
           .subscribe(
