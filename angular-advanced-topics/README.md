@@ -76,7 +76,7 @@ const routeConfig = [
 ];
 ```
 
-declares routes `todos/` and `todos/:id`. `:id` is named placeholder for path parameter that can be accessed within the component.
+declares routes `todos/` and `todos/:index`. `:index` is named placeholder for path parameter that can be accessed within the component.
 
 ---
 
@@ -111,8 +111,8 @@ const routeConfig = [
 @Component({})
 export class EditTodoItemComponent {
   constructor(route: ActivatedRoute) {
-    route.params.subscribe((params) => {
-      this.index = +params['index']; // + converts string to number in JavaScript
+    this.route.params.subscribe(params => {
+      this.index = params.index; 
     });
   }
 ```
@@ -127,8 +127,8 @@ export class EditTodoItemComponent {
 @Component({})
 export class MyComponent {
   constructor(route: ActivatedRoute) {
-    route.queryParams.subscribe((params) => { // or .fragment
-      this.key = +params['key'];
+    this.route.queryParams.subscribe(params => { // or .fragment
+      this.key = params.key;
     });
   }
 ```

@@ -259,37 +259,36 @@ _app.component.html_
 
 ---
 
-# Template Syntax
-- Five additions to HTML
-  - **Data binding** with _property name_ inside _double curly braces ({{}})_
+# Angular Template Syntax
+- **Data binding** with _property name_ inside _double curly braces ({{}})_
 
-  ```typescript
-  {{property}}
-  ```
+```typescript
+{{property}}
+```
 
-  - **Structural directives** with _asterisk ( * ) followed by directive name_
+- **Structural directives** with _asterisk ( * ) followed by directive name_
 
-  ```html
-  <div *ngIf="showItem">Item</div>
-  ```
+```html
+<div *ngIf="showItem">Item</div>
+```
 
-  - **Attribute binding** with _attribute name_ inside _square brackets ([])_
+- **Attribute binding** with _attribute name_ inside _square brackets ([])_
 
-  ```typescript
-  <input [disabled]="property" />
-  ```
+```typescript
+<input [disabled]="property" />
+```
 
-  - **Event binding** with _event name_ inside _parenthesis_
+- **Event binding** with _event name_ inside _parenthesis_
 
-  ```typescript
-  <div (click)="clickHandler()"></div>
-  ```
+```typescript
+<div (click)="clickHandler()"></div>
+```
 
-  - **Template local variables** with _hash (#) followed by name_
+- **Template local variables** with _hash (#) followed by name_
 
-  ```typescript
-  <input #nameInput />
-  ```
+```typescript
+<input #nameInput />
+```
 
 ---
 
@@ -574,13 +573,13 @@ export class AppModule() {}
 Browse to root of the project and run:
 
 ```shell
-ng generate service todos 
+ng generate service todo 
 ```
 
 or abbreviated one:
 
 ```shell
-ng g s todos
+ng g s todo
 ```
 
 This will:
@@ -623,7 +622,7 @@ Angular will then pass the singleton instance of `BackendService` to the compone
 
 ```typescript
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({...})
 export class MyComponent {
