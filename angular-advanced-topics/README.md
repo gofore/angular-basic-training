@@ -331,11 +331,11 @@ Forms export `FormControl` as `ngModel` for each input to be bound to template-l
 
 ```html
 <form>
-  <input type="text" [(ngModel)]="name" `name="name"` `#nameModel="ngModel"` required />
-  <input type="email" [(ngModel)]="email" `name="email"` `#emailModel="ngModel"` required />
-  <span [hidden]="`nameModel.valid && emailModel.valid`">
-    We have an invalid input.
-  </span>
+  <input [(ngModel)]="name" `name="name"` `#nameModel="ngModel"` required />
+  <input [(ngModel)]="email" `name="email"` `#emailModel="ngModel"` required />
+  <div *ngIf="`nameModel.invalid || emailModel.invalid`">
+    Either name or email is invalid
+  </div>
 <form>
 ```
 
