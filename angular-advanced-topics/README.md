@@ -162,7 +162,7 @@ this.router.navigate(['todos', 1, 'tasks']);
 ```
 
 ```html
-<a [routerLink]="todos/1/tasks"></a>
+<a [routerLink]="'todos/1/tasks'"></a>
 <a [routerLink]="['todos', 1, 'tasks']"></a>
 ```
 
