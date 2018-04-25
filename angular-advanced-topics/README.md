@@ -385,9 +385,6 @@ export class MyComponent {
 
 ---
 
-
----
-
 # Pipes
 - Simple display-value transformations
 - Similar concept as _filters_ in AngularJS
@@ -428,11 +425,10 @@ export class MyComponent {
 ```typescript
 import { Pipe, PipeTransform } from '@angular/core';
 
-*@Pipe({ name: 'exponential' })
-*export class ExponentialPipe implements PipeTransform {
-*  transform(value: number, exponent: string): number {
-    const exp = parseFloat(exponent);
-    return Math.pow(value, isNaN(exp) ? 1 : exp);
+@Pipe({ name: 'exponential' })
+export class ExponentialPipe implements PipeTransform {
+  transform(value: number, exponent: number): number {
+    return Math.pow(value, exponent);
   }
 }
 ```
@@ -460,6 +456,7 @@ This will:
 - Create a file called `capitalize.pipe.ts` in the root of `app/` folder along with the test stub
 - add it as declaration in `AppModule` so it is available in the templates
 
+---
 
 # Directives
 - There are three kinds of directives in Angular:
