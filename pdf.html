@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Remark</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body {
+            font-family: 'Lato';
+            background-color: #343F68;
+        }
+        h1, h2, h3 {
+            font-family: 'Lato', sans-serif;
+            font-weight: normal;
+        }
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+        .remark-slide-content {
+            background-color: #343F68;
+            color: #FF8551;
+        }
+        a {
+            color: #FFDACA;
+        }
+        img {
+            max-width: 570px;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+# Angular Basic Training - Gofore
+
+- Open slides: [angular-basic-training.herokuapp.com](http://angular-basic-training.herokuapp.com/)
+- Open IDE and start local dev server as instructed in [prerequisites](https://github.com/gofore/angular-basic-training/blob/master/setup/README.md)
+- If using IntelliJ IDEA, open "Settings" and go to _TypeScript > Code Style > TypeScript_ and set:
+ - Spaces: Within > "Object literal braces" & "ES6 import/export braces"
+ - Punctuation: "Use Single quotes in always"
+
+---
+
+## Agenda - Day 1
+#### Morning
+- Introduction to SPAs
+- TypeScript & Tooling
+- Angular Fundamentals
+
+#### Afternoon
+- Angular Fundamentals (continued)
+- Angular Advanced Topics
+
+---
+
+## Agenda - Day 2
+#### Morning
+- Reactive Programming with Angular
+
+#### Afternoon
+- Testing
+
+---
+
+# Introduction to SPAs
+- What is a SPA?
+- Real-life examples
+- Technical overview
+
+---
+
+# What Is a SPA?
+- "A single-page application (SPA) is a web application or web site that fits on a single web page with the goal of providing a more fluid user experience similar to a desktop application." - Wikipedia
+- Browser fetches executable code that makes asynchronous calls for actual data to be shown
+- Data is visualized and/or manipulated and stored back on server asynchronously
+
+---
+
+![SPA flow](spas-tooling-and-typescript/spa-flow.png "SPA flow")
+
+---
+
+# Real-life Examples
+- [Google search](http://www.google.com)
+- [Facebook](http://facebook.com)
+- [Twitter](http://twitter.com)
+
+
+---
+
+# SPA Frameworks/Libraries
+- Backbone.js
+- Ember
+- Meteor
+- AngularJS
+- Aurelia
+- React
+- Vue.js
+- Angular
+- And so many more...
+
+---
+
+# AngularJS
+- Published 2010
+- MVC (Model-View-Controller) framework with dependency injection
+- Revolutionary on its own time
+- Two-way data binding
+- Emphasis on testability (decouples DOM manipulation from app logic)
+
+---
+
+# Angular
+- Built by around 20 Google developers & lots of open source devs
+- Built with TypeScript (ES2015 and Dart versions available)
+- Complete rewrite of AngularJS
+- Not just another web framework, complete platform
+- Also for desktop and mobile development
+- [Documentation](https://angular.io/docs/ts/latest/api/)
+
+---
+
+# Angular Release
+- Major version every 6 months (April and October)
+- Two version deprecation policy
+- Even numbers (4, 6, ..) offer LTS (Long-Term Support)
+- Releases:
+    - 2.0.0-beta.0 1/2016
+    - 2.0.0-rc.0 5/2016
+    - 2.0.0 9/2016
+    - 4.0.0 3/2017
+    - 5.0.0 11/2017
+    - 6.0.0 4/2018
+- More info in [Angular GitHub](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md)
+
+---
+
+# Tooling
+
+- Traditionally web pages have been just static HTML, CSS and maybe some simple JS for dropdowns etc.
+- Nowadays massive SPAs require something more advanced and thus the need for tooling
+- Some basic needs for tooling:
+  - Compiling ES2015/TypeScript -> ES5 and LESS/SASS -> CSS
+  - Combining multiple source files into single bundle file for faster loading
+  - Running test suites
+  - Optimizations (minification, Dead code elimination, tree shaking)
+
+---
+
+# JSON
+- JavaScript Object Notation (JSON) is a lightweight data-interchange format
+- Meant to be easy for both, humans and machines
+- Key-value pairs, where values can be any JavaScript primitives (except functions)
+
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "friends": [
+    {"name": "Jane Doe"},
+    {"name": "John Doe Jr."}
+  ]
+}
+```
+
+---
+
+# Node.js & npm
+
+- Node.js is JavaScript interpreter built on top of Chrome's V8 JavaScript engine
+- Used for running development server, to run tests, to build production-optimized bundle, etc.
+- npm (node package manager) is the package manager for Node
+  - More packages than on any other package manager for any other language: over 270k (May 2016) ([modulecounts.com](http://www.modulecounts.com/))
+
+---
+
+# package.json - project configuration
+- Declares dependencies, development-time dependencies and commands available
+- Can be generated with `npm init`
+
+```json
+{
+  "name": "Angular basic training",
+  "author": "Gofore",
+  "scripts": {
+    "build": "my-build.sh",
+    "start": "my-webserver.sh"
+  },
+  "dependencies": {
+    "@angular/core": "2.0.0",
+    "@angular/forms": "2.0.0",
+    "@angular/http": "2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.0",
+    "jasmine": "^2.5.0"
+  }
+}
+```
+
+---
+
+# Angular CLI
+
+- Command-line interface for Angular development
+- Recommended by the core team
+- One of the core modules: `@angular/cli`
+- Follows Angular core versioning as of _6.0.0_
+- Abstracts away the bundling
+- Uses Webpack internally
+
+---
+
+# Angular CLI Features
+- Generate the project initially
+- Run dev server
+- Generate modules, components, services, tests, directives
+- Generate production build
+- Tests
+- Update your dependencies
+- Supports CSS preprocessors (SASS and LESS)
+- Allows third-party generators for Angular CLI projects
+
+---
+
+# Angular CLI Usage
+- Generating an app
+```shell
+ng new PROJECT_NAME
+```
+
+- Run development server
+```shell
+ng serve # Available in localhost:4200
+ ```
+
+- Run tests
+```shell
+ng test
+```
+
+- Generate a component
+```shell
+ng generate component todos
+```
+
+---
+
+# ES2015 (ES6)
+- EcmaScript (ES) is the standard for JavaScript
+- One of the newer EcmaScript standards
+- Published 2015
+- Also known as ES6 because last version was ES5
+- Provides a lot of improvements for writing JavaScript in scale
+- Not supported by older browsers (namely IE11)
+
+---
+
+# ES2015 - Key Features
+- `let` and `const` to replace `var`
+- Arrow functions
+- Multiline strings
+- Modules
+- Enhancements on basic types such as `includes()` for string and `find()` for array
+
+---
+
+# Let and const
+- `const` declares constant **reference** (not constant value)
+- `let` declares variable (eg. `let myVar = 'asd';`)
+- **Rule of thumb: Always use `const` if possible, `let` otherwise.**
+
+```javascript
+const input = [0, 1, 2, 3, 4];
+input = []; // Uncaught TypeError: Assignment to constant variable.
+input.push(5); // Works, as input is just the reference
+```
+
+For immutable objects & arrays there are libraries such as [_Immutable.js_](https://facebook.github.io/immutable-js/).
+
+---
+
+# Arrow functions
+- Lexical `this` and more concise syntax
+
+```javascript
+// Traditional function
+const increase = function (value) {
+  return value + 1;
+};
+
+// Arrow function
+const increase = (value) => {
+  return value + 1;
+};
+
+// Parenthesis omitted
+const increase = value => {
+  return value + 1;
+};
+
+// Return value without curly braces
+const increase = value => value + 1;
+```
+
+---
+
+# String Literals
+ES5 string:
+```javascript
+const str = firstName + ' ' + secondName.charAt(0) + '. ' + lastName;
+```
+
+ES2015 multiline string with backticks:
+```typescript
+const str = ´${firstName} ${secondName.charAt(0)}. ${lastName}`;
+```
+
+---
+
+# Modules
+Allows `import`ing and `export`ing code between files (modules)
+
+_lib.js_
+```javascript
+export function square(x) {
+   return x * x;
+}
+export function squareSum(x, y) {
+   return Math.sqrt(square(x) + square(y));
+}
+```
+
+_main.js_
+```javascript
+import { square, squareSum } from './lib';
+console.log(square(11)); // 121
+console.log(squareSum(4, 3)); // 5
+```
+
+- Importing from npm modules
+
+```javascript
+import { Component, Input } from '@angular/core';
+```
+
+---
+
+# Array Functions
+- `map`, `filter` and `reduce` operate over the array
+- `map` creates a new array with the results of calling a provided function on every element in the calling array.
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.map(item => item * 2);
+// result is [0, 2, 4, 6]
+```
+
+- `filter` creates a new array with all elements that pass the test implemented by the provided function.
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.filter(item => item < 2);
+// result is [0, 1]
+```
+
+- `reduce` applies a function against an accumulator and each element in the array (from left to right) to reduce it to a single value.
+```typescript
+const arr = [0, 1, 2, 3];
+const result = arr.reduce((acc, item) => acc + item , 0);
+// result is 6
+```
+
+---
+
+# TypeScript
+- General-purpose programming language
+- Built by Microsoft to build JavaScript in scale
+- Initial release in October 2012
+- Typed superset of JavaScript -> Any valid JS is valid TypeScript
+- Advantages:
+  - Static type system on top of JavaScript to catch errors already on compile-time
+  - Angular & RxJS are written in TypeScript
+
+---
+
+# Typing
+- Provides the same types as in JavaScript: `number`, `string`, `boolean`, `null`, `undefined` and `object`
+- Arrays like `number[]`, `string[]` and `any[]`
+- Also some "extra" types such as `any`, `void` and `enum`
+- `any` is basically anything like `number`, `string` or `any[]`
+- Types are marked after the name
+- Type declaration can be omitted when assigning
+- Examples:
+
+```typescript
+let luckyNumber: number = 50;
+luckyNumber = 'nine'; // TypeError: Can't assign string to number
+
+function increase(value: number): number {
+    return value + 1;
+}
+```
+
+---
+
+# Interfaces
+- Interfaces to declare the acceptable object structures
+- Can have optional properties (declared with `?` before `:`)
+- _Structural typing_ instead of _Nominal typing_
+
+```typescript
+interface Person {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+}
+
+const greeter = (person: Person): string => "Hello, " + person.firstName + " " + person.lastName;
+
+greeter({ firstName: "John", lastName: "Doe" }); // Hello, John Doe
+```
+
+---
+
+# Classes
+- Like in many other programming languages
+- Member fields can be declared in constructor with visibility modifier (`private`, `protected`, `public`)
+
+```typescript
+class Student {
+    fullName: string;
+    constructor(private firstName: string, private lastName: string) {
+        this.fullName = this.firstName + " " + this.lastName;
+    }
+
+    getFirstName() {
+        return this.firstName;
+    }
+}
+
+const student = new Student("John", "Doe");
+console.log(student.getFirstName());
+```
+
+---
+
+# Annotations (Decorators)
+- Used to "decorate" classes and properties with additional functionality
+- Like Java annotations
+- Apply to next entity (class, field, method) after them
+
+```typescript
+@Component({
+  template: 'my template'
+})
+class MyClass {
+  @Input() myProperty: string;
+}
+```
+
+
+---
+# Angular Fundamentals
+- npm Modules
+- File Structure
+- Architecture
+- NgModules
+- Components
+- Templates
+- Component Lifecycle Hooks
+- Two-way Data Binding
+- Services
+- Asynchronous and Server-side Communication
+
+---
+
+# Angular npm Modules
+- Framework code is distributed as npm modules:
+  - `@angular/animations`: Advanced animations functionality
+  - `@angular/common`: Common utilities (pipes, structural directives etc.)
+  - `@angular/compiler`: Ahead-of-Time compiler
+  - `@angular/core`: Core functionality (always needed)
+  - `@angular/forms`: Form handling
+  - `@angular/language-service`: Language service for Angular templates for better IDE support
+  - `@angular/platform-*`: Platform-specific modules (platforms: browser, server, webworker)
+  - `@angular/router`: Routing functionality
+  - `@angular/service-worker`: Service worker functionality
+  - `@angular/upgrade`: NgUpgrade to upgrade from AngularJS -> Angular
+
+  - `@angular/http`: Deprecated HTTP client
+
+---
+
+# Coding Style
+- [Angular style guide](https://angular.io/styleguide) declares set of rules
+- [Codelyzer](https://github.com/mgechev/codelyzer) (TSLint plugin) checks for
+- File naming **_name.type.filetype_**:
+  - _app.module.ts_
+  - _todos.component.ts_
+  - _todos.component.html_
+  - _todos.component.scss_
+  - _user.service.ts_
+  - _json.pipe.ts_
+
+---
+
+# Architecture
+- App needs to have at least one **module**
+- Module has one root **component**
+- Component can have child components
+
+---
+
+# NgModules
+- Each application has single root _NgModule_
+- _NgModule_ is a class with `@NgModule` annotation
+- Declares collection of related elements (components, services etc.)
+
+_app.module.ts_
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+---
+
+# NgModules - Details
+- `declarations` contains list of application build blocks, such as components, pipes and directives, with certain selector
+- `imports` allows importing of other _NgModules_
+  - For example `BrowserModule` imports browser-specific renderers and core directives such as `ngFor` and `ngIf`
+- `exports` allows declaring what is exported from this module (covered later)
+- `providers` contains list of services for dependency injection
+- `bootstrap` contains root element(s) for the application (usually named `AppComponent`)
+
+---
+
+# Booting the application
+- We need to tell Angular to start our application
+- This is done by providing root module `bootstrapModule`
+- This will go through the `bootstrap` array and checks for those selectors in HTML
+
+_main.ts_
+```typescript
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+```
+
+_index.html_
+```html
+<html>
+    <body>
+        <app-root></app-root>
+    </body>
+</html>
+```
+
+---
+
+# Modules in Large Applications
+- Modules are meant to offer possibility to divide the functionality in logical modules
+- For example one could have `CustomerModule`, `AdminModule` and `BillingModule`
+- To access `exports` of another module, it needs to be `imported` to the module:
+
+_app.module.ts_
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+*import { HttpClientModule } from '@angular/common';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, `HttpClientModule`],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+---
+
+# Exporting
+- Exporting allows declaring the public API provided by the module
+- Consider company-specific UI module where `ListComponent` utilizes `ListRowComponent`:
+
+_ui.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+import { ListComponent } from './list.component';
+import { ListRowComponent } from './list-row.component';
+
+@NgModule({
+  declarations: [ListComponent, ListRowComponent],
+  imports: [],
+  exports: [ListComponent],
+  providers: []
+})
+export class UiModule { }
+```
+
+---
+
+# Modules as Exports
+- Directives `ngIf` and `ngFor` are defined actually in `CommonModule`
+- But that is not imported anywhere?
+- Actually, `BrowserModule` is exporting `CommonModule` as seen in [source](https://github.com/angular/angular/blob/5.2.9/packages/platform-browser/src/browser.ts#L89)
+- -> Modules can be exported as part of module
+- If `ListModule` and `TableModule` were separate modules:
+
+_ui.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+import { ListModule } from './list.module';
+import { TableModule } from './table.module';
+
+@NgModule({
+  declarations: [],
+  imports: [],
+  exports: [ListModule, TableModule],
+  providers: []
+})
+export class UiModule { }
+```
+
+---
+
+# Components
+- Build blocks of application UI
+- Has a template that it binds data to
+- Can contain other components
+- Class with `@Component` annotation
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({})
+class TodosComponent { }
+```
+
+---
+
+# Components
+- Two parameters are mandatory for `@Component` annotation:
+  - template with `template` (inline template) or `templateUrl` (separate file)
+  - selector (should always start with application specific prefix like the default: `app`)
+- Components need to be declared in NgModule's declarations to be available in templates
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  `templateUrl: 'todos.component.html'`,
+  `selector: 'app-todos'`
+})
+class TodosComponent { }
+```
+
+_app.module.ts_
+```typescript
+@NgModule({
+  declarations: [AppComponent, `TodosComponent`]
+  ...
+})
+export class AppModule { }
+```
+
+---
+
+# Generating a Component
+Browse to root of the project and run:
+
+```shell
+ng generate component todos
+```
+
+or abbreviated one:
+
+```shell
+ng g c todos
+```
+
+This will:
+- Create a folder called `todos` with the component, template, styles and test file
+- Add the component to `declarations` of your `AppModule`
+
+---
+
+# Templates
+- Plain HTML with few Angular specific additions*
+
+_todos.component.html_
+```html
+<h1>My todo application</h1>
+```
+
+- Selectors can be used to add other components
+
+_app.component.html_
+```html
+<h2>Todos</h2>
+<app-todos></app-todos>
+```
+
+---
+
+# Tree Structure
+- Including components in templates causes tree-like structure
+
+---
+
+# Angular Template Syntax
+- **Data binding** with _property name_ inside _double curly braces ({{}})_
+
+```typescript
+{{property}}
+```
+
+- **Structural directives** with _asterisk ( * ) followed by directive name_
+
+```html
+<div *ngIf="showItem">Item</div>
+```
+
+- **Attribute binding** with _attribute name_ inside _square brackets ([])_
+
+```typescript
+<input [disabled]="property" />
+```
+
+- **Event binding** with _event name_ inside _parenthesis_
+
+```typescript
+<div (click)="clickHandler()"></div>
+```
+
+- **Template local variables** with _hash (#) followed by name_
+
+```typescript
+<input #nameInput />
+```
+
+---
+
+# Data Binding
+Bind property from the component to the template
+
+_app.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-component',
+  templateUrl: 'app.component.html'
+})
+class AppComponent {
+  `title: string = 'app works!';`
+}
+```
+
+_app.component.html_
+```html
+<h1>`{{title}}`</h1>
+```
+
+---
+
+# Structural Directives
+- Modify the *structure* of the template
+- Two most used are  `*ngIf` and `*ngFor`
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html'
+})
+class TodosComponent {
+  `todos: any[] = [{name: 'Do the laundry'}, {name: 'Clean my room'}];`
+}
+```
+
+_todos.component.html_
+```html
+<div `*ngFor="let todo of todos"`>
+  {{todo.name}}
+</div>
+```
+
+---
+
+# Attribute Binding
+Bind value from component into HTML attribute
+
+_app.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-component',
+  templateUrl: 'app.component.html'
+})
+class AppComponent {
+  `isDisabled: boolean = true;`
+}
+```
+
+_app.component.html_
+```html
+<input [disabled]="isDisabled" />
+```
+
+---
+
+# Special Attribute Bindings
+- Classes and styles have special syntax available:
+```html
+<div [class.active]="isActive"></div>
+<div [style.display]="isShown ? 'block' : 'none'"></div>
+```
+
+---
+
+# Attribute Binding for Components
+- Attribute binding only works for native properties of HTML elements by default
+- Same concept can also be used to pass data from parent component to child component
+
+_parent.component.html_
+```html
+  <app-child `[foo]="todo"`></app-child>
+```
+
+_child.component.ts_
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child'
+})
+class ChildComponent {
+* @Input()
+* foo: string;
+}
+```
+
+---
+
+# Event Binding
+- Register handler code for events
+- The actual event can be referenced with `$event`
+- The events are basic [DOM events](https://www.w3schools.com/jsref/dom_obj_event.asp) (like `click`, `mouseover`, `change` and `input`)
+
+_todos.component.html_
+```html
+<input type="text" `(change)="handleChanged($event.target.value)"`></input>
+```
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({..})
+class TodosComponent {
+* handleChanged(value: string) {
+*   // Do something with value
+* }
+}
+```
+
+---
+
+# Event Binding for Components
+- Event binding only works for native events of HTML elements by default
+- Same concept can also be used to pass data from child component to parent component
+
+_parent.component.html_
+```html
+  <app-child `(change)="todo"`></app-child>
+```
+
+_child.component.ts_
+```typescript
+import { Component, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-child'
+})
+class ChildComponent {
+* @Output()
+* change = new EventEmitter<string>();
+}
+```
+
+---
+
+# Two-way Data Binding
+- Two-way data binding with `ngModel` inside _banana-box syntax_: `[(ngModel)]`
+- Data flow is still unidirectional, though:
+  - value from component is updated to input on change
+  - when user modifies the value, it is updated to component
+
+```html
+Name: <input type="text" `[(ngModel)]="name"` />
+```
+
+which is just sugar for
+
+```html
+Name: <input type="text" `[ngModel]="name" (ngModelChange)="name = $event"` />
+```
+
+---
+
+# CSS Encapsulation
+- Component can have styles applied:
+    - Inline in annotation (field `styles` in `@Component`)
+    - In external files (field `styleUrls`)
+- These styles are scoped for component -> No other component can get affected by them
+
+_todos.component.html_
+```html
+<div class="todos"></div>
+```
+
+_todos.component.css_
+```css
+.todos {
+    background-color: red;
+}
+```
+
+Does not affect styles here:
+
+_clients.component.html _
+```html
+<div class="todos"></div>
+```
+
+---
+
+# Components - Inline Styles
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html',
+  `styles: ['.active-todo { background-color: yellow; }']`
+})
+class TodosComponent {
+}
+```
+
+---
+
+# Components - Styles From File
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html',
+  `styleUrls: ['todos.component.css']`
+})
+class TodosComponent {
+}
+```
+
+---
+
+# Component Lifecycle Hooks
+- For hooking into certain lifecycle events
+- Interface for each hook
+- Example hooks: `ngOnInit` (interface `OnInit`), `ngOnChanges` (interface `OnChanges`) and `ngOnDestroy` (interface `OnDestroy`)
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+export class MyComponent `implements OnInit` {
+  `ngOnInit() { ... }`
+}
+```
+
+- `ngOnInit` should be used for initialization of data for testability
+
+---
+
+# Services
+- Module-wide singletons
+- Used to store state, communicate with backends etc.
+- Examples: `UserService`, `BackendService`
+- Declaring:
+
+_user.service.ts_
+```typescript
+import { Injectable } from '@angular/core';
+
+*@Injectable()
+export class UserService {
+}
+```
+
+- Need to be registered for NgModule
+
+_app.module.ts_
+```typescript
+@NgModule(
+  ...
+* providers: [UserService]
+)
+export class AppModule() {}
+```
+
+---
+
+# Generating a Service
+Browse to root of the project and run:
+
+```shell
+ng generate service todo
+```
+
+or abbreviated one:
+
+```shell
+ng g s todo
+```
+
+This will:
+- Create a file called `todos.service.ts` in the root of `app/` folder along with the test stub
+- *not* add it as provider in `AppModule` so you must do it yourself!
+
+---
+
+# DI with Constructor Parameters
+- Angular implements concept called `Dependency Injection`
+- In DI you can just ask for the dependencies as constructor parameters as follows:
+
+_todos.component.ts_
+```typescript
+import { Component } from '@angular/core';
+*import { BackendService } from './backend.service';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: 'todos.component.html'
+})
+class TodosComponent {
+* constructor(private backendService: BackendService) {
+* }
+
+  initializeData() {
+    this.backendService.makeRequest();
+  }
+}
+```
+
+Angular will then pass the singleton instance of `BackendService` to the component when creating it.
+
+---
+
+# Asynchronous and Server-side Communication
+- Asynchronous things are modeled as Observables (covered later) in Angular
+  - For now, we only need to know that there is `subscribe` method
+- For AJAX requests, use `HttpClient` service found in `@angular/common`
+
+```typescript
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({...})
+export class MyComponent {
+  filteredData: any[];
+  constructor(private httpClient: HttpClient) {
+  }
+
+  getData() {
+*    this.httpClient.get('https://example.com/mydata').subscribe(data => {
+      // Do stuff with data
+      this.filteredData = data.filter(item => item.id > 100);
+    })
+  }
+}
+```
+
+
+---
+# Angular Advanced Topics
+- Router
+- Forms
+- Pipes
+- Directives
+
+---
+
+# Router
+- Core responsibilities:
+  - Map URL into app state
+  - Provide transitions from one URL to another (state to another)
+- Supports lazy loading of certain paths
+
+---
+
+# Router Basics
+Route declarations
+
+_app.module.ts_
+```typescript
+import { NgModule } from '@angular/core';
+*import { RouterModule } from '@angular/router';
+
+*const routeConfig = [
+*  {
+*    path: 'todos',
+*    component: TodosComponent
+*  }
+*];
+
+@NgModule({
+  declarations: [
+    AppComponent, TodosComponent, TodoItemComponent
+  ],
+  imports: [
+    BrowserModule,
+*   RouterModule.forRoot(routeConfig),
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+---
+
+# Router Basics
+`<router-outlet></router-outlet>` declares the placeholder for routed component tree
+
+_app.component.html_
+```html
+<h1>App works!</h1>
+<router-outlet></router-outlet>
+```
+
+---
+
+# Router - More advanced routes
+
+_app.module.ts_
+```typescript
+const routeConfig = [
+  {
+    path: 'todos',
+*   children: [
+*     {
+*       path: '',
+*       component: TodosComponent
+*     },
+*     {
+*       path: ':index',
+*       component: EditTodoItemComponent
+*     }
+*   ]
+  }
+];
+```
+
+declares routes `todos/` and `todos/:index`. `:index` is named placeholder for path parameter that can be accessed within the component.
+
+---
+
+# Redirects
+- By default matching of URLs is done with _startsWith_ algorithm (and everything starts with path `'''`)
+- `pathMatch: 'full'` can be used to set the algorithm to full matching
+- Redirects can be done by using `redirectTo` instead of specifying `component`
+
+_app.module.ts_
+```typescript
+const routeConfig = [
+  {
+*   path: ''
+*   pathMatch: 'full',
+*   redirectTo: 'todos/'
+  },
+  {
+    path: 'todos',
+    component: TodosComponent
+  }
+];
+```
+
+---
+
+# Accessing Route Parameters
+- Route parameters can be accessed via `params` field of `ActivatedRoute` as observable
+- Once parameters change new event will be sent.
+- Makes it possible to reuse the same component instead of instantiating a new one
+
+```typescript
+@Component({})
+export class EditTodoItemComponent {
+  constructor(route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.index = params.index;
+    });
+  }
+```
+
+---
+
+# Fragments & Query Parameters
+- Fragments (`example.com#key=value`) and query parameters (`example.com?key=value`) are shared by all routes
+- Can be accessed like path parameters:
+
+```typescript
+@Component({})
+export class MyComponent {
+  constructor(route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => { // or .fragment
+      this.key = params.key;
+    });
+  }
+```
+
+---
+
+# Router - Navigating
+Two ways to navigate between states:
+- Imperatively inside a component:
+
+```typescript
+this.router.navigateByUrl('todos/1')
+```
+
+- Declaratively inside a template:
+
+```typescript
+<a [routerLink]="todos/1"></a>
+```
+
+---
+
+# Navigation syntax
+- Parts of paths can be composed easily with the array syntax
+- Array syntax concatenates the parts with `/`
+- So the below are the same:
+
+```typescript
+this.router.navigateByUrl('todos/1/tasks');
+this.router.navigate(['todos', 1, 'tasks']);
+```
+
+```html
+<a [routerLink]="'todos/1/tasks'"></a>
+<a [routerLink]="['todos', 1, 'tasks']"></a>
+```
+
+---
+
+# Absolute vs. Relative Navigation
+
+- If the path starts with a slash (`/`), it is an absolute navigation.
+- Example:
+```typescript
+// Assuming we are now in example.com/todos/1
+this.router.navigateByUrl('tasks'); // example.com/todos/1/tasks
+this.router.navigateByUrl('/tasks'); // example.com/tasks
+```
+- `../` can be used to go one level up
+```typescript
+// Assuming we are now in example.com/todos/1/tasks
+this.router.navigateByUrl('../'); // example.com/todos/1
+```
+
+---
+
+# Router Guards
+- Guards allow changing the behaviour of routing for certain routes
+- Guards can be registered for navigation into and out of route
+- Guards can cancel the routing and instead redirect user to somewhere else
+- Example use cases:
+ - Authentication
+ - Preloading data for component
+ - Logging
+ - "You have unsaved changes. Are you sure you want to leave?"
+
+---
+
+# Guard Types
+- Multiple guards available for each route:
+  - `CanActivate` to mediate navigation to a route
+  - `CanActivateChild` to mediate navigation to a child route
+  - `CanDeactivate` to mediate navigation away from the current route
+  - `Resolve` to perform route data retrieval before route activation
+  - `CanLoad` to mediate navigation to a feature module loaded asynchronously
+- The `Can*` guards can return either boolean or promise (resolving to a boolean value) to allow or prevent navigation
+
+---
+# Guard Example
+- Usage:
+
+_app.module.ts_
+```typescript
+const routeConfig = [
+  {
+    path: 'todos',
+*   canActivate: [AuthGuard],
+    component: TodosComponent
+  }
+];
+```
+
+_auth-guard.ts_
+```typescript
+import { CanActivate, Router,
+  ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router, private authService: AuthService) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.authService.checkLogin(state.url);
+  }
+```
+
+---
+
+# Router URL Strategies
+- Two strategies for URL formation:
+  - `PathLocationStrategy`: HTML5 _pushState_ style (`example.com/todos/1`) (default)
+  - `HashLocationStrategy`: Hash URLs (`example.com/#/todos/1`)
+- Setting the strategy:
+
+```typescript
+@NgModule({
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routeConfig, `{ useHash: true }`)
+  ],
+  declarations: [ AppComponent ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {}
+```
+
+---
+
+# Forms
+- Angular provides highly advanced form management functionality:
+  - Two-way data binding
+  - Change tracking
+  - Validation
+  - Error handling
+
+---
+
+# Template-driven vs. Reactive Forms
+- Angular forms can be either template-driven or reactive
+- Both have their own `NgModule`: `FormsModule` and `ReactiveFormsModule`
+- Both modules are in `@angular/forms` npm package
+- The underlying principles are the same but the usage is different
+- Both can be used within a single application, even on single component
+- Only template-driven forms are covered in this training, as they are enough for most use cases
+
+---
+
+# Reactive Forms
+- As the name suggests, based on reactive programming (covered tomorrow)
+- Form controls defined in component instead of template
+- Require more boilerplate code
+- For complex use cases
+- More easy to test
+
+---
+
+# Reactive Forms Example
+
+```typescript
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+export class TodosComponent {
+    todosForm: FormGroup;
+
+    constructor(private fb: FormBuilder) {
+        this.todosForm = this.fb.group({
+          name: ['', Validators.required],
+          done: [false],
+        });
+    }
+}
+```
+
+```html
+<form [formGroup]="todosForm">
+    <input class="form-control" formControlName="name">
+    <input type="checkbox" formControlName="done">
+</form>
+```
+
+---
+
+# Template-driven Forms
+- Forms declared in templates rather than in component
+- Each input inside form element is attached by default
+- Each input needs to have (unique) name attribute set
+
+```html
+<form>
+  <input type="text" name="name" [(ngModel)]="name" />
+  <input type="email" name="email" [(ngModel)]="email" />
+<form>
+```
+
+---
+
+# Using Template-local Variables
+Forms export `FormControl` as `ngModel` for each input to be bound to template-local variable
+
+```html
+<form>
+  <input [(ngModel)]="name" `name="name"` `#nameModel="ngModel"` required />
+  <input [(ngModel)]="email" `name="email"` `#emailModel="ngModel"` required />
+  <div *ngIf="`nameModel.invalid || emailModel.invalid`">
+    Either name or email is invalid
+  </div>
+<form>
+```
+
+---
+
+# CSS Classes
+- CSS classes are attached automatically by framework
+
+![Control CSS Classes](angular-advanced-topics/control-css-classes.png "Control CSS Classes")
+
+```css
+.ng-invalid[required] {
+  border: 1px solid red;
+}
+```
+
+---
+
+# Forms - NgForm
+- Forms exports `ngForm` which can be bound into template-local variable
+- Contains combined information about all the input controls inside the form
+
+```html
+<form `#myForm="ngForm" (submit)="submitForm(myForm)"`>
+  <input type="text" [(ngModel)]="name" name="name" #name="ngModel" />
+  <input type="email" [(ngModel)]="email" name="email" #email="ngModel" />
+
+  <button type="submit" `[disabled]="myForm.invalid"`>Submit</button>
+<form>
+```
+
+---
+
+# Forms - Accessing Form Inside Component
+- Template-driven forms can be accessed from component with `@ViewChild('myForm')` annotation:
+
+```typescript
+import { ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+@Component(..)
+export class MyComponent {
+  @ViewChild('myForm')
+  private myForm: FormGroup;
+}
+```
+
+---
+
+# Pipes
+- Simple display-value transformations
+- Similar concept as _filters_ in AngularJS
+- Angular provides few commonly needed pipes, e.g.: `uppercase`, `lowecase` and `date`
+
+```html
+  <!-- user.name is initially "john doe" -->
+<div>{{user.name` | uppercase`}}</div> <!-- JOHN DOE -->
+```
+
+---
+
+# Pipe arguments
+- Pipes can take arguments that modify its behavior:
+```html
+<div>{{user.birthDay | date`:'fullDate'`}}</div> <!-- Friday, April 15, 1988 -->
+<div>{{user.birthDay | date`:'yyyy-MM-dd HH:mm a z':'+0900'`}}</div> <!-- 1988-04-15 05:03 PM GMT+9 -->
+```
+
+---
+
+# Multiple pipes
+- Pipes can be piped (like in UNIX)
+
+```html
+<div>{{user.birthDay` | date:'fullDate' | uppercase`}}</div>
+  <!-- FRIDAY, APRIL 15, 1988 -->
+```
+
+---
+
+# Custom Pipes
+- Declared with `@Pipe` annotation
+- `PipeTransform` interface with `transform` method
+- `transform` takes the value as first argument and the optional arguments after it
+- Must be declared in `NgModule` declaration to be available in templates
+
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'exponential' })
+export class ExponentialPipe implements PipeTransform {
+  transform(value: number, exponent: number): number {
+    return Math.pow(value, exponent);
+  }
+}
+```
+
+```html
+<div>{{10 | exponential:3}}</div> <!-- 1000 -->
+```
+
+---
+
+# Generating a Pipe
+Browse to root of the project and run:
+
+```shell
+ng generate pipe capitalize
+```
+
+or abbreviated one:
+
+```shell
+ng g p capitalize
+```
+
+This will:
+- Create a file called `capitalize.pipe.ts` in the root of `app/` folder along with the test stub
+- add it as declaration in `AppModule` so it is available in the templates
+
+---
+
+# Directives
+- There are three kinds of directives in Angular:
+  - Components, which are basically selectors with templates and inputs and outputs
+  - Structural directives, `ngFor` and `ngIf` are examples of these
+  - Attribute directives
+- Here we talk about attribute directives which can be used to decorate the elements
+
+---
+
+# Directives - Example
+-  A directive for setting background color to yellow
+
+```typescript
+import { Directive, ElementRef, Input } from '@angular/core';
+@Directive({
+    selector: '[myHighlight]'
+})
+export class HighlightDirective {
+    constructor(el: ElementRef) {
+       el.nativeElement.style.backgroundColor = 'yellow';
+    }
+}
+```
+
+```html
+<span myHighlight></span>
+```
+
+---
+
+# Directives - Events
+- We can use `host` property to define events with their corresponding handlers
+
+```typescript
+import { Directive, ElementRef, Input } from '@angular/core';
+@Directive({
+    selector: '[myHighlight]',
+*   host: {
+*     '(mouseenter)': 'onMouseEnter()',
+*     '(mouseleave)': 'onMouseLeave()'
+*   }
+})
+export class HighlightDirective {
+    private el:HTMLElement;
+    constructor(el: ElementRef) { this.el = el.nativeElement; }
+*   onMouseEnter() { this.highlight("yellow"); }
+*   onMouseLeave() { this.highlight(null); }
+    private highlight(color: string) {
+      this.el.style.backgroundColor = color;
+    }
+}
+```
+
+---
+
+# Directives - Bind Value from Host Component
+- We can bind host components property to our directive by declaring an `@Input` annotation:
+
+```typescript
+@Input('myHighlight') highlightColor: string;
+```
+- Now we can pass the property like
+
+```html
+<span `[myHighlight]="color"`></span>
+```
+
+
+---
+# Reactive Programming With Angular
+
+---
+
+# Background
+- Reactive programming is programming with asynchronous data streams
+- JavaScript is asynchronous by design
+  - HTTP requests
+  - Timeouts
+  - UI events (clicks, key presses, etc.)
+  - _How to handle all this?_
+
+---
+
+# Callbacks
+- Traditionally solved by registering _callback_ functions to be executed upon completion of task
+- E.g. `setTimeout` that calls callback function once given amount of milliseconds has passed
+
+```javascript
+window.setTimeout(() => {
+	// Executed after one second
+}, 1000);
+```
+
+---
+
+# Problem: Messy Code
+- Using callbacks quickly leads to messy code with multiple nested functions that is hard to follow and rationalize
+
+```javascript
+getData((x) => {
+    getMoreData(x, (y) => {
+        getMoreData(y, (z) => {
+            ...
+        });
+    });
+});
+```
+
+- For more information google for _callback hell_
+
+---
+
+# Solution: Promises
+- _Promise_ is a promise of providing a value later
+- Promise constructor takes single argument that is a function with two parameters:
+  - `resolve`: function to be called when we want to indicate __success__
+  - `reject`: function to be called when we want to indicate __failure__
+
+```javascript
+new Promise((resolve, reject) => {
+  if (...) resolve(x);
+  else if (...) resolve(y);
+  else reject();
+});
+```
+  - Both functions allow arguments that are provided for promise consumer
+---
+
+# Promises are Resolved or Rejected
+- Promises are consumed by calling `then` on them. `then` takes two arguments: success and failure handler
+
+```javascript
+somethingReturningPromise().then(
+  (value) => { // Resolved
+    // Handle success case
+  },
+  (value) => { // Rejected
+    // Handle reject case, e.g. show an error note
+  });
+```
+---
+
+# Promise Chaining
+- Promises can be "chained" by calling then multiple times in a row
+- Each `.then()` will change the value of the promise by returning a new value
+- If the value returned it is a promise, it will be waited for
+
+```typescript
+fetch('/users') // Make the HTTP request
+  .then(response => response.json()) // .json() will return a promise
+  .then(json => json.users) // Map the result to contain only the "users" field
+  .then(users => alert('Found ' + users.length + ' users')); // Show an alert with the users
+```
+
+---
+
+# Problem: Stream Handling and Disposability
+- Promises don't work for streams, they are just to subscribe for __single events__
+- Promises can't be __cancelled__
+---
+
+# Solution: Observables
+- Generalization of promises for streams
+- A way for representing __asynchronous event streams__
+  - e.g. mouse clicks, WebSocket streams
+- Can also be used for single events e.g. HTTP requests
+---
+
+# RxJS
+- _ReactiveX_ is a library for representing __asynchronous event streams__ with __Observables__ and modifying them with various __stream operations__
+- _RxJS_ is a _ReactiveX_ implementation for JavaScript
+- Angular integrates with __RxJS 5__
+---
+### Idea:
+_"In ReactiveX an observer subscribes to an Observable."_
+- You subscribe to stream of events so that your handler gets invoked every time there is a new item
+```javascript
+observable.subscribe(item => doSomething(item));
+```
+---
+Streams can be manipulated with traditional array conversion functions such as _map_ and _filter_
+```javascript
+  observable
+    .filter(node => node.children.length > 2)
+    .map(node => node.name);
+```
+You can _merge_, _concat_ and do other operations on streams to __produce new streams__ from the existing ones
+```javascript
+const resultStream = stream1.merge(stream2);
+```
+[ReactiveX operators](http://reactivex.io/documentation/operators.html)
+---
+
+Observables can also be created from e.g. __objects__, __maps__ and __arrays__
+```javascript
+Rx.Observable.of(42);
+Rx.Observable.from([1,2,3,4]);
+Rx.Observable.range(1,10);
+```
+---
+
+# Subscribing
+- Subscribe method takes three functions as arguments:
+  - __onNext__: called when a new item is emitted
+  - __onError__: called if observable sequence fails
+  - __onComplete__: called when sequence is complete
+
+  ```javascript
+  observable.subscribe(
+      next => doSomething(next), // onNext
+      error => handleError(error), // onError
+      () => done() // onComplete
+  );
+  ```
+---
+
+# Unsubscribing (cancelling)
+- Observable sequence subscriptions can be unsubscribed
+  - E.g. observable that produces events that are saved into the memory
+    ```javascript
+    const eventSubscription = eventStream.subscribe(
+          event => this.events.push(event)
+    );
+    ```
+  - Sequence will not stop until unsubscribed
+    ```javascript
+    eventSubscription.unsubscribe();
+    ```
+---
+
+# Demo
+
+---
+
+# Catching Errors
+- Observables die on errors
+- The way to survive from errors is by catching them and returning a new observable sequence
+```javascript
+    observable.catch((error) => {
+        console.log(error);
+        return Rx.Observable.of([1, 2, 3]);
+    };
+```
+---
+
+# Hot vs. Cold Observables
+- Cold observables start running __upon subscription__
+  - E.g. http request
+- Hot observables are already producing values __before the subscription__ is active
+  - E.g. mouse move events
+---
+
+# Observables in Angular
+- Observables used exclusively instead of promises
+  - E.g. HTTP requests only result in single event (one response) but they are modeled as observables
+  ```typescript
+      this.httpClient.get('url/restapi/resource') // Returns observable
+          .subscribe(
+              data => { this.data = data}, // Success
+              err => console.error(err), // Failure
+              () => console.log('done') // Done
+          );
+  ```
+---
+
+# Observables in Angular
+- Changes in route parameters are propagated through an observable sequence
+```typescript
+  constructor(route: ActivatedRoute) {
+      route.params.subscribe(params => this.index = +params['index']);
+  }
+```
+
+---
+
+# Exercises
+[Open exercise instructions](https://github.com/gofore/angular-training/blob/master/reactive-programming-with-angular/EXERCISES.md)
+
+---
+# RxJS 5.5
+- RxJS 5.5.0 introduced major change to RxJS called _pipeable operators_
+- Importing is a mess with 5.5 but RxJS 6 will fix it
+- [Read more](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md)
+
+---
+# Pipeable Operators Example
+
+Pre RxJS 5.5
+```typescript
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
+const source$ = Observable.range(0, 10);
+source$
+  .filter(x => x % 2 === 0)
+  .map(x => x + x)
+  .subscribe(x => console.log(x))
+```
+
+RxJS 5.5
+```typescript
+import { range } from 'rxjs/observable/range';
+import { map } from 'rxjs/operators/map';
+import { filter } from 'rxjs/operators/filter';
+
+const source$ = range(0, 10);
+source$.pipe(
+  filter(x => x % 2 === 0),
+  map(x => x + x)
+).subscribe(x => console.log(x))
+```
+
+---
+# RxJS 5.5 Renaming
+Some of the operators are reserved words in JavaScript:
+- `do` -> `tap`
+- `catch` -> `catchError`
+- `switch` -> `switchAll`
+- `finally` -> `finalize`
+
+---
+# RxJS 5.5 Pros
+- No more "prototype patching" -> Tree-shaking possible -> Smaller bundle sizes
+- Custom operators are easier to make
+- Better tooling support by linters and compilers
+
+---
+# RxJS 6
+- Released 05/2018
+- Major changes:
+ - Simpler imports (`import { map, filter } from 'rxjs/operators'`)
+ - Errors thrown asynchronously
+ - Deprecations
+ - New operator (`throwIfEmpty`)
+- Provides compatibility library (`rxjs-compat`) to support the migration from 5 to 6
+- See Ben Lesh's (RxJS 5 author) presentation in ngConf 2018 for more details ([slides](https://docs.google.com/presentation/d/1h-h4IUgh8mRqItF2F2Ih8g-H9gYjb8MCwHnoIVm-hiU/edit#slide=id.g367dcb4296_0_0), [video](https://www.youtube.com/watch?time_continue=1&v=JCXZhe6KsxQ))
+
+---
+# Testing
+
+---
+
+# Unit testing
+- Testing of components in isolation from other components
+- Guard against changes that break existing code
+- Specify and clarify what the code does
+
+---
+
+# Jasmine
+- Unit testing framework for JavaScript
+- Simple basic syntax:
+  - `describe(string, function)` to define suite of test cases
+  - `it(string, function)` to declare single test case
+  - `expect(a).toBe(b)` to make assertions
+
+---
+
+# First Jasmine Test
+- Class under test
+```typescript
+  export class Person {
+      constructor(private name: string) {
+      }
+
+      getName() {
+        return this.name;
+      }
+  }
+```
+
+---
+
+# First Jasmine Test
+- Test case
+```typescript
+  describe('Person', () => {
+      let person;
+
+      beforeEach(() => {
+        person = new Person('John');
+      });
+
+      it('should return name', () => {
+        expect(person.getName()).toBe('John');
+      });
+  });
+```
+
+---
+
+# Spies
+- Test double functions AKA spies let you stub any function and track calls to it
+
+```typescript
+it('tracks that the spy was called', () => {
+  spyOn(person, 'getName');
+
+  person.getName();
+  expect(person.getName).toHaveBeenCalled();
+});
+```
+
+---
+
+# Spies
+```typescript
+it('stubs the function return value', () => {
+  spyOn(person, 'getName').and.returnValue('Jane');
+
+  expect(person.getName()).toBe('Jane');
+});
+```
+
+---
+
+# Angular Testing Platform (ATP)
+- TestBed for wiring angular components for testing
+- Inject mock dependencies
+- Testing components with async behavior
+
+---
+
+# Component Under Test
+- Suppose we had the following component:
+```typescript
+    @Component({
+      selector: 'videos',
+      templateUrl: 'videos.component.html'
+    })
+    class VideosComponent {
+      videos: Video[];
+
+      constructor(videoService: VideoService) {
+        this.videos = videoService.getList();
+      }
+    }
+```
+
+---
+
+# Wiring Up
+- We can setup the test environment with mocks using TestBed:
+```typescript
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ VideosComponent ],
+        providers: [{provide: VideoService, useClass: FakeVideoService}]
+      });
+    });
+```
+
+---
+
+# Access to Tested Component
+```typescript
+fixture = TestBed.createComponent(VideosComponent);
+
+comp = fixture.componentInstance;
+
+debugElement = fixture.debugElement;
+
+nativeElement = fixture.nativeElement;
+
+```
+
+---
+
+# Async with ATP
+- Let's change the implementation of the VideoService to return a promise:
+```typescript
+    ngOnInit() {
+      this.videoService.getList().then(videos => this.videos = videos);
+    }
+```
+- This means that we'll have to deal with asynchronous behavior
+
+---
+
+# async()
+- We can run test code within asynchronous zone
+```typescript
+    it('should show videos', async(() => {
+      fixture.detectChanges();          // trigger data binding
+      fixture.whenStable().then(() => { // wait for async getVideos
+        fixture.detectChanges();        // update view with videos
+        expect(getVideos()).toBe(testVideos);
+      });
+    }));
+```
+
+---
+
+# fakeAsync()
+- Or within fake asynchronous zone
+```typescript
+    it('should show videos', fakeAsync(() => {
+      fixture.detectChanges(); // trigger data binding
+      tick();                  // wait for async getVideos
+      fixture.detectChanges(); // update view with videos
+      expect(getVideos()).toBe(testVideos);
+    }));
+```
+
+---
+
+# Karma
+- Karma is a test runner with support e.g. for coverage reports and test results exports
+- Angular CLI comes with Karma installed
+- To run tests, type:
+```shell
+npm run test
+```
+
+---
+
+# E2E testing
+- End-to-End (E2E) tests test flow of the application
+- Ensures that the components of the application function together as expected
+- E2E tests often define use cases of the application
+
+---
+
+# Protractor
+- E2E test framework for Angular applications
+- Runs tests against your application running in a real browser, interacting with it as a user would
+- Angular CLI comes with Protractor installed
+  - To run E2E tests, type:
+  ```shell
+  npm run e2e
+  ```
+
+---
+
+# Example spec
+```javascript
+describe('Protractor Demo App', () => {
+  it('should have a title', () => {
+    browser.get('http://demo.com/protractor-demo/');
+
+    expect(browser.getTitle()).toEqual('Demo Application');
+    expect(element(by.css('h1')).toEqual('Header');
+  });
+});
+```
+
+
+---
+# Animations
+- Built on top of Web Animations specification
+- Part of `@angular/core` module
+
+---
+
+# Browser Support
+![Web Animations compatibility table](angular-other-topics/animations/web-animations-compatibility.png "Web Animations compatibility table")
+[Polyfill](https://github.com/web-animations/web-animations-js) for older browsers
+
+---
+
+# Adding Polyfill to Angular CLI
+
+```shell
+npm install --save web-animations-js
+```
+
+_angular-cli.json_
+```json
+"scripts": [
+  "../node_modules/web-animations-js/web-animations.min.js"
+],
+```
+
+---
+
+# Animations - Supported Properties
+- List available in [the standard](https://www.w3.org/TR/css3-transitions/#animatable-properties)
+- Basically every color (background, border, etc.) and dimension (width, height, size, etc.)
+  - `background-color`
+  - `border-width`
+  - `max-height`
+
+---
+
+# Animations API
+- Part of `@angular/core`:
+  - `trigger`
+  - `state`
+  - `style`
+  - `transition`
+  - `animate`
+- Declared within the `@Component` annotation:
+
+```typescript
+@Component({
+  animations: [
+    trigger(...)
+  ]
+})
+
+```
+
+---
+
+# Animation States
+- _Trigger_ is bound to the certain element
+- _States_ are the possible values for triggered value
+- States have _styles_
+- _Transitions_ between states are animated
+- _Animations_ have duration and timing functions etc.
+
+---
+
+# Triggers
+_Trigger_ is bound to the certain element
+
+_my.component.ts_
+```typescript
+@Component({
+  animations: [
+    trigger('myTrigger', [
+      ...
+    ])
+  ]
+})
+export class MyComponent {
+  state = 'state1';
+}
+```
+
+_my.component.html_
+```html
+<div [@myTrigger]="state">
+  My element
+</div>
+```
+
+---
+
+# States
+_States_ are the possible values for triggered value
+
+_my.component.ts_
+```typescript
+trigger('myTrigger', [
+*  state('state1', ...),
+*  state('state2', ...)
+])
+export class MyComponent {
+  state = 'state1';
+
+  changeState() {
+    state = 'state2';
+  }
+}
+```
+
+---
+
+# Styles
+States have _styles_
+
+_my.component.ts_
+```typescript
+trigger('myTrigger', [
+  state('state1', style({
+    'backgroundColor': '#fff'
+  })),
+  state('state2', style({
+    'backgroundColor': '#000'
+  }))
+])
+export class MyComponent {
+  state = 'state1';
+
+  changeState() {
+    state = 'state2';
+  }
+}
+```
+
+---
+
+# Transitions
+_Transitions_ between states are animated
+
+_my.component.ts_
+```typescript
+trigger('myTrigger', [
+  state(...),
+* transition('state1 => state2', ...),
+* transition('state2 => state1', ...)
+])
+export class MyComponent {
+  state = 'state1';
+
+  changeState() {
+    state = 'state2';
+  }
+}
+```
+
+---
+
+# Animations
+_Animations_ have duration and timing functions etc.
+
+_my.component.ts_
+```typescript
+trigger('myTrigger', [
+  state(...),
+  transition('state1 => state2', `animate('100ms ease-in')`),
+  transition('state2 => state1', `animate('100ms ease-out')`)
+])
+export class MyComponent {
+  state = 'state1';
+
+  changeState() {
+    state = 'state2';
+  }
+}
+```
+
+---
+
+# Special States
+- Two special states:
+  - `void`: element is not attached to a view
+  - `*`: matches any animation state
+- Can be used in transitions:
+  - `transition('void => *', ...)`: element enters the view
+  - `transition('* => void', ...)`: element leaves the view
+- Entering and leaving also have aliases:
+```typescript
+transition(`':enter'`, ...); // void => *
+transition(`':leave'`, ...); // * => void
+```
+
+---
+
+# Animation Events
+- Events to be registered
+  - `(@myTrigger.start)="animationStarted($event)"`
+  - `(@myTrigger.done)="animationDone($event)"`
+
+```html
+<div
+        [@myTrigger]="state"
+        * (@myTrigger.start)="animationStarted($event)"
+        * (@myTrigger.done)="animationDone($event)">
+  My element
+</div>
+```
+
+
+---
+# Zone.js
+- Implements concept of zones (inspired by Dart) in JavaScript
+- "A Zone is an execution context that persists across async tasks"
+- In practice makes it possible to track the asyncronous calls made (HTTP, timers and event listeners) within the zone
+- Angular uses zones internally to track changes in state
+
+---
+
+# Change Detection - General
+- Idea: project the internal state into UI (DOM in web)
+- The internal state consists of JavaScript primitives such as objects, arrays, strings etc.
+- Change only possible on asynchronous events such as timeouts or HTTP request
+
+---
+
+# Change Detection - Angular
+- Zone.js makes it possible to track all possible change sources
+- Components change detector checks the bindings (like `{{name}}` and `(click)`) defined in its template on change
+- Bindings are propagated from the root to leaves in the depth first order
+- Change detection graph is directed tree and can't contain cycles -> improved performance, predictability and debugging
+
+---
+
+![Change detection](angular-other-topics/change-detection/change-detection-tree.png "Change detection tree")
+
+---
+# Change Detection - Simplified Implementation
+```typescript
+// very simplified version of actual source
+class ApplicationRef {
+    changeDetectorRefs: ChangeDetectorRef[] = [];
+
+    constructor(private zone: NgZone) {
+      this.zone.onTurnDone
+        .subscribe(() => this.zone.run(() => this.tick());
+    }
+
+    tick() {
+      this.changeDetectorRefs
+        .forEach((ref) => ref.detectChanges());
+    }
+}
+```
+---
+
+# Change Detection - Strategies
+- Change detection strategy describes which strategy will be used the next time change detection is triggered
+- Angular has six change detection strategies:
+  - **CheckOnce**: After calling _detectChanges_ the mode of the change detector will become _Checked_.
+  - **Checked**: Change detector should be skipped until its mode changes to _CheckOnce_.
+  - **CheckAlways**: After calling _detectChanges_ the mode of the change detector will remain _CheckAlways_.
+  - **Detached**: Change detector sub tree is not a part of the main tree and should be skipped.
+  - **OnPush**: Change detector's mode will be set to _CheckOnce_ during hydration.
+  - **Default**: Change detector's mode will be set to _CheckAlways_ during hydration.
+- Setting the strategy:
+```typescript
+@Component({`changeDetection: ChangeDetectionStrategy.OnPush`})
+```
+
+---
+
+# Change Detection - Angular Performance
+- Change detection is one of the key functionalities of Angular and thus it is highly optimized
+- CDs get VM optimized monomorphic classes generated for them at runtime
+- Change detection is always single-pass (stable) because of uni-directional top-to-bottom flow
+- More optimizations possible with _immutables_ and _observables_
+
+
+---
+# Lazy Loading
+
+---
+# Background
+- Web applications are used more and more with mobile devices
+- Many countries still have slow internet connections
+- Load time has a huge impact on user experience
+
+
+---
+# Lazy Loading
+- Traditional apps load everything in the beginning
+- Lazy loading means only loading parts after initial page load
+
+---
+# Default Bundling
+
+![Build without lazy loading](angular-other-topics/lazy-loading/build-without-lazy-loading.png)
+
+Chunks are:
+- _polyfills.bundle.js_: Polyfills required to run the app (see _polyfills.ts_)
+- _main.bundle.js_: Actual application code along with vendor code (Angular)
+- _styles.bundle.css_: Styles for the application
+- _inline.bundle.js_: Tiny webpack loader to load the app
+
+---
+# Custom Chunks
+
+![Build with lazy loading](angular-other-topics/lazy-loading/build-with-lazy-loading.png)
+
+---
+# Angular Module Loading
+- By default, modules are loaded eagerly when the application starts
+- Modules can loaded lazily by the router with `loadChildren`
+
+---
+# Angular Module Loading
+Main bundle is loaded when application starts
+
+![Main Module](angular-other-topics/lazy-loading/main.PNG)
+---
+
+# Angular Module Loading
+A feature module is loaded when it is routed to the first time
+```html
+<a [routerLink]="['feature']">Click me</a>
+```
+![Lazy Loaded Module](angular-other-topics/lazy-loading/chunk.PNG)
+
+---
+# Angular CLI
+- Angular CLI has built-in support for lazy loading
+- Works for both development and production builds
+- If `loadChildren` is detected chunks will be generated -> no extra configuration required
+
+---
+# Router Configuration
+
+_app.module.ts_
+```javascript
+const routes: Routes = [
+  {
+    path: '',
+    component: AppComponent
+  },
+  {
+    path: 'todos',
+    loadChildren: './todos/todos.module#TodosModule'
+  }];
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    RouterModule.forRoot(routes)
+  ],
+})
+```
+
+---
+# Router Configuration
+
+_todos.module.ts_
+```javascript
+const routes: Routes = [
+  {
+    path: '',
+    component: TodosComponent
+  },
+  {
+    path: ':id',
+    component: EditTodoComponent
+  }
+];
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    RouterModule.forChild(routes)
+  ],
+})
+export class TodosModule {}
+```
+
+---
+# Demo
+
+[https://github.com/RoopeHakulinen/angular-lazy-loading](https://github.com/RoopeHakulinen/angular-lazy-loading)
+
+---
+
+# Analyzing Bundle Sizes
+
+```bash
+{
+  "scripts": {
+     ...
+    "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/stats.json"
+  }
+}
+```
+
+```bash
+npm install webpack-bundle-analyzer --save-dev
+npm run analyze
+```
+
+---
+# Useful Resources
+
+- [Thoughtram](https://blog.thoughtram.io/): Highly advanced articles about Angular, RxJS and other related libraries.
+- [Style guide](https://angular.io/guide/styleguide): Angular's official style guide. Worth skimming through.
+- [ngrev](https://github.com/mgechev/ngrev): Graphical tool for reverse engineering of Angular projects.
+- [Ahead-of-Time compilation](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html) - Boost build times by compiling offline (not in browser)
+- [Release schedule](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md) - Angular's release schedule and versioning info
+- [Web workers support](https://angular.io/docs/ts/latest/api/#!?apiFilter=worker) - Boost up performance with threading
+- [Progressive Web Apps (PWA)](https://angular.io/guide/service-worker-getting-started) - Offline-capable, app-like web sites supporting push notification built with Angular
+- [Lazy loading](https://angular.io/guide/lazy-loading-ngmodules) - Only load essentials parts initially
+- [Universal apps](https://angular.io/guide/universal) - render Angular app as HTML on server
+- [Migration from AngularJS](https://angular.io/docs/ts/latest/guide/upgrade.html) - Migrating from AngularJS to Angular is possible
+- Frameworks built on top of Angular for different platforms:
+  - [Electron](http://electron.atom.io/) for desktop apps
+  - [Ionic](https://ionicframework.com/docs/) (works on top of [Apache Cordova](https://cordova.apache.org/)) for hybrid mobile apps
+  - [NativeScript](https://www.nativescript.org/) for native UI mobile apps
+
+---
+
+	  </textarea>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.js"></script>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>
+      var slideshow = remark.create({
+        highlightStyle: 'monokai',
+        highlightLanguage: 'remark',
+        highlightLines: true
+      });
+    </script>
+  </body>
+</html>
