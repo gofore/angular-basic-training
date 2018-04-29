@@ -71,6 +71,20 @@ somethingReturningPromise().then(
 ```
 ---
 
+# Promise Chaining
+- Promises can be "chained" by calling then multiple times in a row
+- Each `.then()` will change the value of the promise by returning a new value
+- If the value returned it is a promise, it will be waited for
+ 
+```typescript
+fetch('/users') // Make the HTTP request
+  .then(response => response.json()) // .json() will return a promise
+  .then(json => json.users) // Map the result to contain only the "users" field
+  .then(users => alert('Found ' + users.length + ' users')); // Show an alert with the users
+```
+
+---
+
 # Problem: Stream Handling and Disposability
 - Promises don't work for streams, they are just to subscribe for __single events__
 - Promises can't be __cancelled__
