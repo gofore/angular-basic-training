@@ -259,7 +259,7 @@ Some of the operators are reserved words in JavaScript:
 
 ---
 # RxJS 6
-- Released 05/2018
+- Released 04/2018
 - Major changes:
  - Simpler imports (`import { map, filter } from 'rxjs/operators'`)
  - Errors thrown asynchronously
