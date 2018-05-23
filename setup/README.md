@@ -32,7 +32,7 @@ If you prefer using Atom or Brackets, please, find instructions below.
 
 #### Visual Studio Code
 - Free & open source
-- Install recommended extentions:
+- Install recommended extensions:
   - [_TSLint_](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
   - [_Auto Import_](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport)
 
