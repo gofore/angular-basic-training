@@ -205,7 +205,7 @@ Rx.Observable.range(1,10);
 ---
 
 # Exercises
-[Open exercise instructions](https://github.com/gofore/angular-training/blob/master/reactive-programming-with-angular/EXERCISES.md)
+[Open exercise instructions](https://github.com/gofore/angular-basic-training/blob/master/reactive-programming-with-angular/EXERCISES.md)
 
 ---
 # RxJS 5.5
