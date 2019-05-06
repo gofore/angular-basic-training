@@ -98,7 +98,11 @@
     - 4.0.0 3/2017
     - 5.0.0 11/2017
     - 6.0.0 4/2018
+    - 7.0.0 10/2018
+    - 8.0.0 5/2019
+    - 9.0.0 10-11/2019
 - More info in [Angular GitHub](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md)
+- Releases [Angular Github Releases](https://github.com/angular/angular/releases)
 
 ---
 
@@ -137,7 +141,8 @@
 - Node.js is JavaScript interpreter built on top of Chrome's V8 JavaScript engine
 - Used for running development server, to run tests, to build production-optimized bundle, etc.
 - npm (node package manager) is the package manager for Node
-  - More packages than on any other package manager for any other language: over 270k (May 2016) ([modulecounts.com](http://www.modulecounts.com/))
+  - ~~More packages than on any other package manager for any other language: over 270k (May 2016)~~  ([modulecounts.com](http://www.modulecounts.com/))
+  - More packages than on any other package manager for any other language: over 816k (May 2019)  ([modulecounts.com](http://www.modulecounts.com/))
 
 ---
 
@@ -172,7 +177,7 @@
 - Command-line interface for Angular development
 - Recommended by the core team
 - One of the core modules: `@angular/cli`
-- Follows Angular core versioning as of _6.0.0_
+- Follows Angular core versioning as of _7.0.0_
 - Abstracts away the bundling
 - Uses Webpack internally
 
@@ -182,11 +187,27 @@
 - Generate the project initially
 - Run dev server
 - Generate modules, components, services, tests, directives
+    - sub-commands
+       - appShell (skeleton view)
+       - application
+       - class
+       - component
+       - directive
+       - enum
+       - guard
+       - interface
+       - library [Docs](https://angular.io/guide/creating-libraries)
+       - module
+       - pipe
+       - service
+       - serviceWorker [Getting started](https://angular.io/guide/service-worker-getting-started)
+       - universal [Guide](https://angular.io/guide/universal)
 - Generate production build
 - Tests
 - Update your dependencies
 - Supports CSS preprocessors (SASS and LESS)
 - Allows third-party generators for Angular CLI projects
+- More information [Angular Cli](https://angular.io/cli) 
 
 ---
 
@@ -335,6 +356,38 @@ const arr = [0, 1, 2, 3];
 const result = arr.reduce((acc, item) => acc + item , 0); 
 // result is 6
 ```
+Group By -method
+```typescript
+const persons = [
+    {name: 'John', city: 'Helsinki'},
+    {name: 'Marie', city: 'Helsinki'},
+    {name: 'Jane', city: 'Oulu'},
+    {name: 'Lily', city: 'Turku'},
+    {name: 'Barney', city: 'Helsinki'},
+    {name: 'Ted', city: 'Tampere'},
+    {name: 'Robin', city: 'Tampere'},
+    {name: 'Marshall', city: 'Oulu'}
+];
+const groupedByCity = persons.reduce((acc, person) => {
+  (acc[person.city] = acc[person.city] || []).push( person )
+  return acc;
+} , {});
+// result 
+ {
+   Helsinki:      
+     0: "John"
+     1: "Marie"
+     2: "Barney"
+   Oulu:
+     0: "Jane"
+     1: "Marshall"
+   Tampere:
+     0: "Ted"
+     1: "Robin"
+   Turku:
+    0: "Lily"
+ }
+```
 
 ---
 
@@ -346,6 +399,7 @@ const result = arr.reduce((acc, item) => acc + item , 0);
 - Advantages:
   - Static type system on top of JavaScript to catch errors already on compile-time
   - Angular & RxJS are written in TypeScript
+- Typescript roadmap [Github](https://github.com/Microsoft/TypeScript/wiki/Roadmap)
 
 ---
 
@@ -373,6 +427,8 @@ function increase(value: number): number {
 - Interfaces to declare the acceptable object structures
 - Can have optional properties (declared with `?` before `:`)
 - _Structural typing_ instead of _Nominal typing_ 
+  - Nominal: checks class matches
+  - Structural: check members matching 
 
 ```typescript
 interface Person {
