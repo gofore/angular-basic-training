@@ -3,17 +3,17 @@
 ### Node.js, npm & git
 
 Links for installers/installation instruction:
-- [Node.js (newer than 8.9) & npm (newer than 5.0)](https://nodejs.org/)
+- [Node.js (newer than 10.14) & npm (newer than 6.5)](https://nodejs.org/)
 - [git](http://git-scm.com/)
 
 Please, make sure that the applications are installed correctly by checking their version numbers (which do not need to exactly match). Example of a valid setup:
 
 ```shell
 > node --version
-v8.9.0
+v10.14.1
 
 > npm --version
-v5.7.1
+6.5.0
 
 > git --version
 git version 2.6.4
@@ -43,7 +43,7 @@ If you prefer using Atom or Brackets, please, find instructions below.
 Go to your workspace directory (`Documents/GitHub` etc.) and run
 
 ```shell
-npm install -g @angular/cli@6.0.3
+npm install -g @angular/cli@7.3.8
 ng new angular-training
 cd angular-training
 ng serve
