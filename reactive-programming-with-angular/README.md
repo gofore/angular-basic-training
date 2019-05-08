@@ -100,7 +100,7 @@ fetch('/users') // Make the HTTP request
 # RxJS
 - _ReactiveX_ is a library for representing __asynchronous event streams__ with __Observables__ and modifying them with various __stream operations__
 - _RxJS_ is a _ReactiveX_ implementation for JavaScript
-- Angular integrates with __RxJS 5__
+- Angular integrates with __RxJS 6__
 ---
 ### Idea:
 _"In ReactiveX an observer subscribes to an Observable."_
@@ -230,7 +230,7 @@ source$
   .subscribe(x => console.log(x))
 ```
 
-RxJS 5.5
+RxJS 5.5 -> 
 ```typescript
 import { range } from 'rxjs/observable/range';
 import { map } from 'rxjs/operators/map';
@@ -266,4 +266,5 @@ Some of the operators are reserved words in JavaScript:
  - Deprecations
  - New operator (`throwIfEmpty`)
 - Provides compatibility library (`rxjs-compat`) to support the migration from 5 to 6
-- See Ben Lesh's (RxJS 5 author) presentation in ngConf 2018 for more details ([slides](https://docs.google.com/presentation/d/1h-h4IUgh8mRqItF2F2Ih8g-H9gYjb8MCwHnoIVm-hiU/edit#slide=id.g367dcb4296_0_0), [video](https://www.youtube.com/watch?time_continue=1&v=JCXZhe6KsxQ))
+- See Ben Lesh's (RxJS 5 and 6 author) presentation in ngConf 2018 for more details ([slides](https://docs.google.com/presentation/d/1h-h4IUgh8mRqItF2F2Ih8g-H9gYjb8MCwHnoIVm-hiU/edit#slide=id.g367dcb4296_0_0), [video](https://www.youtube.com/watch?time_continue=1&v=JCXZhe6KsxQ))
+- [rxjs-dev](https://rxjs-dev.firebaseapp.com/)
