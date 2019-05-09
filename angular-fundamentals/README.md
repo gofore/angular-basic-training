@@ -254,11 +254,6 @@ _app.component.html_
 
 ---
 
-# Tree Structure
-- Including components in templates causes tree-like structure
-
----
-
 # Angular Template Syntax
 - **Data binding** with _property name_ inside _double curly braces ({{}})_
 
